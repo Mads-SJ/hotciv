@@ -34,13 +34,15 @@ import java.util.Map;
 
 public class GameImpl implements Game {
   private Player playerInTurn;
-  private Map<Position, City> cityMap; //TODO: CityImpl vs City?
+  private Map<Position, City> cityMap;
+  public static final Position RED_CITY_POSITION = new Position(1,1);
+  public static final Position BLUE_CITY_POSITION = new Position(3,3);
 
   public GameImpl() {
     playerInTurn = Player.RED;
     cityMap = new HashMap<>();
-    cityMap.put(new Position(1,1), new CityImpl(Player.RED));
-    cityMap.put(new Position(3,3), new CityImpl(Player.BLUE));
+    cityMap.put(RED_CITY_POSITION, new CityImpl(Player.RED));
+    cityMap.put(BLUE_CITY_POSITION, new CityImpl(Player.BLUE));
   }
 
   public Tile getTileAt( Position p ) { return null; }
@@ -59,19 +61,22 @@ public class GameImpl implements Game {
         break;
       case BLUE:
         playerInTurn = Player.RED;
+        endOfRound();
         break;
     }
+  }
 
+  public void endOfRound() {
     for (Position p : cityMap.keySet()) {
       CityImpl c = (CityImpl) cityMap.get(p);
-      c.incrementTreasury();
+      c.addTreasury();
     }
   }
+
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
   public void performUnitActionAt( Position p ) {}
 
-  @Override
   public Map<Position, City> getCities() {
     return cityMap;
   }

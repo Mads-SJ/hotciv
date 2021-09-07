@@ -36,7 +36,7 @@ public class CityImpl implements City {
         return null;
     }
 
-    public void incrementTreasury() {
+    public void addTreasury() {
         treasury += 6;
     }
 }

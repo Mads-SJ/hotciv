@@ -71,40 +71,40 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void shouldBePositionOnePointOneForRedCity() {
+  public void shouldBePosition1_1ForRedCity() {
     assertThat(game.getCityAt(new Position(1,1)).getOwner(), is(Player.RED));
   }
 
   @Test
-  public void shouldNotBeCityAtPositionTwoPointTwo() {
+  public void shouldNotBeCityAtPosition2_2() {
     assertThat(game.getCityAt(new Position(2,2)), is(nullValue()));
   }
 
   @Test
-  public void shouldBePositionThreePointThreeForBlueCity() {
+  public void shouldBePosition3_3ForBlueCity() {
     assertThat(game.getCityAt(new Position(3,3)).getOwner(), is(Player.BLUE));
   }
 
   @Test
-  public void shouldProduce6ProductionForCityAtOnePointOneAtEndOfRound() {
-    City c = game.getCityAt(new Position(1,1)); //TODO: Kodeduplikering?? Skal det indsættes i beforeEach
-    assertThat(c.getTreasury(), is(0));
-    game.endOfTurn();
-    assertThat(c.getTreasury(), is(6));
+  public void shouldProduce6ProductionForRedCityAtEndOfRound() {
+    City redCity = game.getCityAt(GameImpl.RED_CITY_POSITION);
+    assertThat(redCity.getTreasury(), is(0));
+
+    game.endOfTurn(); // Turn goes to Blue
+    game.endOfTurn(); // Turn goes to Red, round has ended
+
+    assertThat(redCity.getTreasury(), is(6));
   }
 
   @Test
-  public void shouldProduce6ProductionForEachCityAtEndOfRound() {
-    Map<Position, City> cities = game.getCities();
-    for (Position p : cities.keySet()) { //TODO: refactor løkken til en metode
-      City c = cities.get(p);
-      assertThat(c.getTreasury(), is(0));
-    }
-    game.endOfTurn();
-    for (Position p : cities.keySet()) {
-      City c = cities.get(p);
-      assertThat(c.getTreasury(), is(6));
-    }
+  public void shouldProduce6ProductionForBlueCityAtEndOfRound() {
+    City blueCity = game.getCityAt(GameImpl.BLUE_CITY_POSITION);
+    assertThat(blueCity.getTreasury(), is(0));
+
+    game.endOfTurn(); // Turn goes to Blue
+    game.endOfTurn(); // Turn goes to Red, round has ended
+
+    assertThat(blueCity.getTreasury(), is(6));
   }
 
   /** REMOVE ME. Not a test of HotCiv, just an example of the
