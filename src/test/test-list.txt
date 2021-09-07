@@ -1,0 +1,17 @@
+[OK] Red is the first player in turn
+[OK] Red's city is at (1,1)
+there is ocean at (1,0)
+units cannot move over mountain
+Red cannot move Blue's units
+[OK] cities produce 6 `production' after a round has ended
+cities' population size is always 1
+[OK] after Red it is Blue that is in turn
+Red wins in year 3000 BC
+Red's unit attack and destroy Blue's unit
+
+############################################
+[OK] after Blue it is Red that is in turn
+[OK] No city at (2,2)
+[OK] City at (1,1) should produce 6 'production' after a round has ended
+[OK] Blue's city is at (3,3)
+If no city exist at a point an exception should be thrown
