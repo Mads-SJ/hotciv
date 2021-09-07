@@ -86,14 +86,25 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void shouldProduce6ProductionForCityAt1_1AtEndOfRound() {
-    City redCity = game.getCityAt(new Position(1,1));
+  public void shouldProduce6ProductionForRedCityAtEndOfRound() {
+    City redCity = game.getCityAt(GameImpl.RED_CITY_POSITION);
     assertThat(redCity.getTreasury(), is(0));
 
     game.endOfTurn(); // Turn goes to Blue
     game.endOfTurn(); // Turn goes to Red, round has ended
 
     assertThat(redCity.getTreasury(), is(6));
+  }
+
+  @Test
+  public void shouldProduce6ProductionForBlueCityAtEndOfRound() {
+    City blueCity = game.getCityAt(GameImpl.BLUE_CITY_POSITION);
+    assertThat(blueCity.getTreasury(), is(0));
+
+    game.endOfTurn(); // Turn goes to Blue
+    game.endOfTurn(); // Turn goes to Red, round has ended
+
+    assertThat(blueCity.getTreasury(), is(6));
   }
 
   /** REMOVE ME. Not a test of HotCiv, just an example of the
