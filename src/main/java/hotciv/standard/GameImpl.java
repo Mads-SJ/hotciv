@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class GameImpl implements Game {
   private Player playerInTurn;
-  private Map<Position, City> cityMap; //TODO: CityImpl vs City?
+  private Map<Position, City> cityMap;
 
   public GameImpl() {
     playerInTurn = Player.RED;
@@ -59,19 +59,20 @@ public class GameImpl implements Game {
         break;
       case BLUE:
         playerInTurn = Player.RED;
+        endOfRound();
         break;
     }
-
-    for (Position p : cityMap.keySet()) {
-      CityImpl c = (CityImpl) cityMap.get(p);
-      c.incrementTreasury();
-    }
   }
+
+  public void endOfRound() {
+    CityImpl redCity = (CityImpl) cityMap.get(new Position(1,1));
+    redCity.addTreasury();
+  }
+
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
   public void performUnitActionAt( Position p ) {}
 
-  @Override
   public Map<Position, City> getCities() {
     return cityMap;
   }
