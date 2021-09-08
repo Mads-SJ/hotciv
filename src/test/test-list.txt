@@ -1,19 +1,111 @@
-[OK] Red is the first player in turn
-[OK] Red's city is at (1,1)
-there is ocean at (1,0)
-units cannot move over mountain
-Red cannot move Blue's units
-[OK] cities produce 6 `production' after a round has ended
-    [OK] red city should produce 6 production after a round has ended
-    [OK] blue city should produce 6 production after a round has ended
-cities' population size is always 1
-[OK] after Red it is Blue that is in turn
-Red wins in year 3000 BC
-Red's unit attack and destroy Blue's unit
+AC = alphaCiv
 
-############################################
+WORLD
+AC: world layout is fixed from figure 36.2
+    there is ocean at (1,0)
+    there is hill at (0,1)
+    there is a mountain at (2,2)
+    there is plains at (0, 2)
+the world size should be 16x16 tiles
+tiles: plains, ocean, montains, hills, forest, (city) // se tabel (EGENSKABER)
+    Plains produce 3 food
+    Oceans produce 1 food
+    Forest produce 3 production
+    Mountains produce 1 production
+    Hills produce 2 production
+    (City) produces 1 food + 1 production
+There are two recourses, food and production
+Use food to increase population
+Use production to build units in city
+
+PLAYERS
+2-4 players (red, blue, yellow, green)
+    [OK] AC: two players red and blue
+Player should be able to move the units he controls
+Player should be able to choose production of cities
+Turn order: red -> blue -> yellow -> green
+    [OK] AC: red -> blue
+
+UNITS
+AC: only one unit on each tile
+unit layout in figure 36.2
+    Red archer on (2,0)
+    Blue legion at (3,2)
+    Red settler at (4,3)
+units belong to one player and can be moved only by that player
+    Red cannot move Blue's units
+    A unit is owned by red player
+units can be produced in cities
+cities produce a certain unit when affordable and pays production
+units can have special actions
+    [OK] AC: no actions
+units can move a certain distance depending on their type
+    Archer can move one distance
+    Legion can move one distance
+    Settler can move one distance
+Units can move diagonally
+Units can move horizontally
+Units can move vertically
+Units can only move once each turn
+units cannot move across all types of tiles
+    units cannot move over mountain
+    units cannot move over ocean
+units keeps track of their own movement
+
+BATTLE
+A battle occurs when unit A (red) tries to move into tile occupied by unit B (blue)
+resolve attack instantly according to rules
+the winning unit stays in the tile while the other gets removed from the game
+    winning unit stays
+    losing unit gets removed
+units has defence and attack strenghts // todo: implementeres ikke i ac?
+highest attack or defense has higher prob of winning
+    AC: the attacking unit always wins
+        Red's unit attack and destroy Blue's unit
+
+TURNS
+[OK] Red is the first player in turn
 [OK] after Blue it is Red that is in turn
-[OK] No city at (2,2)
-[OK] City at (1,1) should produce 6 'production' after a round has ended
-[OK] Blue's city is at (3,3)
-If no city exist at a point an exception should be thrown
+[OK] after Red it is Blue that is in turn
+at start of turn unit moves gets initialized for the player in turn
+during a turn the player can inspect cities
+during a turn the player can change type of unit production and resource production
+    unit production
+    resource production
+the player can end turn any time he wishes // todo: weird test?
+move count does not accumulate to next turn
+
+CITIES
+AC: city position can be seen on figure 36.2
+    [OK] Red's city is at (1,1)
+    [OK] No city at (2,2)
+    [OK] Blue's city is at (4,1)
+city gathers production and food from surrounding tiles
+city can produce units
+    [OK] AC: cities produce 6 `production' after a round has ended
+        [OK] red city should produce 6 production after a round has ended
+        [OK] blue city should produce 6 production after a round has ended
+each city produces selected type of production and food at end of round
+food leads to increase in the population
+    AC: cities' population size is always 1
+the higher population the more resources the city gathers
+A unit that is located at the same tile as a city is defending the city
+if attacking unit defeats defending unit the city changes ownership to the attacking unit
+Player can choose between workforce balance of the city
+    workforce can either be gathering food or production
+        gather food
+        produce production
+Player can choose type of production of the city
+population indicates the number of tiles in the immediate vicinity of the city that the workforce can work on
+    3 units three tiles .... // see specifications
+AC:
+    If no other units present, place unit on city tile
+    If unit is present on city tile, place on the first non-occupied adjacent tile, starting from the tile just north of the city and moving clockwise
+
+AGING
+AC: the game starts at 4000BC
+AC: each round advances the game age 100 years (at end of round)
+AC: red wins in year 3000BC
+
+MISC
+If no city exist at a position an exception should be thrown

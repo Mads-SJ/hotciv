@@ -81,8 +81,8 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void shouldBePosition3_3ForBlueCity() {
-    assertThat(game.getCityAt(new Position(3,3)).getOwner(), is(Player.BLUE));
+  public void shouldBePosition4_1ForBlueCity() {
+    assertThat(game.getCityAt(new Position(4,1)).getOwner(), is(Player.BLUE));
   }
 
   @Test

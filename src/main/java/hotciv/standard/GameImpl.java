@@ -36,7 +36,7 @@ public class GameImpl implements Game {
   private Player playerInTurn;
   private Map<Position, City> cityMap;
   public static final Position RED_CITY_POSITION = new Position(1,1);
-  public static final Position BLUE_CITY_POSITION = new Position(3,3);
+  public static final Position BLUE_CITY_POSITION = new Position(4,1);
 
   public GameImpl() {
     playerInTurn = Player.RED;
