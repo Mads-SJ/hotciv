@@ -107,6 +107,30 @@ public class TestAlphaCiv {
     assertThat(blueCity.getTreasury(), is(6));
   }
 
+  @Test
+  public void shouldBePlainsForTileAt0_2(){
+    assertThat(game.getTileAt(new Position(0,2)).getTypeString(), is("Plains"));
+  }
+
+  @Test
+  public void shouldBeOceanForTileAt1_0(){
+    assertThat(game.getTileAt(new Position(1,0)).getTypeString(), is("Ocean"));
+  }
+
+  @Test
+  public void shouldBe16x16SizeForWorldMap(){
+    // Checks position (0,0)
+    // assertThat(game.getTileAt(new Position(0,0)), is(new TileImpl()));
+    assertThat(game.getTileAt(new Position(0,0)).getTypeString(), is("Plains"));
+
+    // Checks position (7,7)
+
+
+    // Checks position (15,15)
+    assertThat(game.getTileAt(new Position(15,15)).getTypeString(), is("Plains"));
+
+  }
+
   /** REMOVE ME. Not a test of HotCiv, just an example of the
       matchers that the hamcrest library has... */
   @Test
