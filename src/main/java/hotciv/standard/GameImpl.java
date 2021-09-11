@@ -6,6 +6,8 @@ import hotciv.framework.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import static hotciv.framework.GameConstants.*;
+
 /**
  * Skeleton implementation of HotCiv.
  * <p>
@@ -50,15 +52,17 @@ public class GameImpl implements Game {
         cityMap.put(BLUE_CITY_POSITION, new CityImpl(Player.BLUE));
 
         // Initialize World Grid with Plains all over the map.
-        worldGrid = new TileImpl[16][16];
-        for(int i = 0; i < 16; i++) {
-            for (int j = 0; j < 16; j++) {
-                worldGrid[i][j] = new TileImpl("Plains");
+        worldGrid = new TileImpl[WORLDSIZE][WORLDSIZE];
+        for(int i = 0; i < WORLDSIZE; i++) {
+            for (int j = 0; j < WORLDSIZE; j++) {
+                worldGrid[i][j] = new TileImpl(PLAINS);
             }
         }
 
         // Update world grid with correct tiles on their position.
-        worldGrid[1][0] = new TileImpl("Ocean");
+        worldGrid[1][0] = new TileImpl(OCEANS);
+        worldGrid[0][1] = new TileImpl(HILLS);
+        worldGrid[2][2] = new TileImpl(MOUNTAINS);
     }
 
     public Tile getTileAt(Position p) {

@@ -4,6 +4,7 @@ import hotciv.framework.*;
 
 import org.junit.jupiter.api.*;
 
+import static hotciv.framework.GameConstants.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -109,51 +110,33 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldBePlainsForTileAt0_2(){
-    assertThat(game.getTileAt(new Position(0,2)).getTypeString(), is("Plains"));
+    assertThat(game.getTileAt(new Position(0,2)).getTypeString(), is(PLAINS));
   }
 
   @Test
   public void shouldBeOceanForTileAt1_0(){
-    assertThat(game.getTileAt(new Position(1,0)).getTypeString(), is("Ocean"));
+    assertThat(game.getTileAt(new Position(1,0)).getTypeString(), is(OCEANS));
+  }
+
+  @Test
+  public void shouldBeHillForTileAt0_1(){
+    assertThat(game.getTileAt(new Position(0,1)).getTypeString(), is(HILLS));
+  }
+
+  @Test
+  public void shouldBeMountainsForTileAt2_2(){
+    assertThat(game.getTileAt(new Position(2,2)).getTypeString(), is(MOUNTAINS));
   }
 
   @Test
   public void shouldBe16x16SizeForWorldMap(){
     // Checks position (0,0)
-    // assertThat(game.getTileAt(new Position(0,0)), is(new TileImpl()));
-    assertThat(game.getTileAt(new Position(0,0)).getTypeString(), is("Plains"));
+    assertThat(game.getTileAt(new Position(0,0)), instanceOf(TileImpl.class));
 
     // Checks position (7,7)
-
+    assertThat(game.getTileAt(new Position(7,7)), instanceOf(TileImpl.class));
 
     // Checks position (15,15)
-    assertThat(game.getTileAt(new Position(15,15)).getTypeString(), is("Plains"));
-
-  }
-
-  /** REMOVE ME. Not a test of HotCiv, just an example of the
-      matchers that the hamcrest library has... */
-  @Test
-  public void shouldDefinetelyBeRemoved() {
-    // Matching null and not null values
-    // 'is' require an exact match
-    String s = null;
-    assertThat(s, is(nullValue()));
-    s = "Ok";
-    assertThat(s, is(notNullValue()));
-    assertThat(s, is("Ok"));
-
-    // If you only validate substrings, use containsString
-    assertThat("This is a dummy test", containsString("dummy"));
-
-    // Match contents of Lists
-    List<String> l = new ArrayList<String>();
-    l.add("Bimse");
-    l.add("Bumse");
-    // Note - ordering is ignored when matching using hasItems
-    assertThat(l, hasItems(new String[] {"Bumse","Bimse"}));
-
-    // Matchers may be combined, like is-not
-    assertThat(l.get(0), is(not("Bumse")));
-  }
+    assertThat(game.getTileAt(new Position(15,15)), instanceOf(TileImpl.class));
+      }
 }

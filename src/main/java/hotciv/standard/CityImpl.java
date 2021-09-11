@@ -37,6 +37,7 @@ public class CityImpl implements City {
         return null;
     }
 
+    //TODO: magic constant
     public void addTreasury() {
         treasury += 6;
     }

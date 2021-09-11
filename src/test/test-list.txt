@@ -1,12 +1,12 @@
 AC = alphaCiv
 
 WORLD
-AC: world layout is fixed from figure 36.2
+[OK] AC: world layout is fixed from figure 36.2
     [OK] there is ocean at (1,0)
-    there is hill at (0,1)
-    there is a mountain at (2,2)
+    [OK] there is hill at (0,1)
+    [OK] there is a mountain at (2,2)
     [OK] there is plains at (0, 2)
-- (standby) the world size should be 16x16 tiles
+[OK] the world size should be 16x16 tiles
 tiles: plains, ocean, montains, hills, forest, (city) // se tabel (EGENSKABER)
     Plains produce 3 food
     Oceans produce 1 food
