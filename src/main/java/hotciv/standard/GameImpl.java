@@ -117,7 +117,7 @@ public class GameImpl implements Game {
     private void endOfRound() {
         for (Position p : cityMap.keySet()) {
             CityImpl c = (CityImpl) cityMap.get(p);
-            c.setTreasury(6); // fixed constant
+            c.addTreasury(6); // fixed constant
 
             if (c.getTreasury() >= c.getCostOfNewUnit()) {
                 buyUnitIfPositionAvailable(c, p);
@@ -136,7 +136,7 @@ public class GameImpl implements Game {
 
     private void placeUnit(CityImpl c, Position p) {
         unitPositions[p.getRow()][p.getColumn()] = new UnitImpl(c.getOwner(), c.getProduction());
-        c.setTreasury(-c.getCostOfNewUnit());
+        c.subtractTreasury(c.getCostOfNewUnit());
     }
 
     private void buyUnitIfPositionAvailable(CityImpl c, Position cityPosition) {

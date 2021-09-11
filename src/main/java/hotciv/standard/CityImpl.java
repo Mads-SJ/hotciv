@@ -44,9 +44,12 @@ public class CityImpl implements City {
         return null;
     }
 
-    //TODO: magic constant
-    public void setTreasury(int amount) {
+    public void addTreasury(int amount) {
         treasury += amount;
+    }
+
+    public void subtractTreasury(int amount) {
+        treasury -= amount;
     }
 
     public void setProduction(String unitType) {
