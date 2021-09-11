@@ -113,10 +113,16 @@ public class GameImpl implements Game {
         }
     }
 
-    public void endOfRound() {
+    private void endOfRound() {
         for (Position p : cityMap.keySet()) {
             CityImpl c = (CityImpl) cityMap.get(p);
-            c.addTreasury();
+            c.setTreasury(6); // fixed constant
+
+            int cost = c.getCostOfNewUnit();
+            if (c.getTreasury() >= cost) {
+                unitPositions[p.getRow()][p.getColumn()] = new UnitImpl(c.getOwner(), c.getProduction());
+                c.setTreasury(-cost);
+            }
         }
     }
 

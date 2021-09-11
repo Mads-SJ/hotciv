@@ -53,7 +53,9 @@ units belong to one player and can be moved only by that player
     Red cannot move Blue's units
     [OK] A unit is owned by red player
     [OK] A unit is owned by blue player
-cities produce a certain unit when affordable and pays production
+[OK] cities produce a certain unit when affordable and pays production
+    [OK] cities can produce archers and pay production
+    [OK] cities can produce legion and pay production
 units can have special actions
     [OK] AC: no actions
 units can move a certain distance depending on their type

@@ -276,13 +276,56 @@ public class TestAlphaCiv {
     assertThat(redCity.getCostOfNewUnit(), is(30));
   }
 
-  /*@Test
+  @Test
   public void shouldProduceArcherWhenAffordableForRedCity(){
+    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    assertThat(game.getUnitAt(GameImpl.RED_CITY_POSITION), is(nullValue()));
 
+    // First round, 0 treasury
+    game.endOfTurn();
+    game.endOfTurn();
 
-    Unit redArcher = game.getUnitAt(GameImpl.RED_CITY_POSITION);
+    // Second round, 6 treasury
+    game.endOfTurn();
+    game.endOfTurn();
+
+    // After second round, 12 treasury.
+
+    Unit redArcher = game.getUnitAt(GameImpl.RED_CITY_POSITION); // Unit is at city's position.
     assertThat(redArcher.getTypeString(), is(ARCHER));
     assertThat(redArcher.getOwner(), is(Player.RED));
 
-  }*/
+    // After unit has been made, 12 - 10 = 2 treasury should remain
+    assertThat(redCity.getTreasury(), is(2));
+  }
+
+  @Test
+  public void shouldProduceLegionWhenAffordableForRedCity(){
+    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    assertThat(game.getUnitAt(GameImpl.RED_CITY_POSITION), is(nullValue()));
+
+    // Set production goal to Legion
+    redCity.setProduction(LEGION);
+
+    // First round, 0 treasury
+    game.endOfTurn();
+    game.endOfTurn();
+
+    // Second round, 6 treasury
+    game.endOfTurn();
+    game.endOfTurn();
+
+    // Third round, 12 treasury.
+    game.endOfTurn();
+    game.endOfTurn();
+
+    // After third round, 18 treasury.
+
+    Unit redLegion = game.getUnitAt(GameImpl.RED_CITY_POSITION); // Unit is at city's position.
+    assertThat(redLegion.getTypeString(), is(LEGION));
+    assertThat(redLegion.getOwner(), is(Player.RED));
+
+    // After unit has been made, 18 - 15 = 3 treasury should remain
+    assertThat(redCity.getTreasury(), is(3));
+  }
 }
