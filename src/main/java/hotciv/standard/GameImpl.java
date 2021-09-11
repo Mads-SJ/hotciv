@@ -43,11 +43,14 @@ public class GameImpl implements Game {
     private UnitImpl[][] unitPositions;
     public static final Position RED_CITY_POSITION = new Position(1, 1);
     public static final Position BLUE_CITY_POSITION = new Position(4, 1);
+    private int age;
+    private Player winner;
 
     //TODO: refaktorer med metoder i konstruktør
     public GameImpl() {
         // Sets starting player
         playerInTurn = Player.RED;
+        age = 4000;
 
         // Initialize City Map and insert position for red and blue city.
         cityMap = new HashMap<>();
@@ -91,11 +94,11 @@ public class GameImpl implements Game {
     }
 
     public Player getWinner() {
-        return null;
+        return winner;
     }
 
     public int getAge() {
-        return 0;
+        return age;
     }
 
     public boolean moveUnit(Position from, Position to) {
@@ -122,6 +125,10 @@ public class GameImpl implements Game {
             if (c.getTreasury() >= c.getCostOfNewUnit()) {
                 buyUnitIfPositionAvailable(c, p);
             }
+        }
+        age -= 100;
+        if (age == 3000) {
+            winner = Player.RED;
         }
     }
 

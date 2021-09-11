@@ -100,7 +100,6 @@ AC: city position can be seen on figure 36.2
     [OK] No city at (2,2)
     [OK] Blue's city is at (4,1)
 city gathers production and food from surrounding tiles
-city can produce units
 [OK] AC: cities produce 6 `production' after a round has ended
     [OK] red city should produce 6 production after a round has ended
     [OK] blue city should produce 6 production after a round has ended
@@ -122,9 +121,10 @@ AC:
     [OK] If unit is present on city tile, place on the first non-occupied adjacent tile, starting from the tile just north of the city and moving clockwise
 
 AGING
-AC: the game starts at 4000BC
-AC: each round advances the game age 100 years (at end of round)
-AC: red wins in year 3000BC
+[OK] AC: the game starts at 4000BC
+[OK] AC: each round advances the game age 100 years (at end of round)
+[OK] AC: red wins in year 3000BC
+[OK] No winner before year 3000BC
 
 MISC
 If no city exist at a position an exception should be thrown

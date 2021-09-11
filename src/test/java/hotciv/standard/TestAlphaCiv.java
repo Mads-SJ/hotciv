@@ -393,5 +393,35 @@ public class TestAlphaCiv {
     assertThat(settler.getAttackingStrength(), is(0));
   }
 
+  @Test
+  public void shouldStartInYear4000BC(){
+    assertThat(game.getAge(), is(4000));
+  }
+
+  @Test
+  public void shouldBeYear3900BCAfterOneRound(){
+    game.endOfTurn();
+    game.endOfTurn();
+    assertThat(game.getAge(), is(3900));
+  }
+
+  @Test
+  public void shouldBeRedWinnerInYear3000BC(){
+    for (int i = 0; i < 10; i++){
+      game.endOfTurn();
+      game.endOfTurn();
+    }
+    assertThat(game.getWinner(), is(Player.RED));
+  }
+
+  @Test
+  public void shouldBeNoWinnerBeforeYear3000(){
+    assertThat(game.getWinner(), is(nullValue()));
+    for (int i = 0; i < 9; i++){
+      game.endOfTurn();
+      game.endOfTurn();
+    }
+    assertThat(game.getWinner(), is(nullValue()));
+  }
 
 }
