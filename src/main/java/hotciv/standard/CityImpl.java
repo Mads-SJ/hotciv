@@ -9,11 +9,13 @@ public class CityImpl implements City {
     private final Player owner;
     private int treasury;
     private String production;
+    private int costOfNewUnit;
 
     public CityImpl(Player owner) {
         this.owner = owner;
         treasury = 0;
         production = ARCHER;
+        costOfNewUnit = 10;
     }
 
     @Override
@@ -49,5 +51,21 @@ public class CityImpl implements City {
 
     public void setProduction(String unitType) {
         production = unitType;
+
+        switch (unitType) {
+            case ARCHER:
+                costOfNewUnit = 10;
+                break;
+            case LEGION:
+                costOfNewUnit = 15;
+                break;
+            case SETTLER:
+                costOfNewUnit = 30;
+                break;
+        }
+    }
+
+    public int getCostOfNewUnit() {
+        return costOfNewUnit;
     }
 }

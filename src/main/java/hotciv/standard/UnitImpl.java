@@ -3,20 +3,22 @@ package hotciv.standard;
 import hotciv.framework.Player;
 import hotciv.framework.Unit;
 
+import static hotciv.framework.GameConstants.*;
+
 public class UnitImpl implements Unit {
 
     private final Player owner;
-    private final String type;
+    private final String typeString;
 
 
-    public UnitImpl(Player owner, String type) {
+    public UnitImpl(Player owner, String typeString) {
         this.owner = owner;
-        this.type = type;
+        this.typeString = typeString;
     }
 
     @Override
     public String getTypeString() {
-        return type;
+        return typeString;
     }
 
     @Override
@@ -38,4 +40,5 @@ public class UnitImpl implements Unit {
     public int getAttackingStrength() {
         return 0;
     }
+
 }

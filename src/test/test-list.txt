@@ -23,10 +23,9 @@ PLAYERS
 2-4 players (red, blue, yellow, green)
     [OK] AC: two players red and blue
 Player should be able to move the units he controls
-Player should be able to choose production of cities
 Turn order: red -> blue -> yellow -> green
     [OK] AC: red -> blue
-Player should be able to choose what type of unit a city produces
+[OK] Player should be able to choose what type of unit a city produces
     [OK] red city production should be archer
 
 UNITS
@@ -37,6 +36,19 @@ UNITS
     [OK] Blue legion at (3,2)
         [OK] Legion is a unit type
     [OK] Red settler at (4,3)
+Unit properties
+    [OK] Cost
+        [OK] Archer costs 10
+        [OK] Legion costs 15
+        [OK] Settler costs 30
+    Defence
+        Archer has 3 defence
+        Legion has 2 defence
+        Settler has 3 defence
+    Attack
+        Archer has 2 attack
+        Legion has 4 attack
+        Settler has 0 attack
 units belong to one player and can be moved only by that player
     Red cannot move Blue's units
     [OK] A unit is owned by red player

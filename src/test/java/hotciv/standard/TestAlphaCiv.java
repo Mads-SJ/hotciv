@@ -250,4 +250,39 @@ public class TestAlphaCiv {
     redCity.setProduction(LEGION);
     assertThat(redCity.getProduction(), is(LEGION));
   }
+
+  @Test
+  public void shouldCost10ForArcher(){
+    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    assertThat(redCity.getProduction(), is(ARCHER));
+    assertThat(redCity.getCostOfNewUnit(), is(10));
+  }
+
+  @Test
+  public void shouldCost15ForLegion(){
+    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    redCity.setProduction(LEGION);
+
+    assertThat(redCity.getProduction(), is(LEGION));
+    assertThat(redCity.getCostOfNewUnit(), is(15));
+  }
+
+  @Test
+  public void shouldCost30ForSettler(){
+    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    redCity.setProduction(SETTLER);
+
+    assertThat(redCity.getProduction(), is(SETTLER));
+    assertThat(redCity.getCostOfNewUnit(), is(30));
+  }
+
+  /*@Test
+  public void shouldProduceArcherWhenAffordableForRedCity(){
+
+
+    Unit redArcher = game.getUnitAt(GameImpl.RED_CITY_POSITION);
+    assertThat(redArcher.getTypeString(), is(ARCHER));
+    assertThat(redArcher.getOwner(), is(Player.RED));
+
+  }*/
 }
