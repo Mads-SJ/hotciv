@@ -146,12 +146,47 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void shouldProduce3ResourceFoodForPlains(){
+  public void shouldProduceResourceTypeFoodForOceans(){
+    assertThat(new TileImpl(OCEANS).getResourceType(), is(FOOD));
+  }
+
+  @Test
+  public void shouldProduceResourceTypeProductionForMountains(){
+    assertThat(new TileImpl(MOUNTAINS).getResourceType(), is(PRODUCTION));
+  }
+
+  @Test
+  public void shouldProduceResourceTypeProductionForHills(){
+    assertThat(new TileImpl(HILLS).getResourceType(), is(PRODUCTION));
+  }
+
+  @Test
+  public void shouldProduceResourceTypeProductionForForest(){
+    assertThat(new TileImpl(FOREST).getResourceType(), is(PRODUCTION));
+  }
+
+  @Test
+  public void shouldProduce3ResourceForPlains(){
     assertThat(new TileImpl(PLAINS).getResources(), is(3));
   }
 
   @Test
-  public void shouldProduce1ResourceFoodForOceans(){
+  public void shouldProduce1ResourceForOceans(){
     assertThat(new TileImpl(OCEANS).getResources(), is(1));
+  }
+
+  @Test
+  public void shouldProduce1ResourceForMountains(){
+    assertThat(new TileImpl(MOUNTAINS).getResources(), is(1));
+  }
+
+  @Test
+  public void shouldProduce2ResourceForHills(){
+    assertThat(new TileImpl(HILLS).getResources(), is(2));
+  }
+
+  @Test
+  public void shouldProduce3ResourceForForest(){
+    assertThat(new TileImpl(FOREST).getResources(), is(3));
   }
 }

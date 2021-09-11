@@ -18,15 +18,28 @@ public class TileImpl implements Tile {
     }
 
     public String getResourceType() {
-        return FOOD;
+        switch (typeString){
+            case PLAINS:
+            case OCEANS:
+                return FOOD;
+            case MOUNTAINS:
+            case HILLS:
+            case FOREST:
+                return PRODUCTION;
+        }
+        return "none"; // Burde måske smide exception?
     }
 
     public int getResources() {
         switch (typeString){
-            case PLAINS:
-                return 3;
             case OCEANS:
+            case MOUNTAINS:
                 return 1;
+            case HILLS:
+                return 2;
+            case PLAINS:
+            case FOREST:
+                return 3;
         }
         return 0;
     }

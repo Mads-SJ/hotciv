@@ -11,9 +11,10 @@ tiles: plains, ocean, montains, hills, forest, (city) // se tabel (EGENSKABER)
     [OK] Plains produce 3 food
         [OK] Plains produce food
     [OK] Oceans produce 1 food
-    Forest produce 3 production
-    Mountains produce 1 production
-    Hills produce 2 production
+    [OK] Forest produce 3 production
+    [OK] Mountains produce 1 production
+        [OK] Mountains produce production
+    [OK] Hills produce 2 production
     (City) produces 1 food + 1 production
 There are two recourses, food and production
 Use food to increase population
