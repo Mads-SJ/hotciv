@@ -41,14 +41,14 @@ Unit properties
         [OK] Archer costs 10
         [OK] Legion costs 15
         [OK] Settler costs 30
-    Defence
-        Archer has 3 defence
-        Legion has 2 defence
-        Settler has 3 defence
-    Attack
-        Archer has 2 attack
-        Legion has 4 attack
-        Settler has 0 attack
+    [OK] Defence
+        [OK] Archer has 3 defence
+        [OK] Legion has 2 defence
+        [OK] Settler has 3 defence
+    [OK] Attack
+        [OK] Archer has 2 attack
+        [OK] Legion has 4 attack
+        [OK] Settler has 0 attack
 units belong to one player and can be moved only by that player
     Red cannot move Blue's units
     [OK] A unit is owned by red player

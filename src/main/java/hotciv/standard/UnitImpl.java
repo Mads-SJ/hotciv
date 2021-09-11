@@ -33,12 +33,27 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getDefensiveStrength() {
-        return 0;
+        switch (typeString){
+            case LEGION:
+                return 2;
+            case ARCHER:
+            case SETTLER:
+                return 3;
+        }
+        return -1;
     }
 
     @Override
     public int getAttackingStrength() {
-        return 0;
+        switch (typeString) {
+            case SETTLER:
+                return 0;
+            case ARCHER:
+                return 2;
+            case LEGION:
+                return 4;
+        }
+        return -1;
     }
 
 }

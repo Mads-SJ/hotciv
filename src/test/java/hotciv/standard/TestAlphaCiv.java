@@ -356,4 +356,42 @@ public class TestAlphaCiv {
     // All tiles around the city should be occupied by units
     assertThat(game.getUnitAt(new Position(cityRow - 1, cityColumn - 1)), instanceOf(UnitImpl.class));
   }
+
+  @Test
+  public void shouldBe3DefenceForArcher(){
+    Unit archer = new UnitImpl(Player.RED, ARCHER);
+    assertThat(archer.getDefensiveStrength(), is(3));
+  }
+
+  @Test
+  public void shouldBe2DefenceForLegion(){
+    Unit legion = new UnitImpl(Player.RED, LEGION);
+    assertThat(legion.getDefensiveStrength(), is(2));
+  }
+
+  @Test
+  public void shouldBe3DefenceForSettler(){
+    Unit settler = new UnitImpl(Player.RED, SETTLER);
+    assertThat(settler.getDefensiveStrength(), is(3));
+  }
+
+  @Test
+  public void shouldBe2AttackForArcher(){
+    Unit archer = new UnitImpl(Player.RED, ARCHER);
+    assertThat(archer.getAttackingStrength(), is(2));
+  }
+
+  @Test
+  public void shouldBe4AttackForLegion(){
+    Unit legion = new UnitImpl(Player.RED, LEGION);
+    assertThat(legion.getAttackingStrength(), is(4));
+  }
+
+  @Test
+  public void shouldBe0AttackForSettler(){
+    Unit settler = new UnitImpl(Player.RED, SETTLER);
+    assertThat(settler.getAttackingStrength(), is(0));
+  }
+
+
 }
