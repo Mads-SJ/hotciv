@@ -45,4 +45,7 @@ public class GameConstants {
     // Valid production balance types
     public static final String productionFocus = "hammer";
     public static final String foodFocus = "apple";
+    // Valid resources
+    public static final String FOOD = "food";
+    public static final String PRODUCTION = "production";
 }

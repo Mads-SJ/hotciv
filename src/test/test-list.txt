@@ -8,8 +8,9 @@ WORLD
     [OK] there is plains at (0, 2)
 [OK] the world size should be 16x16 tiles
 tiles: plains, ocean, montains, hills, forest, (city) // se tabel (EGENSKABER)
-    Plains produce 3 food
-    Oceans produce 1 food
+    [OK] Plains produce 3 food
+        [OK] Plains produce food
+    [OK] Oceans produce 1 food
     Forest produce 3 production
     Mountains produce 1 production
     Hills produce 2 production

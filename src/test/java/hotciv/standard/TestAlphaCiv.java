@@ -138,5 +138,20 @@ public class TestAlphaCiv {
 
     // Checks position (15,15)
     assertThat(game.getTileAt(new Position(15,15)), instanceOf(TileImpl.class));
-      }
+  }
+
+  @Test
+  public void shouldProduceResourceTypeFoodForPlains(){
+    assertThat(new TileImpl(PLAINS).getResourceType(), is(FOOD));
+  }
+
+  @Test
+  public void shouldProduce3ResourceFoodForPlains(){
+    assertThat(new TileImpl(PLAINS).getResources(), is(3));
+  }
+
+  @Test
+  public void shouldProduce1ResourceFoodForOceans(){
+    assertThat(new TileImpl(OCEANS).getResources(), is(1));
+  }
 }
