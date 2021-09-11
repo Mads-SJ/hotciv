@@ -228,4 +228,26 @@ public class TestAlphaCiv {
     assertThat(legion.getOwner(), is(Player.BLUE));
     assertThat(legion.getTypeString(), is(LEGION));
   }
+
+  @Test
+  public void shouldBeRedSettlerAt4_3(){
+    Unit settler = game.getUnitAt(new Position(4,3));
+    assertThat(settler.getOwner(), is(Player.RED));
+    assertThat(settler.getTypeString(), is(SETTLER));
+  }
+
+  @Test
+  public void shouldBeArcherForRedCityProduction(){
+    City redCity = game.getCityAt(GameImpl.RED_CITY_POSITION);
+    assertThat(redCity.getProduction(), is(ARCHER));
+  }
+
+  @Test
+  public void shouldChangeProductionOfRedCityToLegion(){
+    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    assertThat(redCity.getProduction(), is(ARCHER));
+
+    redCity.setProduction(LEGION);
+    assertThat(redCity.getProduction(), is(LEGION));
+  }
 }

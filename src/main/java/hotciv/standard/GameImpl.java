@@ -48,7 +48,7 @@ public class GameImpl implements Game {
         // Sets starting player
         playerInTurn = Player.RED;
 
-        // Initialize City Map and insert poition for red and blue city.
+        // Initialize City Map and insert position for red and blue city.
         cityMap = new HashMap<>();
         cityMap.put(RED_CITY_POSITION, new CityImpl(Player.RED));
         cityMap.put(BLUE_CITY_POSITION, new CityImpl(Player.BLUE));
@@ -70,6 +70,7 @@ public class GameImpl implements Game {
         unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE];
         unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
         unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
+        unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER);
     }
 
     public Tile getTileAt(Position p) {

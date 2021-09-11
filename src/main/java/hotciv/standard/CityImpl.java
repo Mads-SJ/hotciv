@@ -3,13 +3,17 @@ package hotciv.standard;
 import hotciv.framework.City;
 import hotciv.framework.Player;
 
+import static hotciv.framework.GameConstants.*;
+
 public class CityImpl implements City {
     private final Player owner;
     private int treasury;
+    private String production;
 
     public CityImpl(Player owner) {
         this.owner = owner;
         treasury = 0;
+        production = ARCHER;
     }
 
     @Override
@@ -30,7 +34,7 @@ public class CityImpl implements City {
 
     @Override
     public String getProduction() {
-        return null;
+        return production;
     }
 
     @Override
@@ -41,5 +45,9 @@ public class CityImpl implements City {
     //TODO: magic constant
     public void addTreasury() {
         treasury += 6;
+    }
+
+    public void setProduction(String unitType) {
+        production = unitType;
     }
 }

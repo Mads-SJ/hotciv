@@ -26,20 +26,21 @@ Player should be able to move the units he controls
 Player should be able to choose production of cities
 Turn order: red -> blue -> yellow -> green
     [OK] AC: red -> blue
+Player should be able to choose what type of unit a city produces
+    [OK] red city production should be archer
 
 UNITS
-AC: only one unit on each tile
-unit layout in figure 36.2
+[OK] AC: only one unit on each tile //TODO: test?
+[OK] unit layout in figure 36.2
     [OK] Red archer on (2,0)
         [OK] Archer is a unit type
-    Blue legion at (3,2)
+    [OK] Blue legion at (3,2)
         [OK] Legion is a unit type
-    Red settler at (4,3)
+    [OK] Red settler at (4,3)
 units belong to one player and can be moved only by that player
     Red cannot move Blue's units
     [OK] A unit is owned by red player
     [OK] A unit is owned by blue player
-units can be produced in cities
 cities produce a certain unit when affordable and pays production
 units can have special actions
     [OK] AC: no actions
@@ -86,9 +87,9 @@ AC: city position can be seen on figure 36.2
     [OK] Blue's city is at (4,1)
 city gathers production and food from surrounding tiles
 city can produce units
-    [OK] AC: cities produce 6 `production' after a round has ended
-        [OK] red city should produce 6 production after a round has ended
-        [OK] blue city should produce 6 production after a round has ended
+[OK] AC: cities produce 6 `production' after a round has ended
+    [OK] red city should produce 6 production after a round has ended
+    [OK] blue city should produce 6 production after a round has ended
 each city produces selected type of production and food at end of round
 food leads to increase in the population
     AC: cities' population size is always 1
