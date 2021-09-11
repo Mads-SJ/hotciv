@@ -1,6 +1,7 @@
 package hotciv.standard;
 
 import hotciv.framework.*;
+import hotciv.utility.Utility;
 
 
 import java.util.HashMap;
@@ -118,10 +119,8 @@ public class GameImpl implements Game {
             CityImpl c = (CityImpl) cityMap.get(p);
             c.setTreasury(6); // fixed constant
 
-            int cost = c.getCostOfNewUnit();
-            if (c.getTreasury() >= cost) {
-                unitPositions[p.getRow()][p.getColumn()] = new UnitImpl(c.getOwner(), c.getProduction());
-                c.setTreasury(-cost);
+            if (c.getTreasury() >= c.getCostOfNewUnit()) {
+                buyUnitIfPositionAvailable(c, p);
             }
         }
     }
@@ -135,7 +134,22 @@ public class GameImpl implements Game {
     public void performUnitActionAt(Position p) {
     }
 
-    public Map<Position, City> getCities() {
-        return cityMap;
+    private void placeUnit(CityImpl c, Position p) {
+        unitPositions[p.getRow()][p.getColumn()] = new UnitImpl(c.getOwner(), c.getProduction());
+        c.setTreasury(-c.getCostOfNewUnit());
+    }
+
+    private void buyUnitIfPositionAvailable(CityImpl c, Position cityPosition) {
+        if (unitPositions[cityPosition.getRow()][cityPosition.getColumn()] == null) {
+            placeUnit(c, cityPosition);
+        }
+        else {
+            for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
+                if (unitPositions[candidatePosition.getRow()][candidatePosition.getColumn()] == null) {
+                    placeUnit(c, candidatePosition);
+                    break;
+                }
+            }
+        }
     }
 }

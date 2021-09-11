@@ -328,4 +328,32 @@ public class TestAlphaCiv {
     // After unit has been made, 18 - 15 = 3 treasury should remain
     assertThat(redCity.getTreasury(), is(3));
   }
+
+  @Test
+  public void shouldPlaceUnitClockwiseOfOtherUnitIfTileIsOccupied(){
+    // initialize position of city by row and column
+    int cityRow = GameImpl.RED_CITY_POSITION.getRow();
+    int cityColumn = GameImpl.RED_CITY_POSITION.getColumn();
+
+    // 5 rounds passes
+    for(int i = 0; i < 5; i++) {
+      game.endOfTurn();
+      game.endOfTurn();
+    }
+
+    // A unit should be on the cityTile, north of the city and north-east of the city, but not east
+    assertThat(game.getUnitAt(new Position(cityRow, cityColumn)), instanceOf(UnitImpl.class));
+    assertThat(game.getUnitAt(new Position(cityRow - 1, cityColumn)), instanceOf(UnitImpl.class));
+    assertThat(game.getUnitAt(new Position(cityRow - 1, cityColumn + 1)), instanceOf(UnitImpl.class));
+    assertThat(game.getUnitAt(new Position(cityRow, cityColumn + 1)), is(nullValue()));
+
+    // 11 rounds passes
+    for(int i = 0; i < 11; i++) {
+      game.endOfTurn();
+      game.endOfTurn();
+    }
+
+    // All tiles around the city should be occupied by units
+    assertThat(game.getUnitAt(new Position(cityRow - 1, cityColumn - 1)), instanceOf(UnitImpl.class));
+  }
 }

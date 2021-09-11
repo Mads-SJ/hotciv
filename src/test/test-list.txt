@@ -118,8 +118,8 @@ Player can choose type of production of the city
 population indicates the number of tiles in the immediate vicinity of the city that the workforce can work on
     3 units three tiles .... // see specifications
 AC:
-    If no other units present, place unit on city tile
-    If unit is present on city tile, place on the first non-occupied adjacent tile, starting from the tile just north of the city and moving clockwise
+    [OK] If no other units present, place unit on city tile
+    [OK] If unit is present on city tile, place on the first non-occupied adjacent tile, starting from the tile just north of the city and moving clockwise
 
 AGING
 AC: the game starts at 4000BC
