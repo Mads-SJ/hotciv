@@ -30,7 +30,7 @@ Turn order: red -> blue -> yellow -> green
 UNITS
 AC: only one unit on each tile
 unit layout in figure 36.2
-    Red archer on (2,0)
+    [OK] Red archer on (2,0)
         [OK] Archer is a unit type
     Blue legion at (3,2)
         [OK] Legion is a unit type

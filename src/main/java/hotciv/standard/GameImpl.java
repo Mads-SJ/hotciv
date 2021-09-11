@@ -39,9 +39,11 @@ public class GameImpl implements Game {
     private Player playerInTurn;
     private Map<Position, City> cityMap;
     private TileImpl[][] worldGrid;
+    private UnitImpl[][] unitPositions;
     public static final Position RED_CITY_POSITION = new Position(1, 1);
     public static final Position BLUE_CITY_POSITION = new Position(4, 1);
 
+    //TODO: refaktorer med metoder i konstruktør
     public GameImpl() {
         // Sets starting player
         playerInTurn = Player.RED;
@@ -63,6 +65,11 @@ public class GameImpl implements Game {
         worldGrid[1][0] = new TileImpl(OCEANS);
         worldGrid[0][1] = new TileImpl(HILLS);
         worldGrid[2][2] = new TileImpl(MOUNTAINS);
+
+        // Initialize unit positions
+        unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE];
+        unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
+        unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
     }
 
     public Tile getTileAt(Position p) {
@@ -70,7 +77,7 @@ public class GameImpl implements Game {
     }
 
     public Unit getUnitAt(Position p) {
-        return null;
+        return unitPositions[p.getRow()][p.getColumn()];
     }
 
     public City getCityAt(Position p) {

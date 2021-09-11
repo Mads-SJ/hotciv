@@ -47,6 +47,7 @@ public class TestAlphaCiv {
   public void setUp() {
     game = new GameImpl();
   }
+  //TODO: refaktorering
 
   // FRS p. 455 states that 'Red is the first player to take a turn'.
   @Test
@@ -212,5 +213,19 @@ public class TestAlphaCiv {
   public void shouldBeBlueOwnerForLegion(){
     UnitImpl blueLegion = new UnitImpl(Player.BLUE, LEGION);
     assertThat(blueLegion.getOwner(), is(Player.BLUE));
+  }
+
+  @Test
+  public void shouldBeRedArcherAt2_0(){
+    Unit archer = game.getUnitAt(new Position(2,0));
+    assertThat(archer.getOwner(), is(Player.RED));
+    assertThat(archer.getTypeString(), is(ARCHER));
+  }
+
+  @Test
+  public void shouldBeBlueLegionAt3_2(){
+    Unit legion = game.getUnitAt(new Position(3,2));
+    assertThat(legion.getOwner(), is(Player.BLUE));
+    assertThat(legion.getTypeString(), is(LEGION));
   }
 }
