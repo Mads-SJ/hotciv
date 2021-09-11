@@ -27,6 +27,7 @@ public class CityImpl implements City {
         return treasury;
     }
 
+
     @Override
     public String getProduction() {
         return null;

@@ -16,7 +16,6 @@ tiles: plains, ocean, montains, hills, forest, (city) // se tabel (EGENSKABER)
         [OK] Mountains produce production
     [OK] Hills produce 2 production
     (City) produces 1 food + 1 production
-There are two recourses, food and production
 Use food to increase population
 Use production to build units in city
 
@@ -32,11 +31,14 @@ UNITS
 AC: only one unit on each tile
 unit layout in figure 36.2
     Red archer on (2,0)
+        [OK] Archer is a unit type
     Blue legion at (3,2)
+        [OK] Legion is a unit type
     Red settler at (4,3)
 units belong to one player and can be moved only by that player
     Red cannot move Blue's units
-    A unit is owned by red player
+    [OK] A unit is owned by red player
+    [OK] A unit is owned by blue player
 units can be produced in cities
 cities produce a certain unit when affordable and pays production
 units can have special actions

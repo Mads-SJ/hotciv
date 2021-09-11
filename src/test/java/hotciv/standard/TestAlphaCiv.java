@@ -189,4 +189,28 @@ public class TestAlphaCiv {
   public void shouldProduce3ResourceForForest(){
     assertThat(new TileImpl(FOREST).getResources(), is(3));
   }
+
+  @Test
+  public void shouldBeArcher(){
+    UnitImpl archer = new UnitImpl(Player.RED, ARCHER);
+    assertThat(archer.getTypeString(), is(ARCHER));
+  }
+
+  @Test
+  public void shouldBeLegion(){
+    UnitImpl legion = new UnitImpl(Player.BLUE, LEGION);
+    assertThat(legion.getTypeString(), is(LEGION));
+  }
+
+  @Test
+  public void shouldBeRedOwnerForArcher(){
+    UnitImpl redArcher = new UnitImpl(Player.RED, ARCHER);
+    assertThat(redArcher.getOwner(), is(Player.RED));
+  }
+
+  @Test
+  public void shouldBeBlueOwnerForLegion(){
+    UnitImpl blueLegion = new UnitImpl(Player.BLUE, LEGION);
+    assertThat(blueLegion.getOwner(), is(Player.BLUE));
+  }
 }
