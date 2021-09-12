@@ -64,8 +64,7 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldBeRedAfterBlue() {
-    // assertThat(game.getPlayerInTurn(), is(Player.RED));
-    // TODO: Beholdes eller ej? Kodeduplikering...
+    assertThat(game.getPlayerInTurn(), is(Player.RED));
     game.endOfTurn();
     assertThat(game.getPlayerInTurn(), is(Player.BLUE));
     game.endOfTurn();
@@ -549,6 +548,46 @@ public class TestAlphaCiv {
     // Move unit. Move count should be updated to 0.
     game.moveUnit(new Position(2,0), new Position(2,1));
     assertThat(archer.getMoveCount(), is(0));
+  }
+
+  @Test
+  public void shouldNotBeAbleToMoveUnitOnMountain() {
+    // The legion is initially placed on position (3,2)
+    Position initialLegionPos = new Position(3,2);
+    Position mountainPos = new Position(2, 2);
+    assertThat(game.getUnitAt(initialLegionPos).getTypeString(), is(LEGION));
+
+    // There should not be a legion at position (2,2)
+    assertThat(game.getUnitAt(mountainPos), is(nullValue()));
+
+    // The legion tries to move one tile to the north
+    Boolean hasMoved = game.moveUnit(initialLegionPos, mountainPos);
+
+    assertThat(hasMoved, is(false));
+    assertThat(game.getUnitAt(initialLegionPos).getTypeString(), is(LEGION));
+
+    // The legion has not moved onto the mountain pos
+    assertThat(game.getUnitAt(mountainPos), is(nullValue()));
+  }
+
+  @Test
+  public void shouldNotBeAbleToMoveUnitOnOcean() {
+    // The archer is initially placed on position (2,0)
+    Position initialArcherPos = new Position(2,0);
+    Position oceanPos = new Position(1, 0);
+    assertThat(game.getUnitAt(initialArcherPos).getTypeString(), is(ARCHER));
+
+    // There should not be an archer at position (1,0)
+    assertThat(game.getUnitAt(oceanPos), is(nullValue()));
+
+    // The archer tries to move one tile north
+    Boolean hasMoved = game.moveUnit(initialArcherPos, oceanPos);
+
+    assertThat(hasMoved, is(false));
+    assertThat(game.getUnitAt(initialArcherPos).getTypeString(), is(ARCHER));
+
+    // The archer has not moved onto the ocean
+    assertThat(game.getUnitAt(oceanPos), is(nullValue()));
   }
 
 }

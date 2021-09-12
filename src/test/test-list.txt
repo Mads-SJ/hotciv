@@ -69,9 +69,9 @@ units can have special actions
     [OK] Units initially have a move count of 1
     [OK] Units should have a move count of 0, when they have moved 1 distance.
 Units can only move once each turn //TODO: boolsk flag?
-units cannot move across all types of tiles
-    units cannot move over mountain
-    units cannot move over ocean
+[OK] units cannot move across all types of tiles
+    [OK] units cannot move over mountain
+    [OK] units cannot move over ocean
 [OK] units keeps track of their own movement
 
 BATTLE
@@ -80,7 +80,6 @@ resolve attack instantly according to rules
 the winning unit stays in the tile while the other gets removed from the game
     winning unit stays
     losing unit gets removed
-units has defence and attack strenghts // todo: implementeres ikke i ac?
 highest attack or defense has higher prob of winning
     AC: the attacking unit always wins
         Red's unit attack and destroy Blue's unit

@@ -107,6 +107,10 @@ public class GameImpl implements Game {
         int toRow = to.getRow();
         int toColumn = to.getColumn();
 
+        // Cannot move over mountains and oceans
+        if (worldGrid[toRow][toColumn].getTypeString().equals(MOUNTAINS)) return false;
+        if (worldGrid[toRow][toColumn].getTypeString().equals(OCEANS)) return false;
+
         // to position should be empty
         if (unitPositions[toRow][toColumn] == null) {
             UnitImpl unit = (UnitImpl) getUnitAt(from);
