@@ -688,4 +688,11 @@ public class TestAlphaCiv {
     City redCity = game.getCityAt(GameImpl.RED_CITY_POSITION);
     assertThat(redCity.getSize(), is(1));
   }
+
+  @Test
+  public void shouldChangeProductionOfCityInGame() {
+    assertThat(game.getCityAt(GameImpl.RED_CITY_POSITION).getProduction(), is(ARCHER));
+    game.changeProductionInCityAt(GameImpl.RED_CITY_POSITION, LEGION);
+    assertThat(game.getCityAt(GameImpl.RED_CITY_POSITION).getProduction(), is(LEGION));
+  }
 }
