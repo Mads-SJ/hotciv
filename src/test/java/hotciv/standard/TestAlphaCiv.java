@@ -250,7 +250,7 @@ public class TestAlphaCiv {
     assertThat(redCity.getProduction(), is(LEGION));
   }
 
-  @Test
+  @Test //TODO: Jacoco ser ikke denne test?
   public void shouldCost10ForArcher(){
     CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
     assertThat(redCity.getProduction(), is(ARCHER));
