@@ -7,7 +7,7 @@ WORLD
     [OK] there is a mountain at (2,2)
     [OK] there is plains at (0, 2)
 [OK] the world size should be 16x16 tiles
-tiles: plains, ocean, montains, hills, forest, (city) // se tabel (EGENSKABER)
+tiles: plains, ocean, mountains, hills, forest, (city) // se tabel (EGENSKABER)
     [OK] Plains produce 3 food
         [OK] Plains produce food
     [OK] Oceans produce 1 food
@@ -15,9 +15,8 @@ tiles: plains, ocean, montains, hills, forest, (city) // se tabel (EGENSKABER)
     [OK] Mountains produce 1 production
         [OK] Mountains produce production
     [OK] Hills produce 2 production
-    (City) produces 1 food + 1 production
-Use food to increase population
-Use production to build units in city
+    NOT AC: (City) produces 1 food + 1 production //TODO: Skal dette med?
+NOT AC: Use food to increase population
 
 PLAYERS
 2-4 players (red, blue, yellow, green)
@@ -36,7 +35,7 @@ UNITS
     [OK] Blue legion at (3,2)
         [OK] Legion is a unit type
     [OK] Red settler at (4,3)
-Unit properties
+[OK] Unit properties
     [OK] Cost
         [OK] Archer costs 10
         [OK] Legion costs 15
@@ -58,13 +57,15 @@ units belong to one player and can be moved only by that player
     [OK] cities can produce legion and pay production
 units can have special actions
     [OK] AC: no actions
-units can move a certain distance depending on their type
-    Archer can move one distance
-    Legion can move one distance
-    Settler can move one distance
-Units can move diagonally
-Units can move horizontally
-Units can move vertically
+[OK] units can move a certain distance depending on their type
+    [OK] Archer can move one distance
+    [OK] Legion can move one distance
+    [OK] Settler can move one distance
+[OK] Units cannot move two distance
+[OK] Units can move diagonally
+[OK] Units can move horizontally
+[OK] Units can move vertically
+Units cannot move a longer distance than their move count
 Units can only move once each turn
 units cannot move across all types of tiles
     units cannot move over mountain
@@ -106,7 +107,7 @@ city gathers production and food from surrounding tiles
 each city produces selected type of production and food at end of round
 food leads to increase in the population
     AC: cities' population size is always 1
-the higher population the more resources the city gathers
+NOT AC: the higher population the more resources the city gathers
 A unit that is located at the same tile as a city is defending the city
 if attacking unit defeats defending unit the city changes ownership to the attacking unit
 Player can choose between workforce balance of the city

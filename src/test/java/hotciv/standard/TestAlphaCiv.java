@@ -395,14 +395,16 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldStartInYear4000BC(){
-    assertThat(game.getAge(), is(4000));
+    // -4000 = 4000BC
+    assertThat(game.getAge(), is(-4000));
   }
 
   @Test
   public void shouldBeYear3900BCAfterOneRound(){
     game.endOfTurn();
     game.endOfTurn();
-    assertThat(game.getAge(), is(3900));
+    // -3900 = 3900BC
+    assertThat(game.getAge(), is(-3900));
   }
 
   @Test
@@ -422,6 +424,115 @@ public class TestAlphaCiv {
       game.endOfTurn();
     }
     assertThat(game.getWinner(), is(nullValue()));
+  }
+
+  @Test
+  public void shouldMove1DistanceHorizontallyForArcher() {
+    // The archer is initially placed on position (2,0)
+    Position initialArcherPos = new Position(2,0);
+    Position finalArcherPos = new Position(2, 1);
+    assertThat(game.getUnitAt(initialArcherPos).getTypeString(), is(ARCHER));
+
+    // There should not be an archer at position (2,1)
+    assertThat(game.getUnitAt(finalArcherPos), is(nullValue()));
+
+    // The archer moves one tile east
+    game.moveUnit(initialArcherPos, finalArcherPos);
+    assertThat(game.getUnitAt(finalArcherPos).getTypeString(), is(ARCHER));
+
+    // The archer is no longer on the archers initial position
+    assertThat(game.getUnitAt(initialArcherPos), is(nullValue()));
+  }
+
+  @Test
+  public void shouldMove1DistanceVerticallyForArcher() {
+    // The archer is initially placed on position (2,0)
+    Position initialArcherPos = new Position(2,0);
+    Position finalArcherPos = new Position(3, 0);
+    assertThat(game.getUnitAt(initialArcherPos).getTypeString(), is(ARCHER));
+
+    // There should not be an archer at position (3,0)
+    assertThat(game.getUnitAt(finalArcherPos), is(nullValue()));
+
+    // The archer moves one tile south
+    game.moveUnit(initialArcherPos, finalArcherPos);
+    assertThat(game.getUnitAt(finalArcherPos).getTypeString(), is(ARCHER));
+
+    // The archer is no longer on the archers initial position
+    assertThat(game.getUnitAt(initialArcherPos), is(nullValue()));
+  }
+
+  @Test
+  public void shouldMove1DistanceDiagonallyForArcher() {
+    // The archer is initially placed on position (2,0)
+    Position initialArcherPos = new Position(2,0);
+    Position finalArcherPos = new Position(3, 1);
+    assertThat(game.getUnitAt(initialArcherPos).getTypeString(), is(ARCHER));
+
+    // There should not be an archer at position (3,1)
+    assertThat(game.getUnitAt(finalArcherPos), is(nullValue()));
+
+    // The archer moves one tile to the south-east
+    game.moveUnit(initialArcherPos, finalArcherPos);
+    assertThat(game.getUnitAt(finalArcherPos).getTypeString(), is(ARCHER));
+
+    // The archer is no longer on the archers initial position
+    assertThat(game.getUnitAt(initialArcherPos), is(nullValue()));
+  }
+
+  @Test
+  public void shouldMove1DistanceDiagonallyForLegion() {
+    // The legion is initially placed on position (3,2)
+    Position initialLegionPos = new Position(3,2);
+    Position finalLegionPos = new Position(2, 3);
+    assertThat(game.getUnitAt(initialLegionPos).getTypeString(), is(LEGION));
+
+    // There should not be a legion at position (2,3)
+    assertThat(game.getUnitAt(finalLegionPos), is(nullValue()));
+
+    // The legion moves one tile to the north-east
+    game.moveUnit(initialLegionPos, finalLegionPos);
+    assertThat(game.getUnitAt(finalLegionPos).getTypeString(), is(LEGION));
+
+    // The legion is no longer on the legion initial position
+    assertThat(game.getUnitAt(initialLegionPos), is(nullValue()));
+  }
+
+  @Test
+  public void shouldMove1DistanceDiagonallyForSettler() {
+    // The settler is initially placed on position (4,3)
+    Position initialSettlerPos = new Position(4,3);
+    Position finalSettlerPos = new Position(5, 4);
+    assertThat(game.getUnitAt(initialSettlerPos).getTypeString(), is(SETTLER));
+
+    // There should not be a settler at position (5,4)
+    assertThat(game.getUnitAt(finalSettlerPos), is(nullValue()));
+
+    // The settler moves one tile to the south-east
+    game.moveUnit(initialSettlerPos, finalSettlerPos);
+    assertThat(game.getUnitAt(finalSettlerPos).getTypeString(), is(SETTLER));
+
+    // The settler is no longer on the settler initial position
+    assertThat(game.getUnitAt(initialSettlerPos), is(nullValue()));
+  }
+
+  @Test
+  public void shouldNotBeAbleToMove2DistanceForArcher() {
+    // The archer is initially placed on position (2,0)
+    Position initialArcherPos = new Position(2,0);
+    Position finalArcherPos = new Position(4, 0);
+    assertThat(game.getUnitAt(initialArcherPos).getTypeString(), is(ARCHER));
+
+    // There should not be an archer at position (4,0)
+    assertThat(game.getUnitAt(finalArcherPos), is(nullValue()));
+
+    // The archer tries to move two tiles south
+    Boolean hasMoved = game.moveUnit(initialArcherPos, finalArcherPos);
+    assertThat(hasMoved, is(false));
+    assertThat(game.getUnitAt(initialArcherPos).getTypeString(), is(ARCHER));
+
+    // The archer has never moved, and the final position is still available
+    assertThat(game.getUnitAt(finalArcherPos), is(nullValue()));
   }
 
 }

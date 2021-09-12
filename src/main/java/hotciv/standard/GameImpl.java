@@ -102,6 +102,26 @@ public class GameImpl implements Game {
     }
 
     public boolean moveUnit(Position from, Position to) {
+        int fromRow = from.getRow();
+        int fromColumn = from.getColumn();
+        int toRow = to.getRow();
+        int toColumn = to.getColumn();
+
+        // to position should be empty
+        if (unitPositions[toRow][toColumn] == null) {
+
+            // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
+            int rowDist = Math.abs(fromRow - toRow);
+            int columnDist = Math.abs(fromColumn - toColumn);
+
+            // The move should be legal (meaning that the unit only moves 1 tile in either direction)
+            if (rowDist <= 1 && columnDist <= 1) {
+                unitPositions[toRow][toColumn] = unitPositions[fromRow][fromColumn];
+                unitPositions[fromRow][fromColumn] = null;
+
+                return true;
+            }
+        }
         return false;
     }
 
