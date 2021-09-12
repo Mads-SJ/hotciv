@@ -32,6 +32,8 @@ package hotciv.framework;
 public class GameConstants {
     // The size of the world is set permanently to a 16x16 grid
     public static final int WORLDSIZE = 16;
+    // Fixed production amount
+    public static final int PRODUCTION_AMOUNT = 6;
     // Valid unit types
     public static final String ARCHER = "archer";
     public static final String LEGION = "legion";
@@ -48,4 +50,8 @@ public class GameConstants {
     // Valid resources
     public static final String FOOD = "food";
     public static final String PRODUCTION = "production";
+    // Age related constants
+    public static final int AGING_PER_ROUND = 100;
+    public static final int START_AGE = -4000; // 4000BC
+    public static final int END_AGE = -3000; // 3000BC
 }

@@ -46,11 +46,11 @@ public class GameImpl implements Game {
     private int age;
     private Player winner;
 
-    //TODO: refaktorer med metoder i konstruktør
+    //TODO: refaktorer med metoder i konstruktør????
     public GameImpl() {
         // Sets starting player
         playerInTurn = Player.RED;
-        age = 4000;
+        age = START_AGE;
 
         // Initialize City Map and insert position for red and blue city.
         cityMap = new HashMap<>();
@@ -118,18 +118,9 @@ public class GameImpl implements Game {
     }
 
     private void endOfRound() {
-        for (Position p : cityMap.keySet()) {
-            CityImpl c = (CityImpl) cityMap.get(p);
-            c.addTreasury(6); // fixed constant
-
-            if (c.getTreasury() >= c.getCostOfNewUnit()) {
-                buyUnitIfPositionAvailable(c, p);
-            }
-        }
-        age -= 100;
-        if (age == 3000) {
-            winner = Player.RED;
-        }
+        updateCities();
+        ageWorld();
+        checkIfGameOver();
     }
 
     public void changeWorkForceFocusInCityAt(Position p, String balance) {
@@ -147,9 +138,12 @@ public class GameImpl implements Game {
     }
 
     private void buyUnitIfPositionAvailable(CityImpl c, Position cityPosition) {
+        // A unit is placed on the city position if no other unit is present
         if (unitPositions[cityPosition.getRow()][cityPosition.getColumn()] == null) {
             placeUnit(c, cityPosition);
         }
+        // A unit is placed on the first non-occupied adjacent tile,
+        // starting from the tile just north of the city and moving clockwise
         else {
             for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
                 if (unitPositions[candidatePosition.getRow()][candidatePosition.getColumn()] == null) {
@@ -157,6 +151,27 @@ public class GameImpl implements Game {
                     break;
                 }
             }
+        }
+    }
+
+    private void updateCities() {
+        for (Position p : cityMap.keySet()) {
+            CityImpl c = (CityImpl) cityMap.get(p);
+            c.addTreasury(PRODUCTION_AMOUNT);
+
+            if (c.getTreasury() >= c.getCostOfNewUnit()) {
+                buyUnitIfPositionAvailable(c, p);
+            }
+        }
+    }
+
+    private void ageWorld() {
+        age += AGING_PER_ROUND;
+    }
+
+    private void checkIfGameOver() {
+        if (age == END_AGE) {
+            winner = Player.RED;
         }
     }
 }
