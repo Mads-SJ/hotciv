@@ -87,7 +87,7 @@ TURNS
 [OK] Red is the first player in turn
 [OK] after Blue it is Red that is in turn
 [OK] after Red it is Blue that is in turn
-at start of turn unit moves gets initialized for the player in turn
+[OK] at start of turn unit moves gets initialized for the player in turn
 during a turn the player can inspect cities
 during a turn the player can change type of unit production and resource production
     unit production

@@ -615,4 +615,23 @@ public class TestAlphaCiv {
     // The red archer has not moved since it is blue's turn
     assertThat(game.getUnitAt(candidateMovePos), is(nullValue()));
   }
+
+  @Test
+  public void shouldBeMoveCount1ForArcherAfterMovementAndEndOfRound() {
+    // The archer is initially placed on position (2,0)
+    Position initialArcherPos = new Position(2,0);
+    Position candidateMovePos = new Position(3, 0);
+
+    Unit archer = game.getUnitAt(initialArcherPos);
+    assertThat(archer.getMoveCount(), is(1));
+
+    Boolean hasMoved = game.moveUnit(initialArcherPos, candidateMovePos);
+    assertThat(hasMoved, is(true));
+    assertThat(archer.getMoveCount(), is(0));
+
+    game.endOfTurn();
+    game.endOfTurn();
+
+    assertThat(archer.getMoveCount(), is(1));
+  }
 }

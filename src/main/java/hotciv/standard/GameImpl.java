@@ -150,6 +150,7 @@ public class GameImpl implements Game {
         updateCities();
         ageWorld();
         checkIfGameOver();
+        resetMoveCount();
     }
 
     public void changeWorkForceFocusInCityAt(Position p, String balance) {
@@ -201,6 +202,15 @@ public class GameImpl implements Game {
     private void checkIfGameOver() {
         if (age == END_AGE) {
             winner = Player.RED;
+        }
+    }
+
+    private void resetMoveCount() {
+        for(int i = 0; i < WORLDSIZE; i++) {
+            for (int j = 0; j < WORLDSIZE; j++) {
+                UnitImpl u = (UnitImpl) getUnitAt(new Position(i, j));
+                if (u != null) u.resetMoveCount();
+            }
         }
     }
 }

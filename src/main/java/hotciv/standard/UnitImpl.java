@@ -61,5 +61,8 @@ public class UnitImpl implements Unit {
     public void decrementMoveCount() {
         moveCount--;
     }
+    public void resetMoveCount() {
+        moveCount = 1;
+    }
 
 }
