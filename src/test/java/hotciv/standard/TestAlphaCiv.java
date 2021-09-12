@@ -489,6 +489,9 @@ public class TestAlphaCiv {
     // There should not be a legion at position (2,3)
     assertThat(game.getUnitAt(finalLegionPos), is(nullValue()));
 
+    // Blue should be in turn to be able to move the blue legion unit
+    game.endOfTurn();
+
     // The legion moves one tile to the north-east
     game.moveUnit(initialLegionPos, finalLegionPos);
     assertThat(game.getUnitAt(finalLegionPos).getTypeString(), is(LEGION));
@@ -590,4 +593,26 @@ public class TestAlphaCiv {
     assertThat(game.getUnitAt(oceanPos), is(nullValue()));
   }
 
+  @Test
+  public void shouldNotBeAbleToMoveRedUnitInBlueTurn() {
+    // The archer is initially placed on position (2,0)
+    Position initialArcherPos = new Position(2,0);
+    Position candidateMovePos = new Position(3, 0);
+
+    // Blue should be in turn
+    game.endOfTurn();
+    assertThat(game.getUnitAt(initialArcherPos).getTypeString(), is(ARCHER));
+
+    // There should not be an archer at position (3,0)
+    assertThat(game.getUnitAt(candidateMovePos), is(nullValue()));
+
+    // Blue tries to move the red archer one tile south
+    Boolean hasMoved = game.moveUnit(initialArcherPos, candidateMovePos);
+
+    assertThat(hasMoved, is(false));
+    assertThat(game.getUnitAt(initialArcherPos).getTypeString(), is(ARCHER));
+
+    // The red archer has not moved since it is blue's turn
+    assertThat(game.getUnitAt(candidateMovePos), is(nullValue()));
+  }
 }

@@ -111,9 +111,10 @@ public class GameImpl implements Game {
         if (worldGrid[toRow][toColumn].getTypeString().equals(MOUNTAINS)) return false;
         if (worldGrid[toRow][toColumn].getTypeString().equals(OCEANS)) return false;
 
-        // to position should be empty
+        // to-position should be empty
         if (unitPositions[toRow][toColumn] == null) {
             UnitImpl unit = (UnitImpl) getUnitAt(from);
+            if (unit.getOwner() != playerInTurn) return false;
             int moveCount = unit.getMoveCount();
 
             // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)

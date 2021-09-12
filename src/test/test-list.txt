@@ -21,7 +21,7 @@ NOT AC: Use food to increase population
 PLAYERS
 2-4 players (red, blue, yellow, green)
     [OK] AC: two players red and blue
-Player should be able to move the units he controls
+[OK] Player should be able to move the units he controls
 Turn order: red -> blue -> yellow -> green
     [OK] AC: red -> blue
 [OK] Player should be able to choose what type of unit a city produces
@@ -48,8 +48,7 @@ UNITS
         [OK] Archer has 2 attack
         [OK] Legion has 4 attack
         [OK] Settler has 0 attack
-units belong to one player and can be moved only by that player
-    Red cannot move Blue's units
+[OK] units belong to one player and can be moved only by that player
     [OK] A unit is owned by red player
     [OK] A unit is owned by blue player
 [OK] cities produce a certain unit when affordable and pays production
