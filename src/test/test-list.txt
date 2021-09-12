@@ -54,7 +54,7 @@ UNITS
 [OK] cities produce a certain unit when affordable and pays production
     [OK] cities can produce archers and pay production
     [OK] cities can produce legion and pay production
-units can have special actions
+NOT AC: units can have special actions
     [OK] AC: no actions
 [OK] units can move a certain distance depending on their type
     [OK] Archer can move one distance
@@ -67,7 +67,7 @@ units can have special actions
 [OK] Units cannot move a longer distance than their move count
     [OK] Units initially have a move count of 1
     [OK] Units should have a move count of 0, when they have moved 1 distance.
-Units can only move once each turn //TODO: boolsk flag?
+[OK] Units can only move once each turn
 [OK] units cannot move across all types of tiles
     [OK] units cannot move over mountain
     [OK] units cannot move over ocean
@@ -88,11 +88,11 @@ TURNS
 [OK] after Blue it is Red that is in turn
 [OK] after Red it is Blue that is in turn
 [OK] at start of turn unit moves gets initialized for the player in turn
-during a turn the player can inspect cities
-during a turn the player can change type of unit production and resource production
+GUI: during a turn the player can inspect cities
+during a turn the player can change type of unit production and resource production // todo: backlog? eventuelt tjek om det er players tur.
     unit production
     resource production
-the player can end turn any time he wishes // todo: weird test?
+GUI: the player can end turn any time he wishes // todo: weird test?
 [OK] move count does not accumulate to next turn
 
 CITIES
@@ -108,8 +108,9 @@ NOT AC: each city produces selected type of production and food at end of round
 NOT AC: food leads to increase in the population
     AC: cities' population size is always 1
 NOT AC: the higher population the more resources the city gathers
-A unit that is located at the same tile as a city is defending the city //TODO: backlog?
-if attacking unit defeats defending unit the city changes ownership to the attacking unit
+[OK] A unit that is located at the same tile as a city is defending the city //TODO: backlog?
+[OK] if attacking unit defeats defending unit the city changes ownership to the attacking unit
+    [OK] Cities can change ownership
 NOT AC: Player can choose between workforce balance of the city
     workforce can either be gathering food or production
         gather food

@@ -647,4 +647,39 @@ public class TestAlphaCiv {
 
     assertThat(game.getUnitAt(blueLegionPos).getTypeString(), is(SETTLER));
   }
+
+  @Test
+  public void shouldChangeOwnershipFromRedToBlueForCity() {
+    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    assertThat(redCity.getOwner(), is(Player.RED));
+    redCity.setOwner(Player.BLUE);
+    assertThat(redCity.getOwner(), is(Player.BLUE));
+  }
+
+  @Test
+  public void shouldChangeOwnershipFromBlueToRedWhenRedSettlerWinsBattle() {
+    Position blueLegionPos = new Position(3,2);
+    Position redSettlerPos = new Position(4,3);
+
+    // Asserts that the units is at the correct positions, and that blue owns the city at blue city position.
+    assertThat(game.getUnitAt(blueLegionPos).getTypeString(), is(LEGION));
+    assertThat(game.getUnitAt(redSettlerPos).getTypeString(), is(SETTLER));
+    assertThat(game.getCityAt(GameImpl.BLUE_CITY_POSITION).getOwner(), is(Player.BLUE));
+
+    // Moves red settler one tile west.
+    game.moveUnit(redSettlerPos, new Position(4, 2));
+
+    // Changes turn to blue.
+    game.endOfTurn();
+
+    // Moves blue legion to blue's city.
+    game.moveUnit(blueLegionPos, GameImpl.BLUE_CITY_POSITION);
+
+    // Changes turn to red.
+    game.endOfTurn();
+
+    // Moves red settler to blue's city. Wins battle over blue legion, and ownership of the city changes to Red.
+    game.moveUnit(new Position(4,2), GameImpl.BLUE_CITY_POSITION);
+    assertThat(game.getCityAt(GameImpl.BLUE_CITY_POSITION).getOwner(), is(Player.RED));
+  }
 }

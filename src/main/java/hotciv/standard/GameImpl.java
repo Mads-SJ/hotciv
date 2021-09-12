@@ -131,6 +131,11 @@ public class GameImpl implements Game {
 
                 fromUnit.decrementMoveCount(); //TODO: decrement or set movecount?
 
+                CityImpl candidateCity = (CityImpl) getCityAt(to);
+                if (candidateCity != null) {
+                    candidateCity.setOwner(playerInTurn);
+                }
+
                 return true;
             }
         }

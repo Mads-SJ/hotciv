@@ -6,7 +6,7 @@ import hotciv.framework.Player;
 import static hotciv.framework.GameConstants.*;
 
 public class CityImpl implements City {
-    private final Player owner;
+    private Player owner;
     private int treasury;
     private String production;
     private int costOfNewUnit;
@@ -72,4 +72,7 @@ public class CityImpl implements City {
         return costOfNewUnit;
     }
 
+    public void setOwner(Player p) {
+        owner = p;
+    }
 }
