@@ -682,4 +682,10 @@ public class TestAlphaCiv {
     game.moveUnit(new Position(4,2), GameImpl.BLUE_CITY_POSITION);
     assertThat(game.getCityAt(GameImpl.BLUE_CITY_POSITION).getOwner(), is(Player.RED));
   }
+
+  @Test
+  public void shouldBePopulationOfOneForRedCity() {
+    City redCity = game.getCityAt(GameImpl.RED_CITY_POSITION);
+    assertThat(redCity.getSize(), is(1));
+  }
 }

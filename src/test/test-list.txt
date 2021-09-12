@@ -80,7 +80,7 @@ BATTLE
     [OK] winning unit stays
     [OK] losing unit gets removed
 NOT AC: highest attack or defense has higher prob of winning
-    AC: [OK] the attacking unit always wins
+    [OK] AC: the attacking unit always wins
         [OK] Red's unit attack and destroy Blue's unit
 
 TURNS
@@ -106,7 +106,7 @@ NOT AC: city gathers production and food from surrounding tiles
     [OK] blue city should produce 6 production after a round has ended
 NOT AC: each city produces selected type of production and food at end of round
 NOT AC: food leads to increase in the population
-    AC: cities' population size is always 1
+    [OK] AC: cities' population size is always 1
 NOT AC: the higher population the more resources the city gathers
 [OK] A unit that is located at the same tile as a city is defending the city //TODO: backlog?
 [OK] if attacking unit defeats defending unit the city changes ownership to the attacking unit
