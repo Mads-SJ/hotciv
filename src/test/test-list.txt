@@ -74,14 +74,14 @@ Units can only move once each turn //TODO: boolsk flag?
 [OK] units keeps track of their own movement
 
 BATTLE
-A battle occurs when unit A (red) tries to move into tile occupied by unit B (blue)
-resolve attack instantly according to rules
-the winning unit stays in the tile while the other gets removed from the game
-    winning unit stays
-    losing unit gets removed
-highest attack or defense has higher prob of winning
-    AC: the attacking unit always wins
-        Red's unit attack and destroy Blue's unit
+[OK] A battle occurs when unit A (red) tries to move into tile occupied by unit B (blue)
+[OK] resolve attack instantly according to rules
+[OK] the winning unit stays in the tile while the other gets removed from the game
+    [OK] winning unit stays
+    [OK] losing unit gets removed
+NOT AC: highest attack or defense has higher prob of winning
+    AC: [OK] the attacking unit always wins
+        [OK] Red's unit attack and destroy Blue's unit
 
 TURNS
 [OK] Red is the first player in turn
@@ -93,29 +93,29 @@ during a turn the player can change type of unit production and resource product
     unit production
     resource production
 the player can end turn any time he wishes // todo: weird test?
-move count does not accumulate to next turn
+[OK] move count does not accumulate to next turn
 
 CITIES
 AC: city position can be seen on figure 36.2
     [OK] Red's city is at (1,1)
     [OK] No city at (2,2)
     [OK] Blue's city is at (4,1)
-city gathers production and food from surrounding tiles
+NOT AC: city gathers production and food from surrounding tiles
 [OK] AC: cities produce 6 `production' after a round has ended
     [OK] red city should produce 6 production after a round has ended
     [OK] blue city should produce 6 production after a round has ended
-each city produces selected type of production and food at end of round
-food leads to increase in the population
+NOT AC: each city produces selected type of production and food at end of round
+NOT AC: food leads to increase in the population
     AC: cities' population size is always 1
 NOT AC: the higher population the more resources the city gathers
-A unit that is located at the same tile as a city is defending the city
+A unit that is located at the same tile as a city is defending the city //TODO: backlog?
 if attacking unit defeats defending unit the city changes ownership to the attacking unit
-Player can choose between workforce balance of the city
+NOT AC: Player can choose between workforce balance of the city
     workforce can either be gathering food or production
         gather food
         produce production
-Player can choose type of production of the city
-population indicates the number of tiles in the immediate vicinity of the city that the workforce can work on
+[OK] Player can choose type of production of the city
+NOT AC: population indicates the number of tiles in the immediate vicinity of the city that the workforce can work on
     3 units three tiles .... // see specifications
 AC:
     [OK] If no other units present, place unit on city tile

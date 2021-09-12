@@ -111,11 +111,14 @@ public class GameImpl implements Game {
         if (worldGrid[toRow][toColumn].getTypeString().equals(MOUNTAINS)) return false;
         if (worldGrid[toRow][toColumn].getTypeString().equals(OCEANS)) return false;
 
-        // to-position should be empty
-        if (unitPositions[toRow][toColumn] == null) {
-            UnitImpl unit = (UnitImpl) getUnitAt(from);
-            if (unit.getOwner() != playerInTurn) return false;
-            int moveCount = unit.getMoveCount();
+        UnitImpl fromUnit = (UnitImpl) getUnitAt(from);
+        UnitImpl toUnit = (UnitImpl) getUnitAt(to);
+
+        // to-position should be empty or the unit should not be owned by the same owner as from unit
+        if (toUnit == null || fromUnit.getOwner() != toUnit.getOwner()) {
+
+            if (fromUnit.getOwner() != playerInTurn) return false;
+            int moveCount = fromUnit.getMoveCount();
 
             // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
             int rowDist = Math.abs(fromRow - toRow);
@@ -126,7 +129,7 @@ public class GameImpl implements Game {
                 unitPositions[toRow][toColumn] = unitPositions[fromRow][fromColumn];
                 unitPositions[fromRow][fromColumn] = null;
 
-                unit.decrementMoveCount(); //TODO: decrement or set movecount?
+                fromUnit.decrementMoveCount(); //TODO: decrement or set movecount?
 
                 return true;
             }

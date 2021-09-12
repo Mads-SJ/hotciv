@@ -634,4 +634,17 @@ public class TestAlphaCiv {
 
     assertThat(archer.getMoveCount(), is(1));
   }
+
+  @Test
+  public void shouldBeRedUnitThatWinsBattleWhenMovingOntoBlueUnit() {
+    Position blueLegionPos = new Position(3,2);
+    Position redSettlerPos = new Position(4,3);
+
+    assertThat(game.getUnitAt(blueLegionPos).getTypeString(), is(LEGION));
+    assertThat(game.getUnitAt(redSettlerPos).getTypeString(), is(SETTLER));
+
+    game.moveUnit(redSettlerPos, blueLegionPos);
+
+    assertThat(game.getUnitAt(blueLegionPos).getTypeString(), is(SETTLER));
+  }
 }
