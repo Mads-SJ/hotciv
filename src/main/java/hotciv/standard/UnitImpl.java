@@ -9,11 +9,13 @@ public class UnitImpl implements Unit {
 
     private final Player owner;
     private final String typeString;
+    private int moveCount;
 
 
     public UnitImpl(Player owner, String typeString) {
         this.owner = owner;
         this.typeString = typeString;
+        moveCount = 1;
     }
 
     @Override
@@ -28,7 +30,7 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getMoveCount() {
-        return 0;
+        return moveCount;
     }
 
     @Override
@@ -54,6 +56,10 @@ public class UnitImpl implements Unit {
                 return 4;
         }
         return -1;
+    }
+
+    public void decrementMoveCount() {
+        moveCount--;
     }
 
 }

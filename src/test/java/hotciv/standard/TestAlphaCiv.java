@@ -535,4 +535,20 @@ public class TestAlphaCiv {
     assertThat(game.getUnitAt(finalArcherPos), is(nullValue()));
   }
 
+  @Test
+  public void shouldHaveMoveCountOf1ForArcher() {
+    Unit archer = game.getUnitAt(new Position(2,0));
+    assertThat(archer.getMoveCount(), is(1));
+  }
+
+  @Test
+  public void shouldHaveMoveCountOf0ForArcherAfterMoving() {
+    Unit archer = game.getUnitAt(new Position(2,0));
+    assertThat(archer.getMoveCount(), is(1));
+
+    // Move unit. Move count should be updated to 0.
+    game.moveUnit(new Position(2,0), new Position(2,1));
+    assertThat(archer.getMoveCount(), is(0));
+  }
+
 }

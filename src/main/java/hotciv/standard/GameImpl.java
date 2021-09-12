@@ -39,8 +39,8 @@ import static hotciv.framework.GameConstants.*;
 public class GameImpl implements Game {
     private Player playerInTurn;
     private Map<Position, City> cityMap;
-    private TileImpl[][] worldGrid;
-    private UnitImpl[][] unitPositions;
+    private Tile[][] worldGrid;
+    private Unit[][] unitPositions;
     public static final Position RED_CITY_POSITION = new Position(1, 1);
     public static final Position BLUE_CITY_POSITION = new Position(4, 1);
     private int age;
@@ -109,15 +109,19 @@ public class GameImpl implements Game {
 
         // to position should be empty
         if (unitPositions[toRow][toColumn] == null) {
+            UnitImpl unit = (UnitImpl) getUnitAt(from);
+            int moveCount = unit.getMoveCount();
 
             // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
             int rowDist = Math.abs(fromRow - toRow);
             int columnDist = Math.abs(fromColumn - toColumn);
 
             // The move should be legal (meaning that the unit only moves 1 tile in either direction)
-            if (rowDist <= 1 && columnDist <= 1) {
+            if (rowDist <= moveCount && columnDist <= moveCount) {
                 unitPositions[toRow][toColumn] = unitPositions[fromRow][fromColumn];
                 unitPositions[fromRow][fromColumn] = null;
+
+                unit.decrementMoveCount(); //TODO: decrement or set movecount?
 
                 return true;
             }

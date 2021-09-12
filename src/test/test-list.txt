@@ -65,12 +65,14 @@ units can have special actions
 [OK] Units can move diagonally
 [OK] Units can move horizontally
 [OK] Units can move vertically
-Units cannot move a longer distance than their move count
-Units can only move once each turn
+[OK] Units cannot move a longer distance than their move count
+    [OK] Units initially have a move count of 1
+    [OK] Units should have a move count of 0, when they have moved 1 distance.
+Units can only move once each turn //TODO: boolsk flag?
 units cannot move across all types of tiles
     units cannot move over mountain
     units cannot move over ocean
-units keeps track of their own movement
+[OK] units keeps track of their own movement
 
 BATTLE
 A battle occurs when unit A (red) tries to move into tile occupied by unit B (blue)
