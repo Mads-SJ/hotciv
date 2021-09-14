@@ -116,16 +116,15 @@ public class GameImpl implements Game {
         int toRow = to.getRow();
         int toColumn = to.getColumn();
 
-        // Cannot move over mountains and oceans
-        if (worldGrid[toRow][toColumn].getTypeString().equals(MOUNTAINS)) return false;
-        if (worldGrid[toRow][toColumn].getTypeString().equals(OCEANS)) return false;
-
         // Gets the unit at the two positions, if there is a unit. If not, the unit will be null.
         UnitImpl fromUnit = (UnitImpl) getUnitAt(from);
         UnitImpl toUnit = (UnitImpl) getUnitAt(to);
 
         // Units can only be moved, if their owner is the player in turn.
         if (fromUnit.getOwner() != playerInTurn) return false;
+        // Unit cannot move over mountains and oceans
+        if (worldGrid[toRow][toColumn].getTypeString().equals(MOUNTAINS)) return false;
+        if (worldGrid[toRow][toColumn].getTypeString().equals(OCEANS)) return false;
 
         // to-position should be empty or the unit should not be owned by the same owner as from unit
         if (toUnit == null || fromUnit.getOwner() != toUnit.getOwner()) {
@@ -211,6 +210,8 @@ public class GameImpl implements Game {
     }
 
     public void changeWorkForceFocusInCityAt(Position p, String balance) {
+        CityImpl c = (CityImpl) getCityAt(p);
+        c.setWorkforceFocus(balance);
     }
 
     public void changeProductionInCityAt(Position p, String unitType) {
@@ -221,6 +222,7 @@ public class GameImpl implements Game {
     }
 
     public void performUnitActionAt(Position p) {
+        // no actions in AC
     }
 
     private void placeUnit(CityImpl c, Position p) {

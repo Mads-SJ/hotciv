@@ -111,10 +111,10 @@ NOT AC: the higher population the more resources the city gathers
 [OK] A unit that is located at the same tile as a city is defending the city //TODO: backlog?
 [OK] if attacking unit defeats defending unit the city changes ownership to the attacking unit
     [OK] Cities can change ownership
-NOT AC: Player can choose between workforce balance of the city
-    workforce can either be gathering food or production
-        gather food
-        produce production
+[OK] Player can choose between workforce balance of the city
+    [OK] workforce can either be gathering food or production
+        [OK] gather food
+        [OK] produce production
 [OK] Player can choose type of production of the city
 NOT AC: population indicates the number of tiles in the immediate vicinity of the city that the workforce can work on
     3 units three tiles .... // see specifications

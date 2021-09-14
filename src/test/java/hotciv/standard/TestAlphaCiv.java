@@ -706,4 +706,26 @@ public class TestAlphaCiv {
     // Should not be able to change, so production should still be ARCHER.
     assertThat(game.getCityAt(GameImpl.RED_CITY_POSITION).getProduction(), is(ARCHER));
   }
+
+  @Test
+  public void shouldBeWorkforceFocusFoodForRedCity() {
+    City redCity = game.getCityAt(GameImpl.RED_CITY_POSITION);
+    assertThat(redCity.getWorkforceFocus(), is(foodFocus));
+  }
+
+  @Test
+  public void shouldBeWorkforceFocusProductionForBlueCity() {
+    CityImpl blueCity = (CityImpl) game.getCityAt(GameImpl.BLUE_CITY_POSITION);
+    assertThat(blueCity.getWorkforceFocus(), is(foodFocus));
+    blueCity.setWorkforceFocus(productionFocus);
+    assertThat(blueCity.getWorkforceFocus(), is(productionFocus));
+  }
+
+  @Test
+  public void shouldBeAbleToSetWorkforceFocusProductionForBlueCityInGame() {
+    CityImpl blueCity = (CityImpl) game.getCityAt(GameImpl.BLUE_CITY_POSITION);
+    assertThat(blueCity.getWorkforceFocus(), is(foodFocus));
+    game.changeWorkForceFocusInCityAt(GameImpl.BLUE_CITY_POSITION, productionFocus);
+    assertThat(blueCity.getWorkforceFocus(), is(productionFocus));
+  }
 }

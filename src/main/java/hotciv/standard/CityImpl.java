@@ -10,12 +10,14 @@ public class CityImpl implements City {
     private int treasury;
     private String production;
     private int costOfNewUnit;
+    private String workforceFocus;
 
     public CityImpl(Player owner) {
         this.owner = owner;
         treasury = 0; // Treasury is empty when a new city is created.
         setProduction(ARCHER);
         costOfNewUnit = ARCHER_COST;
+        workforceFocus = foodFocus;
     }
 
     @Override
@@ -41,7 +43,7 @@ public class CityImpl implements City {
 
     @Override
     public String getWorkforceFocus() {
-        return null;
+        return workforceFocus;
     }
 
     public void addTreasury(int amount) {
@@ -66,6 +68,10 @@ public class CityImpl implements City {
                 costOfNewUnit = SETTLER_COST;
                 break;
         }
+    }
+
+    public void setWorkforceFocus(String workforceType) {
+        workforceFocus = workforceType;
     }
 
     public int getCostOfNewUnit() {
