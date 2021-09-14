@@ -3,14 +3,23 @@ package hotciv.standard;
 import hotciv.framework.City;
 import hotciv.framework.Player;
 
+import static hotciv.framework.GameConstants.*;
+
 public class CityImpl implements City {
-    private final Player owner;
+    private Player owner;
     private int treasury;
+    private String production;
+    private int costOfNewUnit;
+    private String workforceFocus;
 
     public CityImpl(Player owner) {
         this.owner = owner;
-        treasury = 0;
+        treasury = 0; // Treasury is empty when a new city is created.
+        setProduction(ARCHER);
+        costOfNewUnit = ARCHER_COST;
+        workforceFocus = foodFocus;
     }
+
     @Override
     public Player getOwner() {
         return owner;
@@ -18,7 +27,7 @@ public class CityImpl implements City {
 
     @Override
     public int getSize() {
-        return 0;
+        return POPULATION_SIZE;
     }
 
     @Override
@@ -26,17 +35,50 @@ public class CityImpl implements City {
         return treasury;
     }
 
+
     @Override
     public String getProduction() {
-        return null;
+        return production;
     }
 
     @Override
     public String getWorkforceFocus() {
-        return null;
+        return workforceFocus;
     }
 
-    public void addTreasury() {
-        treasury += 6;
+    public void addTreasury(int amount) {
+        treasury += amount;
+    }
+
+    public void subtractTreasury(int amount) {
+        treasury -= amount;
+    }
+
+    public void setProduction(String unitType) {
+        production = unitType;
+
+        switch (unitType) {
+            case ARCHER:
+                costOfNewUnit = ARCHER_COST;
+                break;
+            case LEGION:
+                costOfNewUnit = LEGION_COST;
+                break;
+            case SETTLER:
+                costOfNewUnit = SETTLER_COST;
+                break;
+        }
+    }
+
+    public void setWorkforceFocus(String workforceType) {
+        workforceFocus = workforceType;
+    }
+
+    public int getCostOfNewUnit() {
+        return costOfNewUnit;
+    }
+
+    public void setOwner(Player p) {
+        owner = p;
     }
 }
