@@ -18,6 +18,7 @@ public class TileImpl implements Tile {
     }
 
     public String getResourceType() {
+        // resource type according to table 36.1
         switch (typeString){
             case PLAINS:
             case OCEANS:
@@ -27,10 +28,11 @@ public class TileImpl implements Tile {
             case FOREST:
                 return PRODUCTION;
         }
-        return "none"; // Burde måske smide exception?
+        return "none"; // Could throw exception instead?
     }
 
     public int getResources() {
+        // resource amounts according to table 36.1
         switch (typeString){
             case OCEANS:
             case MOUNTAINS:

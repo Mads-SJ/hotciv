@@ -15,7 +15,7 @@ public class UnitImpl implements Unit {
     public UnitImpl(Player owner, String typeString) {
         this.owner = owner;
         this.typeString = typeString;
-        moveCount = 1;
+        moveCount = STANDARD_MOVE_COUNT;
     }
 
     @Override
@@ -35,6 +35,7 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getDefensiveStrength() {
+        // Defensive constants according to specifications in table 36.2
         switch (typeString){
             case LEGION:
                 return 2;
@@ -47,6 +48,7 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getAttackingStrength() {
+        // Attacking constants according to specifications in table 36.2
         switch (typeString) {
             case SETTLER:
                 return 0;
@@ -62,7 +64,7 @@ public class UnitImpl implements Unit {
         moveCount--;
     }
     public void resetMoveCount() {
-        moveCount = 1;
+        moveCount = STANDARD_MOVE_COUNT;
     }
 
 }

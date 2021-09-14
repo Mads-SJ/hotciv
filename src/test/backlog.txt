@@ -1,4 +1,4 @@
-//todo: fix backlog
+//todo: fix backlog OK
 //todo: HUSK AT MERGE IND I MASTER - ved aflevering send repo link.
 //todo: magic constants
 //todo: refaktorer test

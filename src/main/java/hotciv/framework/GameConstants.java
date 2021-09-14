@@ -55,4 +55,6 @@ public class GameConstants {
     public static final int AGING_PER_ROUND = 100;
     public static final int START_AGE = -4000; // 4000BC
     public static final int END_AGE = -3000; // 3000BC
+    // Movement related constants
+    public static final int STANDARD_MOVE_COUNT = 1;
 }
