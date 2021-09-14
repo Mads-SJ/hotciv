@@ -1,7 +1,3 @@
-//todo: fix backlog OK
-//todo: HUSK AT MERGE IND I MASTER - ved aflevering send repo link.
-//todo: refaktorer test
-
 Missing features:
 City gathers production and food from surrounding tiles
 Each city produces selected type of production and food at end of round

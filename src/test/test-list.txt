@@ -15,7 +15,7 @@ tiles: plains, ocean, mountains, hills, forest, (city) // se tabel (EGENSKABER)
     [OK] Mountains produce 1 production
         [OK] Mountains produce production
     [OK] Hills produce 2 production
-    NOT AC: (City) produces 1 food + 1 production //TODO: Skal dette med?
+    NOT AC: (City) produces 1 food + 1 production
 NOT AC: Use food to increase population
 
 PLAYERS
@@ -28,7 +28,7 @@ Turn order: red -> blue -> yellow -> green
     [OK] red city production should be archer
 
 UNITS
-[OK] AC: only one unit on each tile //TODO: test?
+[OK] AC: only one unit on each tile
 [OK] unit layout in figure 36.2
     [OK] Red archer on (2,0)
         [OK] Archer is a unit type
@@ -89,14 +89,14 @@ TURNS
 [OK] after Red it is Blue that is in turn
 [OK] at start of turn unit moves gets initialized for the player in turn
 GUI: during a turn the player can inspect cities
-during a turn the player can change type of unit production and resource production // todo: backlog? eventuelt tjek om det er players tur.
-    unit production
-    resource production
-GUI: the player can end turn any time he wishes // todo: weird test?
+[OK] during a turn the player can change type of unit production and resource production
+    [OK] unit production
+    [OK] resource production
+GUI: the player can end turn any time he wishes
 [OK] move count does not accumulate to next turn
 
 CITIES
-AC: city position can be seen on figure 36.2
+[OK] AC: city position can be seen on figure 36.2
     [OK] Red's city is at (1,1)
     [OK] No city at (2,2)
     [OK] Blue's city is at (4,1)
@@ -108,7 +108,7 @@ NOT AC: each city produces selected type of production and food at end of round
 NOT AC: food leads to increase in the population
     [OK] AC: cities' population size is always 1
 NOT AC: the higher population the more resources the city gathers
-[OK] A unit that is located at the same tile as a city is defending the city //TODO: backlog?
+[OK] A unit that is located at the same tile as a city is defending the city
 [OK] if attacking unit defeats defending unit the city changes ownership to the attacking unit
     [OK] Cities can change ownership
 [OK] Player can choose between workforce balance of the city
@@ -128,5 +128,5 @@ AGING
 [OK] AC: red wins in year 3000BC
 [OK] No winner before year 3000BC
 
-MISC
+MISC (Maybe)
 If no city exist at a position an exception should be thrown

@@ -46,8 +46,8 @@ public class TestAlphaCiv {
   @BeforeEach
   public void setUp() {
     game = new GameImpl();
+    //TODO: Refactor... possibly add more initialization to decrease the size of each test
   }
-  //TODO: refaktorering
 
   // FRS p. 455 states that 'Red is the first player to take a turn'.
   @Test
