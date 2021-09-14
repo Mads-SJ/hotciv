@@ -1,6 +1,6 @@
 //todo: fix backlog OK
 //todo: HUSK AT MERGE IND I MASTER - ved aflevering send repo link.
-//todo: magic constants
+//todo: magic constants OK
 //todo: refaktorer test
 //todo: refaktorer GameImpl constructor.
 //todo: setWorkForce, UnitAction.

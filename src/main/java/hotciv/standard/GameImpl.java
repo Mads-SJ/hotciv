@@ -111,13 +111,15 @@ public class GameImpl implements Game {
         if (worldGrid[toRow][toColumn].getTypeString().equals(MOUNTAINS)) return false;
         if (worldGrid[toRow][toColumn].getTypeString().equals(OCEANS)) return false;
 
+        // Gets the unit at the two positions, if there is a unit. If not, the unit will be null.
         UnitImpl fromUnit = (UnitImpl) getUnitAt(from);
         UnitImpl toUnit = (UnitImpl) getUnitAt(to);
 
+        // Units can only be moved, if their owner is the player in turn.
+        if (fromUnit.getOwner() != playerInTurn) return false;
+
         // to-position should be empty or the unit should not be owned by the same owner as from unit
         if (toUnit == null || fromUnit.getOwner() != toUnit.getOwner()) {
-
-            if (fromUnit.getOwner() != playerInTurn) return false;
             int moveCount = fromUnit.getMoveCount();
 
             // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
@@ -126,20 +128,28 @@ public class GameImpl implements Game {
 
             // The move should be legal (meaning that the unit only moves 1 tile in either direction)
             if (rowDist <= moveCount && columnDist <= moveCount) {
+
+                // Change position of the unit.
                 unitPositions[toRow][toColumn] = unitPositions[fromRow][fromColumn];
+                // The old position is now free.
                 unitPositions[fromRow][fromColumn] = null;
 
-                fromUnit.decrementMoveCount(); //TODO: decrement or set movecount?
+                fromUnit.decrementMoveCount();
 
-                CityImpl candidateCity = (CityImpl) getCityAt(to);
-                if (candidateCity != null) {
-                    candidateCity.setOwner(playerInTurn);
-                }
+                // If there's a city on the 'to' position, transfer it to the player arriving at the tile.
+                transferCity(to);
 
                 return true;
             }
         }
         return false;
+    }
+
+    private void transferCity(Position to) {
+        CityImpl candidateCity = (CityImpl) getCityAt(to);
+        if (candidateCity != null) {
+            candidateCity.setOwner(playerInTurn);
+        }
     }
 
     public void endOfTurn() {
