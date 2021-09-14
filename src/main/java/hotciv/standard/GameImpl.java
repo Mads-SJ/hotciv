@@ -46,18 +46,26 @@ public class GameImpl implements Game {
     private int age;
     private Player winner;
 
-    //TODO: refaktorer med metoder i konstruktør????
     public GameImpl() {
-        // Sets starting player
-        playerInTurn = Player.RED;
+        playerInTurn = Player.RED; // Red always starts
+
         age = START_AGE;
 
-        // Initialize City Map and insert position for red and blue city.
+        initializeCityMap();
+        initializeWorldGrid();
+        initializeUnitPositions();
+    }
+
+    private void initializeCityMap() {
         cityMap = new HashMap<>();
+
+        // Standard positions for some cities
         cityMap.put(RED_CITY_POSITION, new CityImpl(Player.RED));
         cityMap.put(BLUE_CITY_POSITION, new CityImpl(Player.BLUE));
+    }
 
-        // Initialize World Grid with Plains all over the map.
+    private void initializeWorldGrid() {
+        // Set plains in the entire world. Update afterwards with specific tiles.
         worldGrid = new TileImpl[WORLDSIZE][WORLDSIZE];
         for(int i = 0; i < WORLDSIZE; i++) {
             for (int j = 0; j < WORLDSIZE; j++) {
@@ -69,9 +77,10 @@ public class GameImpl implements Game {
         worldGrid[1][0] = new TileImpl(OCEANS);
         worldGrid[0][1] = new TileImpl(HILLS);
         worldGrid[2][2] = new TileImpl(MOUNTAINS);
+    }
 
-        // Initialize unit positions
-        unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE];
+    private void initializeUnitPositions() {
+        unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE]; // Everything is null, except for the following units.
         unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
         unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
         unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER);
@@ -171,6 +180,36 @@ public class GameImpl implements Game {
         resetMoveCount();
     }
 
+    private void ageWorld() {
+        age += AGING_PER_ROUND;
+    }
+
+    private void checkIfGameOver() {
+        if (age == END_AGE) {
+            winner = Player.RED;
+        }
+    }
+
+    private void resetMoveCount() {
+        for(int i = 0; i < WORLDSIZE; i++) {
+            for (int j = 0; j < WORLDSIZE; j++) {
+                UnitImpl u = (UnitImpl) getUnitAt(new Position(i, j));
+                if (u != null) u.resetMoveCount();
+            }
+        }
+    }
+
+    private void updateCities() {
+        for (Position p : cityMap.keySet()) {
+            CityImpl c = (CityImpl) cityMap.get(p);
+            c.addTreasury(PRODUCTION_AMOUNT);
+
+            if (c.getTreasury() >= c.getCostOfNewUnit()) {
+                buyUnitIfPositionAvailable(c, p);
+            }
+        }
+    }
+
     public void changeWorkForceFocusInCityAt(Position p, String balance) {
     }
 
@@ -202,36 +241,6 @@ public class GameImpl implements Game {
                     placeUnit(c, candidatePosition);
                     break;
                 }
-            }
-        }
-    }
-
-    private void updateCities() {
-        for (Position p : cityMap.keySet()) {
-            CityImpl c = (CityImpl) cityMap.get(p);
-            c.addTreasury(PRODUCTION_AMOUNT);
-
-            if (c.getTreasury() >= c.getCostOfNewUnit()) {
-                buyUnitIfPositionAvailable(c, p);
-            }
-        }
-    }
-
-    private void ageWorld() {
-        age += AGING_PER_ROUND;
-    }
-
-    private void checkIfGameOver() {
-        if (age == END_AGE) {
-            winner = Player.RED;
-        }
-    }
-
-    private void resetMoveCount() {
-        for(int i = 0; i < WORLDSIZE; i++) {
-            for (int j = 0; j < WORLDSIZE; j++) {
-                UnitImpl u = (UnitImpl) getUnitAt(new Position(i, j));
-                if (u != null) u.resetMoveCount();
             }
         }
     }
