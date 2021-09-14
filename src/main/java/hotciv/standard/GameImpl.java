@@ -211,7 +211,9 @@ public class GameImpl implements Game {
 
     public void changeWorkForceFocusInCityAt(Position p, String balance) {
         CityImpl c = (CityImpl) getCityAt(p);
-        c.setWorkforceFocus(balance);
+        if (c.getOwner() == playerInTurn) {
+            c.setWorkforceFocus(balance);
+        }
     }
 
     public void changeProductionInCityAt(Position p, String unitType) {

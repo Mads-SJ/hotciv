@@ -722,10 +722,18 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void shouldBeAbleToSetWorkforceFocusProductionForBlueCityInGame() {
+  public void shouldBeAbleToSetWorkforceFocusProductionForRedCityInGame() {
+    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    assertThat(redCity.getWorkforceFocus(), is(foodFocus));
+    game.changeWorkForceFocusInCityAt(GameImpl.RED_CITY_POSITION, productionFocus);
+    assertThat(redCity.getWorkforceFocus(), is(productionFocus));
+  }
+  @Test
+  public void shouldNotBeAbleToSetWorkforceFocusProductionForBlueCityInGameWhenItIsRedsTurn() {
     CityImpl blueCity = (CityImpl) game.getCityAt(GameImpl.BLUE_CITY_POSITION);
     assertThat(blueCity.getWorkforceFocus(), is(foodFocus));
     game.changeWorkForceFocusInCityAt(GameImpl.BLUE_CITY_POSITION, productionFocus);
-    assertThat(blueCity.getWorkforceFocus(), is(productionFocus));
+    //no change, still food as focus.
+    assertThat(blueCity.getWorkforceFocus(), is(foodFocus));
   }
 }
