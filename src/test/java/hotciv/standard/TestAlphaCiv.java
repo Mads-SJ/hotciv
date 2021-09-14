@@ -250,7 +250,7 @@ public class TestAlphaCiv {
     assertThat(redCity.getProduction(), is(LEGION));
   }
 
-  @Test //TODO: Jacoco ser ikke denne test?
+  @Test
   public void shouldCost10ForArcher(){
     CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
     assertThat(redCity.getProduction(), is(ARCHER));
@@ -690,9 +690,20 @@ public class TestAlphaCiv {
   }
 
   @Test
-  public void shouldChangeProductionOfCityInGame() {
+  public void shouldChangeProductionOfRedCityInGame() {
     assertThat(game.getCityAt(GameImpl.RED_CITY_POSITION).getProduction(), is(ARCHER));
     game.changeProductionInCityAt(GameImpl.RED_CITY_POSITION, LEGION);
     assertThat(game.getCityAt(GameImpl.RED_CITY_POSITION).getProduction(), is(LEGION));
+  }
+
+  @Test
+  public void shouldNotBeAbleToChangeProductionOfRedCityWhenBluesTurn() {
+    game.endOfTurn(); // Blue's turn now.
+
+    assertThat(game.getCityAt(GameImpl.RED_CITY_POSITION).getProduction(), is(ARCHER));
+    game.changeProductionInCityAt(GameImpl.RED_CITY_POSITION, LEGION);
+
+    // Should not be able to change, so production should still be ARCHER.
+    assertThat(game.getCityAt(GameImpl.RED_CITY_POSITION).getProduction(), is(ARCHER));
   }
 }

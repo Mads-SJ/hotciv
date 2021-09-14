@@ -14,7 +14,7 @@ public class CityImpl implements City {
     public CityImpl(Player owner) {
         this.owner = owner;
         treasury = 0;
-        production = ARCHER;
+        setProduction(ARCHER);
         costOfNewUnit = 10;
     }
 

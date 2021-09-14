@@ -1,1 +1,17 @@
-//todo: fix backlog!!!
+//todo: fix backlog
+//todo: HUSK AT MERGE IND I MASTER - ved aflevering send repo link.
+//todo: magic constants
+//todo: refaktorer test
+//todo: refaktorer GameImpl constructor.
+//todo: setWorkForce, UnitAction.
+
+Missing features:
+City gathers production and food from surrounding tiles
+Each city produces selected type of production and food at end of round
+Food leads to increase in the population
+The higher population the more resources the city gathers
+    Population indicates the number of tiles in the immediate vicinity of the city that the workforce can work on
+Player can choose between workforce balance of the city
+Units can have special actions
+The higher attack- and defensive strength, the higher chance of winning a battle
+

@@ -166,7 +166,9 @@ public class GameImpl implements Game {
 
     public void changeProductionInCityAt(Position p, String unitType) {
         CityImpl c = (CityImpl) getCityAt(p);
-        c.setProduction(unitType);
+        if (c.getOwner() == playerInTurn) {
+            c.setProduction(unitType);
+        }
     }
 
     public void performUnitActionAt(Position p) {
