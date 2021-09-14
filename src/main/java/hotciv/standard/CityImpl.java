@@ -13,9 +13,9 @@ public class CityImpl implements City {
 
     public CityImpl(Player owner) {
         this.owner = owner;
-        treasury = 0;
+        treasury = 0; // Treasury is empty when a new city is created.
         setProduction(ARCHER);
-        costOfNewUnit = 10;
+        costOfNewUnit = ARCHER_COST;
     }
 
     @Override
@@ -57,13 +57,13 @@ public class CityImpl implements City {
 
         switch (unitType) {
             case ARCHER:
-                costOfNewUnit = 10;
+                costOfNewUnit = ARCHER_COST;
                 break;
             case LEGION:
-                costOfNewUnit = 15;
+                costOfNewUnit = LEGION_COST;
                 break;
             case SETTLER:
-                costOfNewUnit = 30;
+                costOfNewUnit = SETTLER_COST;
                 break;
         }
     }
