@@ -145,7 +145,7 @@ public class GameImpl implements Game {
                 fromUnit.decrementMoveCount();
 
                 // If there's a city on the 'to' position, transfer it to the player arriving at the tile.
-                transferCity(to);
+                transferCityOwner(to);
 
                 return true;
             }
@@ -153,7 +153,7 @@ public class GameImpl implements Game {
         return false;
     }
 
-    private void transferCity(Position to) {
+    private void transferCityOwner(Position to) {
         CityImpl candidateCity = (CityImpl) getCityAt(to);
         if (candidateCity != null) {
             candidateCity.setOwner(playerInTurn);
