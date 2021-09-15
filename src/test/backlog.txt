@@ -7,3 +7,4 @@ The higher population the more resources the city gathers
 Units can have special actions
 The higher attack- and defensive strength, the higher chance of winning a battle
 
+
