@@ -1,7 +1,9 @@
 package hotciv.standard;
 
+import hotciv.common.WinningStrategy;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
+import hotciv.variants.OwnAllCitiesWinningStrategy;
 
 
 import java.util.HashMap;
@@ -45,11 +47,12 @@ public class GameImpl implements Game {
     public static final Position BLUE_CITY_POSITION = new Position(4, 1);
     private int age;
     private Player winner;
+    private WinningStrategy winningsStrategy;
 
     public GameImpl() {
         playerInTurn = Player.RED; // Red always starts
-
         age = START_AGE;
+        winningsStrategy = new OwnAllCitiesWinningStrategy(this); //TODO: Skal en specifik strategi impl her?
 
         initializeCityMap();
         initializeWorldGrid();
@@ -96,6 +99,10 @@ public class GameImpl implements Game {
 
     public City getCityAt(Position p) {
         return cityMap.get(p);
+    }
+
+    public Map<Position, City> getCities() {
+        return cityMap;
     }
 
     public Player getPlayerInTurn() {
@@ -176,7 +183,7 @@ public class GameImpl implements Game {
     private void endOfRound() {
         updateCities();
         ageWorld();
-        checkIfGameOver();
+        winner = winningsStrategy.checkIfGameOver();
         resetMoveCount();
     }
 
