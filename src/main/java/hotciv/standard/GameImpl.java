@@ -148,6 +148,7 @@ public class GameImpl implements Game {
                 transferCityOwner(to);
 
                 return true;
+
             }
         }
         return false;
