@@ -1,9 +1,13 @@
 package hotciv.standard;
 
+import hotciv.common.AgingStrategy;
 import hotciv.common.WinningStrategy;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
+import hotciv.variants.LinearAgingStrategy;
 import hotciv.variants.OwnAllCitiesWinningStrategy;
+import hotciv.variants.RedWinningStrategy;
+import hotciv.variants.SpecialAgingStrategy;
 
 
 import java.util.HashMap;
@@ -48,11 +52,13 @@ public class GameImpl implements Game {
     private int age;
     private Player winner;
     private WinningStrategy winningsStrategy;
+    private AgingStrategy agingStrategy;
 
     public GameImpl() {
         playerInTurn = Player.RED; // Red always starts
         age = START_AGE;
-        winningsStrategy = new OwnAllCitiesWinningStrategy(this); //TODO: Skal en specifik strategi impl her?
+        winningsStrategy = new RedWinningStrategy(this); //TODO: Skal en specifik strategi impl her?
+        agingStrategy = new LinearAgingStrategy();
 
         initializeCityMap();
         initializeWorldGrid();
@@ -182,7 +188,7 @@ public class GameImpl implements Game {
 
     private void endOfRound() {
         updateCities();
-        ageWorld();
+        age = agingStrategy.ageWorld(age);
         winner = winningsStrategy.checkIfGameOver();
         resetMoveCount();
     }

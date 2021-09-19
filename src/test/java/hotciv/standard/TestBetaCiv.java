@@ -40,4 +40,92 @@ public class TestBetaCiv {
 
         assertThat(game.getWinner(), is(Player.RED));
     }
+
+    @Test
+    public void shouldBeYear3900BCAfterOneRound(){
+        game.endOfTurn();
+        game.endOfTurn();
+        // -3900 = 3900BC
+        assertThat(game.getAge(), is(-3900));
+    }
+
+    @Test
+    public void shouldBeYear1BCAfter40Rounds(){
+        for (int i = 0; i < 40; i++) {
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+
+        assertThat(game.getAge(), is(-1));
+    }
+
+    @Test
+    public void shouldBeYear1ACAfter41Rounds(){
+        for (int i = 0; i < 41; i++) {
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+
+        assertThat(game.getAge(), is(1));
+    }
+
+    @Test
+    public void shouldBeYear50ACAfter42Rounds(){
+        for (int i = 0; i < 42; i++) {
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+
+        assertThat(game.getAge(), is(50));
+    }
+
+    @Test
+    public void shouldBeYear100ACAfter43Rounds(){
+        for (int i = 0; i < 43; i++) {
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+
+        assertThat(game.getAge(), is(100));
+    }
+
+    @Test
+    public void shouldBeYear150ACAfter44Rounds(){
+        for (int i = 0; i < 44; i++) {
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+
+        assertThat(game.getAge(), is(150));
+    }
+
+    @Test
+    public void shouldBeYear1775ACAfter77Rounds(){
+        for (int i = 0; i < 77; i++) {
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+
+        assertThat(game.getAge(), is(1775));
+    }
+
+    @Test
+    public void shouldBeYear1905ACAfter83Rounds(){
+        for (int i = 0; i < 83; i++) {
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+
+        assertThat(game.getAge(), is(1905));
+    }
+
+    @Test
+    public void shouldBeYear1971ACAfter97Rounds(){
+        for (int i = 0; i < 97; i++) {
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+
+        assertThat(game.getAge(), is(1971));
+    }
 }
