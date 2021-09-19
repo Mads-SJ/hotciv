@@ -1,13 +1,11 @@
 package hotciv.standard;
 
+import hotciv.common.ActionStrategy;
 import hotciv.common.AgingStrategy;
 import hotciv.common.WinningStrategy;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
-import hotciv.variants.LinearAgingStrategy;
-import hotciv.variants.OwnAllCitiesWinningStrategy;
-import hotciv.variants.RedWinningStrategy;
-import hotciv.variants.SpecialAgingStrategy;
+import hotciv.variants.*;
 
 
 import java.util.HashMap;
@@ -53,12 +51,14 @@ public class GameImpl implements Game {
     private Player winner;
     private WinningStrategy winningsStrategy;
     private AgingStrategy agingStrategy;
+    private ActionStrategy actionStrategy;
 
     public GameImpl() {
         playerInTurn = Player.RED; // Red always starts
         age = START_AGE;
         winningsStrategy = new RedWinningStrategy(this); //TODO: Skal en specifik strategi impl her?
         agingStrategy = new LinearAgingStrategy();
+        actionStrategy = new EnabledActionStrategy(this);
 
         initializeCityMap();
         initializeWorldGrid();
@@ -103,8 +103,16 @@ public class GameImpl implements Game {
         return unitPositions[p.getRow()][p.getColumn()];
     }
 
+    public void removeUnitAt(Position p) {
+        unitPositions[p.getRow()][p.getColumn()] = null; //TODO: evt flere andre steder refaktorer
+    }
+
     public City getCityAt(Position p) {
         return cityMap.get(p);
+    }
+
+    public void createCityAt(Position p) {
+        cityMap.put(p, new CityImpl(getPlayerInTurn())); //TODO: refaktorer med denne metode
     }
 
     public Map<Position, City> getCities() {
@@ -238,7 +246,7 @@ public class GameImpl implements Game {
     }
 
     public void performUnitActionAt(Position p) {
-        // no actions in AC
+        actionStrategy.performUnitActionAt(p);
     }
 
     private void placeUnit(CityImpl c, Position p) {
