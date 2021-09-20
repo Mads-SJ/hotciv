@@ -1,7 +1,11 @@
 package hotciv.standard;
 
+import hotciv.common.ActionStrategy;
+import hotciv.common.AgingStrategy;
+import hotciv.common.WinningStrategy;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
+import hotciv.variants.*;
 
 
 import java.util.HashMap;
@@ -45,11 +49,16 @@ public class GameImpl implements Game {
     public static final Position BLUE_CITY_POSITION = new Position(4, 1);
     private int age;
     private Player winner;
+    private WinningStrategy winningsStrategy;
+    private AgingStrategy agingStrategy;
+    private ActionStrategy actionStrategy;
 
     public GameImpl() {
         playerInTurn = Player.RED; // Red always starts
-
         age = START_AGE;
+        winningsStrategy = new RedWinningStrategy(this); //TODO: Skal en specifik strategi impl her?
+        agingStrategy = new LinearAgingStrategy();
+        actionStrategy = new EnabledActionStrategy(this);
 
         initializeCityMap();
         initializeWorldGrid();
@@ -94,8 +103,20 @@ public class GameImpl implements Game {
         return unitPositions[p.getRow()][p.getColumn()];
     }
 
+    public void removeUnitAt(Position p) {
+        unitPositions[p.getRow()][p.getColumn()] = null; //TODO: evt flere andre steder refaktorer
+    }
+
     public City getCityAt(Position p) {
         return cityMap.get(p);
+    }
+
+    public void createCityAt(Position p) {
+        cityMap.put(p, new CityImpl(getPlayerInTurn())); //TODO: refaktorer med denne metode
+    }
+
+    public Map<Position, City> getCities() {
+        return cityMap;
     }
 
     public Player getPlayerInTurn() {
@@ -145,15 +166,16 @@ public class GameImpl implements Game {
                 fromUnit.decrementMoveCount();
 
                 // If there's a city on the 'to' position, transfer it to the player arriving at the tile.
-                transferCity(to);
+                transferCityOwner(to);
 
                 return true;
+
             }
         }
         return false;
     }
 
-    private void transferCity(Position to) {
+    private void transferCityOwner(Position to) {
         CityImpl candidateCity = (CityImpl) getCityAt(to);
         if (candidateCity != null) {
             candidateCity.setOwner(playerInTurn);
@@ -174,8 +196,8 @@ public class GameImpl implements Game {
 
     private void endOfRound() {
         updateCities();
-        ageWorld();
-        checkIfGameOver();
+        age = agingStrategy.ageWorld(age);
+        winner = winningsStrategy.checkIfGameOver();
         resetMoveCount();
     }
 
@@ -224,7 +246,7 @@ public class GameImpl implements Game {
     }
 
     public void performUnitActionAt(Position p) {
-        // no actions in AC
+        actionStrategy.performUnitActionAt(p);
     }
 
     private void placeUnit(CityImpl c, Position p) {
