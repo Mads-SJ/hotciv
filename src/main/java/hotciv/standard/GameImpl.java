@@ -158,6 +158,8 @@ public class GameImpl implements Game {
         UnitImpl fromUnit = (UnitImpl) getUnitAt(from);
         UnitImpl toUnit = (UnitImpl) getUnitAt(to);
 
+        // If archer is fortified, it cannot move.
+        if (!fromUnit.isMovable()) return false;
         // Units can only be moved, if their owner is the player in turn.
         if (fromUnit.getOwner() != playerInTurn) return false;
         // Unit cannot move over mountains and oceans
