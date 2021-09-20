@@ -3,6 +3,7 @@ package hotciv.standard;
 import hotciv.common.ActionStrategy;
 import hotciv.common.AgingStrategy;
 import hotciv.common.WinningStrategy;
+import hotciv.common.WorldLayoutStrategy;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
 import hotciv.variants.*;
@@ -52,6 +53,7 @@ public class GameImpl implements Game {
     private WinningStrategy winningStrategy;
     private AgingStrategy agingStrategy;
     private ActionStrategy actionStrategy;
+    private WorldLayoutStrategy worldLayoutStrategy;
 
     public GameImpl(String gameVariant) {
         playerInTurn = Player.RED; // Red always starts
@@ -68,6 +70,7 @@ public class GameImpl implements Game {
         winningStrategy = new RedWinningStrategy();
         agingStrategy = new LinearAgingStrategy();
         actionStrategy = new DisabledActionStrategy();
+        worldLayoutStrategy = new AlphaWorldLayoutStrategy();
 
         switch(gameVariant) {
             case ALPHA_CIV:
@@ -91,18 +94,7 @@ public class GameImpl implements Game {
     }
 
     private void initializeWorldGrid() {
-        // Set plains in the entire world. Update afterwards with specific tiles.
-        worldGrid = new TileImpl[WORLDSIZE][WORLDSIZE];
-        for(int i = 0; i < WORLDSIZE; i++) {
-            for (int j = 0; j < WORLDSIZE; j++) {
-                worldGrid[i][j] = new TileImpl(PLAINS);
-            }
-        }
-
-        // Update world grid with correct tiles on their position.
-        worldGrid[1][0] = new TileImpl(OCEANS);
-        worldGrid[0][1] = new TileImpl(HILLS);
-        worldGrid[2][2] = new TileImpl(MOUNTAINS);
+        worldGrid = worldLayoutStrategy.createWorldLayout(new String[0]);
     }
 
     private void initializeUnitPositions() {
