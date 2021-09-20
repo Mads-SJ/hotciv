@@ -2,6 +2,7 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
+import hotciv.variants.*;
 import org.junit.jupiter.api.*;
 
 import static hotciv.framework.GameConstants.*;
@@ -14,7 +15,7 @@ public class TestGammaCiv {
     /** Fixture for gammaciv testing. */
     @BeforeEach
     public void setUp() {
-        game = new GameImpl();
+        game = new GameImpl(GAMMA_CIV);
     }
 
     @Test

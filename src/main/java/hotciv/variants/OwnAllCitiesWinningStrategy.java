@@ -5,13 +5,8 @@ import hotciv.framework.*;
 import hotciv.standard.GameImpl;
 
 public class OwnAllCitiesWinningStrategy implements WinningStrategy {
-    private final GameImpl game;
-
-    public OwnAllCitiesWinningStrategy(GameImpl game) {
-        this.game = game;
-    }
     @Override
-    public Player checkIfGameOver() {
+    public Player checkIfGameOver(GameImpl game) {
         City seen = null;
 
         for (Position p: game.getCities().keySet()) {

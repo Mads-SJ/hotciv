@@ -2,6 +2,9 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
+import hotciv.variants.DisabledActionStrategy;
+import hotciv.variants.LinearAgingStrategy;
+import hotciv.variants.RedWinningStrategy;
 import org.junit.jupiter.api.*;
 
 import static hotciv.framework.GameConstants.*;
@@ -45,7 +48,7 @@ public class TestAlphaCiv {
   /** Fixture for alphaciv testing. */
   @BeforeEach
   public void setUp() {
-    game = new GameImpl();
+    game = new GameImpl(ALPHA_CIV);
     //TODO: Refactor... possibly add more initialization to decrease the size of each test
   }
 

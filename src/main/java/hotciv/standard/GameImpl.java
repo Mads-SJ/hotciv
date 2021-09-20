@@ -49,20 +49,37 @@ public class GameImpl implements Game {
     public static final Position BLUE_CITY_POSITION = new Position(4, 1);
     private int age;
     private Player winner;
-    private WinningStrategy winningsStrategy;
+    private WinningStrategy winningStrategy;
     private AgingStrategy agingStrategy;
     private ActionStrategy actionStrategy;
 
-    public GameImpl() {
+    public GameImpl(String gameVariant) {
         playerInTurn = Player.RED; // Red always starts
         age = START_AGE;
-        winningsStrategy = new RedWinningStrategy(this); //TODO: Skal en specifik strategi impl her?
-        agingStrategy = new LinearAgingStrategy();
-        actionStrategy = new EnabledActionStrategy(this);
 
+        initializeGameVariant(gameVariant);
         initializeCityMap();
         initializeWorldGrid();
         initializeUnitPositions();
+    }
+
+    private void initializeGameVariant(String gameVariant) {
+        // Set default (Alpha Civ) game strategy variants
+        winningStrategy = new RedWinningStrategy();
+        agingStrategy = new LinearAgingStrategy();
+        actionStrategy = new DisabledActionStrategy();
+
+        switch(gameVariant) {
+            case ALPHA_CIV:
+                // do nothing, game already set as default
+                break;
+            case BETA_CIV:
+                winningStrategy = new OwnAllCitiesWinningStrategy();
+                agingStrategy = new SpecialAgingStrategy();
+                break;
+            case GAMMA_CIV:
+                actionStrategy = new EnabledActionStrategy();
+        }
     }
 
     private void initializeCityMap() {
@@ -197,7 +214,7 @@ public class GameImpl implements Game {
     private void endOfRound() {
         updateCities();
         age = agingStrategy.ageWorld(age);
-        winner = winningsStrategy.checkIfGameOver();
+        winner = winningStrategy.checkIfGameOver(this);
         resetMoveCount();
     }
 
@@ -246,7 +263,7 @@ public class GameImpl implements Game {
     }
 
     public void performUnitActionAt(Position p) {
-        actionStrategy.performUnitActionAt(p);
+        actionStrategy.performUnitActionAt(this, p);
     }
 
     private void placeUnit(CityImpl c, Position p) {
