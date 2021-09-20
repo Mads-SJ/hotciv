@@ -5,9 +5,9 @@ import hotciv.standard.TileImpl;
 
 import static hotciv.framework.GameConstants.*;
 
-public class AlphaWorldLayoutStrategy implements WorldLayoutStrategy {
+public class SimpleWorldLayoutStrategy implements WorldLayoutStrategy {
     @Override
-    public TileImpl[][] createWorldLayout(String[] layout) {
+    public TileImpl[][] createWorldLayout() {
         // Set plains in the entire world. Update afterwards with specific tiles.
         TileImpl[][] worldGrid = new TileImpl[WORLDSIZE][WORLDSIZE];
         for (int i = 0; i < WORLDSIZE; i++) {

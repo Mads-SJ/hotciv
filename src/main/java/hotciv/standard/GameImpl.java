@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static hotciv.framework.GameConstants.*;
+import static hotciv.framework.WorldLayoutConstants.*;
 
 /**
  * Skeleton implementation of HotCiv.
@@ -70,7 +71,7 @@ public class GameImpl implements Game {
         winningStrategy = new RedWinningStrategy();
         agingStrategy = new LinearAgingStrategy();
         actionStrategy = new DisabledActionStrategy();
-        worldLayoutStrategy = new AlphaWorldLayoutStrategy();
+        worldLayoutStrategy = new SimpleWorldLayoutStrategy();
 
         switch(gameVariant) {
             case ALPHA_CIV:
@@ -82,6 +83,8 @@ public class GameImpl implements Game {
                 break;
             case GAMMA_CIV:
                 actionStrategy = new EnabledActionStrategy();
+            case DELTA_CIV:
+                worldLayoutStrategy = new CustomizableWorldLayoutStrategy(DELTA_CIV_WORLD_LAYOUT);
         }
     }
 
@@ -94,7 +97,7 @@ public class GameImpl implements Game {
     }
 
     private void initializeWorldGrid() {
-        worldGrid = worldLayoutStrategy.createWorldLayout(new String[0]);
+        worldGrid = worldLayoutStrategy.createWorldLayout();
     }
 
     private void initializeUnitPositions() {
