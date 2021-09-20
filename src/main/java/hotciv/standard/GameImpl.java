@@ -63,7 +63,7 @@ public class GameImpl implements Game {
         initializeGameVariant(gameVariant);
         initializeCityMap();
         initializeWorldGrid();
-        initializeUnitPositions();
+        initializeUnitPositions(gameVariant);
     }
 
     private void initializeGameVariant(String gameVariant) {
@@ -88,7 +88,7 @@ public class GameImpl implements Game {
         }
     }
 
-    private void initializeCityMap() {
+    private void initializeCityMap() { // TODO: switch med constants eller metode i strategy??
         cityMap = new HashMap<>();
 
         // Standard positions for some cities
@@ -100,11 +100,23 @@ public class GameImpl implements Game {
         worldGrid = worldLayoutStrategy.createWorldLayout();
     }
 
-    private void initializeUnitPositions() {
-        unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE]; // Everything is null, except for the following units.
-        unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
-        unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
-        unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER);
+    private void initializeUnitPositions(String gameVariant) {
+        unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE];
+
+        // Some units are placed before game starts for certain game variants.
+        // TODO: Parametiseret løsning... metode i strategy i stedet?
+        switch (gameVariant) {
+            case ALPHA_CIV:
+            case BETA_CIV:
+            case GAMMA_CIV:
+                unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
+                unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
+                unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER);
+                break;
+            case DELTA_CIV:
+                // do nothing
+                break;
+        }
     }
 
     public Tile getTileAt(Position p) {
