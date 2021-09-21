@@ -67,4 +67,14 @@ public class TestDeltaCiv {
     public void shouldBePlainsAt15_13() {
         assertThat(game.getTileAt(new Position(15,13)).getTypeString(), is(PLAINS));
     }
+
+    @Test
+    public void shouldBeRedCityAt8_12() {
+        assertThat(game.getCityAt(DELTA_RED_CITY_POS).getOwner(), is(Player.RED));
+    }
+
+    @Test
+    public void shouldBeBlueCityAt4_5() {
+        assertThat(game.getCityAt(DELTA_BLUE_CITY_POS).getOwner(), is(Player.BLUE));
+    }
 }

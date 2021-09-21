@@ -2,32 +2,48 @@ package hotciv.variants;
 
 import hotciv.common.WorldLayoutStrategy;
 import static hotciv.framework.GameConstants.*;
+import static hotciv.standard.GameImpl.BLUE_CITY_POSITION;
+import static hotciv.standard.GameImpl.RED_CITY_POSITION;
+
+import hotciv.framework.City;
+import hotciv.framework.Player;
+import hotciv.framework.Position;
+import hotciv.standard.CityImpl;
 import hotciv.standard.TileImpl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DeltaWorldLayoutStrategy implements WorldLayoutStrategy {
-    private String[] layout; //TODO: fix
-
-    public DeltaWorldLayoutStrategy(String[] layout) {
-        this.layout = layout;
-    }
     @Override
-    public TileImpl[][] createWorldLayout() {
-        TileImpl[][] theWorld = new TileImpl[WORLDSIZE][WORLDSIZE];
-        String line;
-        for (int r = 0; r < WORLDSIZE; r++ ) {
-            line = layout[r];
-            for ( int c = 0; c < WORLDSIZE; c++ ) {
-                char tileChar = line.charAt(c);
-                String type = "error";
-                if ( tileChar == '.' ) { type = OCEANS; }
-                if ( tileChar == 'o' ) { type = PLAINS; }
-                if ( tileChar == 'M' ) { type = MOUNTAINS; }
-                if ( tileChar == 'f' ) { type = FOREST; }
-                if ( tileChar == 'h' ) { type = HILLS; }
+    public String[] getWorldLayout() {
+        return new String[] {
+                "...ooMooooo.....",
+                "..ohhoooofffoo..",
+                ".oooooMooo...oo.",
+                ".ooMMMoooo..oooo",
+                "...ofooohhoooo..",
+                ".ofoofooooohhoo.",
+                "...ooo..........",
+                ".ooooo.ooohooM..",
+                ".ooooo.oohooof..",
+                "offfoooo.offoooo",
+                "oooooooo...ooooo",
+                ".ooMMMoooo......",
+                "..ooooooffoooo..",
+                "....ooooooooo...",
+                "..ooohhoo.......",
+                ".....ooooooooo..",
+        };
+    }
 
-                theWorld[r][c] = new TileImpl(type);
-            }
-        }
-        return theWorld;
+    @Override
+    public Map<Position, City> getCityMap() {
+        Map<Position, City> cityMap = new HashMap<>();
+
+        cityMap.put(DELTA_RED_CITY_POS, new CityImpl(Player.RED));
+        cityMap.put(DELTA_BLUE_CITY_POS, new CityImpl(Player.BLUE));
+
+        return cityMap;
     }
 }

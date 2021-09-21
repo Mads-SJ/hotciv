@@ -11,3 +11,5 @@ The world’s layout is that shown in Figure 36.1 on page 8.
     [OK] Forest at 12,8
     [OK] Plains at 0,4
     [OK] Plains at 14,13
+    [OK] Red city at 8,12
+    [OK] Blue city at 4,5

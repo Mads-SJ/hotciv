@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static hotciv.framework.GameConstants.*;
-import static hotciv.framework.WorldLayoutConstants.*;
 
 /**
  * Skeleton implementation of HotCiv.
@@ -47,7 +46,7 @@ public class GameImpl implements Game {
     private Map<Position, City> cityMap;
     private Tile[][] worldGrid;
     private Unit[][] unitPositions;
-    public static final Position RED_CITY_POSITION = new Position(1, 1);
+    public static final Position RED_CITY_POSITION = new Position(1, 1); //TODO: Fjern og put i game constants
     public static final Position BLUE_CITY_POSITION = new Position(4, 1);
     private int age;
     private Player winner;
@@ -84,20 +83,33 @@ public class GameImpl implements Game {
             case GAMMA_CIV:
                 actionStrategy = new GammaActionStrategy();
             case DELTA_CIV:
-                worldLayoutStrategy = new DeltaWorldLayoutStrategy(DELTA_CIV_WORLD_LAYOUT);
+                worldLayoutStrategy = new DeltaWorldLayoutStrategy();
         }
     }
 
     private void initializeCityMap() { // TODO: switch med constants eller metode i strategy??
-        cityMap = new HashMap<>();
-
-        // Standard positions for some cities
-        cityMap.put(RED_CITY_POSITION, new CityImpl(Player.RED));
-        cityMap.put(BLUE_CITY_POSITION, new CityImpl(Player.BLUE));
+        cityMap = worldLayoutStrategy.getCityMap();
     }
 
     private void initializeWorldGrid() {
-        worldGrid = worldLayoutStrategy.createWorldLayout();
+        worldGrid = new TileImpl[WORLDSIZE][WORLDSIZE];
+        String[] layout = worldLayoutStrategy.getWorldLayout();
+
+        String line;
+        for (int r = 0; r < WORLDSIZE; r++ ) {
+            line = layout[r];
+            for ( int c = 0; c < WORLDSIZE; c++ ) {
+                char tileChar = line.charAt(c);
+                String type = "error";
+                if ( tileChar == '.' ) { type = OCEANS; }
+                if ( tileChar == 'o' ) { type = PLAINS; }
+                if ( tileChar == 'M' ) { type = MOUNTAINS; }
+                if ( tileChar == 'f' ) { type = FOREST; }
+                if ( tileChar == 'h' ) { type = HILLS; }
+
+                worldGrid[r][c] = new TileImpl(type);
+            }
+        }
     }
 
     private void initializeUnitPositions(String gameVariant) {
