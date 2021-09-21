@@ -1,0 +1,10 @@
+[OK] When a settler is told to perform its action (build city):
+    [OK] the settler unit itself is removed from the world.
+    [OK] the settler is replaced by a city of population size one.
+    [OK] the owner of the city is the same player as the one who owned the settler.
+[OK] When an archer is told to perform its action (fortify):
+    [OK] its defensive strength is doubled
+    [OK] it cannot be moved
+    [OK] if an archer is already fortified, invoking this action removes its fortification.
+        [OK] defensive strength is halved (3 again)
+        [OK] it can move

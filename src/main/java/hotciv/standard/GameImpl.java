@@ -1,7 +1,12 @@
 package hotciv.standard;
 
+import hotciv.common.ActionStrategy;
+import hotciv.common.AgingStrategy;
+import hotciv.common.WinningStrategy;
+import hotciv.common.WorldLayoutStrategy;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
+import hotciv.variants.*;
 
 
 import java.util.HashMap;
@@ -41,49 +46,62 @@ public class GameImpl implements Game {
     private Map<Position, City> cityMap;
     private Tile[][] worldGrid;
     private Unit[][] unitPositions;
-    public static final Position RED_CITY_POSITION = new Position(1, 1);
+    public static final Position RED_CITY_POSITION = new Position(1, 1); //TODO: Fjern og put i game constants
     public static final Position BLUE_CITY_POSITION = new Position(4, 1);
     private int age;
     private Player winner;
+    private WinningStrategy winningStrategy;
+    private AgingStrategy agingStrategy;
+    private ActionStrategy actionStrategy;
+    private WorldLayoutStrategy worldLayoutStrategy;
 
-    public GameImpl() {
+    public GameImpl(WinningStrategy winningStrategy, AgingStrategy agingStrategy, ActionStrategy actionStrategy,
+                    WorldLayoutStrategy worldLayoutStrategy) {
         playerInTurn = Player.RED; // Red always starts
-
         age = START_AGE;
+
+        this.winningStrategy = winningStrategy;
+        this.agingStrategy = agingStrategy;
+        this.actionStrategy = actionStrategy;
+        this.worldLayoutStrategy = worldLayoutStrategy;
 
         initializeCityMap();
         initializeWorldGrid();
         initializeUnitPositions();
     }
 
-    private void initializeCityMap() {
-        cityMap = new HashMap<>();
-
-        // Standard positions for some cities
-        cityMap.put(RED_CITY_POSITION, new CityImpl(Player.RED));
-        cityMap.put(BLUE_CITY_POSITION, new CityImpl(Player.BLUE));
+    private void initializeCityMap() { // TODO: switch med constants eller metode i strategy??
+        cityMap = worldLayoutStrategy.getCityMap();
     }
 
     private void initializeWorldGrid() {
-        // Set plains in the entire world. Update afterwards with specific tiles.
         worldGrid = new TileImpl[WORLDSIZE][WORLDSIZE];
-        for(int i = 0; i < WORLDSIZE; i++) {
-            for (int j = 0; j < WORLDSIZE; j++) {
-                worldGrid[i][j] = new TileImpl(PLAINS);
+        String[] layout = worldLayoutStrategy.getWorldLayout();
+
+        String line;
+        for (int r = 0; r < WORLDSIZE; r++ ) {
+            line = layout[r];
+            for ( int c = 0; c < WORLDSIZE; c++ ) {
+                char tileChar = line.charAt(c);
+                String type = "error";
+                if ( tileChar == '.' ) { type = OCEANS; }
+                if ( tileChar == 'o' ) { type = PLAINS; }
+                if ( tileChar == 'M' ) { type = MOUNTAINS; }
+                if ( tileChar == 'f' ) { type = FOREST; }
+                if ( tileChar == 'h' ) { type = HILLS; }
+
+                worldGrid[r][c] = new TileImpl(type);
             }
         }
-
-        // Update world grid with correct tiles on their position.
-        worldGrid[1][0] = new TileImpl(OCEANS);
-        worldGrid[0][1] = new TileImpl(HILLS);
-        worldGrid[2][2] = new TileImpl(MOUNTAINS);
     }
 
     private void initializeUnitPositions() {
-        unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE]; // Everything is null, except for the following units.
+        unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE];
+
         unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
         unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
         unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER);
+
     }
 
     public Tile getTileAt(Position p) {
@@ -94,8 +112,20 @@ public class GameImpl implements Game {
         return unitPositions[p.getRow()][p.getColumn()];
     }
 
+    public void removeUnitAt(Position p) {
+        unitPositions[p.getRow()][p.getColumn()] = null;
+    }
+
     public City getCityAt(Position p) {
         return cityMap.get(p);
+    }
+
+    public void createCityAt(Position p) {
+        cityMap.put(p, new CityImpl(getPlayerInTurn())); //TODO: refaktorer med denne metode
+    }
+
+    public Map<Position, City> getCities() {
+        return cityMap;
     }
 
     public Player getPlayerInTurn() {
@@ -120,6 +150,8 @@ public class GameImpl implements Game {
         UnitImpl fromUnit = (UnitImpl) getUnitAt(from);
         UnitImpl toUnit = (UnitImpl) getUnitAt(to);
 
+        // If archer is fortified, it cannot move.
+        if (!fromUnit.isMovable()) return false;
         // Units can only be moved, if their owner is the player in turn.
         if (fromUnit.getOwner() != playerInTurn) return false;
         // Unit cannot move over mountains and oceans
@@ -140,7 +172,7 @@ public class GameImpl implements Game {
                 // Change position of the unit.
                 unitPositions[toRow][toColumn] = unitPositions[fromRow][fromColumn];
                 // The old position is now free.
-                unitPositions[fromRow][fromColumn] = null;
+                removeUnitAt(from);
 
                 fromUnit.decrementMoveCount();
 
@@ -148,6 +180,7 @@ public class GameImpl implements Game {
                 transferCityOwner(to);
 
                 return true;
+
             }
         }
         return false;
@@ -174,8 +207,8 @@ public class GameImpl implements Game {
 
     private void endOfRound() {
         updateCities();
-        ageWorld();
-        checkIfGameOver();
+        age = agingStrategy.ageWorld(age);
+        winner = winningStrategy.checkIfGameOver(this);
         resetMoveCount();
     }
 
@@ -224,7 +257,7 @@ public class GameImpl implements Game {
     }
 
     public void performUnitActionAt(Position p) {
-        // no actions in AC
+        actionStrategy.performUnitActionAt(this, p);
     }
 
     private void placeUnit(CityImpl c, Position p) {
@@ -241,6 +274,8 @@ public class GameImpl implements Game {
         // starting from the tile just north of the city and moving clockwise
         else {
             for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
+                String tileTypeString = getTileAt(candidatePosition).getTypeString();
+                if (tileTypeString.equals(MOUNTAINS) || tileTypeString.equals(OCEANS)) continue;
                 if (unitPositions[candidatePosition.getRow()][candidatePosition.getColumn()] == null) {
                     placeUnit(c, candidatePosition);
                     break;

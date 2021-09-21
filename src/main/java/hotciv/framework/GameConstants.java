@@ -61,4 +61,14 @@ public class GameConstants {
     public static final int END_AGE = -3000; // 3000BC
     // Movement related constants
     public static final int STANDARD_MOVE_COUNT = 1;
+    // Game variants
+    public static final String ALPHA_CIV = "Alpha Civ";
+    public static final String BETA_CIV = "Beta Civ";
+    public static final String GAMMA_CIV = "Gamma Civ";
+    public static final String DELTA_CIV = "Delta Civ";
+    // Standard city positions
+    public static final Position ALPHA_RED_CITY_POS = new Position(1,1);
+    public static final Position ALPHA_BLUE_CITY_POS = new Position(4,1);
+    public static final Position DELTA_RED_CITY_POS = new Position(8,12);
+    public static final Position DELTA_BLUE_CITY_POS = new Position(4,5);
 }

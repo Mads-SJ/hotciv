@@ -2,13 +2,15 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
+import hotciv.variants.AlphaActionStrategy;
+import hotciv.variants.AlphaAgingStrategy;
+import hotciv.variants.AlphaWinningStrategy;
+import hotciv.variants.AlphaWorldLayoutStrategy;
 import org.junit.jupiter.api.*;
 
 import static hotciv.framework.GameConstants.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.util.*;
 
 /** Skeleton class for AlphaCiv test cases
 
@@ -45,7 +47,8 @@ public class TestAlphaCiv {
   /** Fixture for alphaciv testing. */
   @BeforeEach
   public void setUp() {
-    game = new GameImpl();
+    game = new GameImpl(new AlphaWinningStrategy(), new AlphaAgingStrategy(), new AlphaActionStrategy(),
+            new AlphaWorldLayoutStrategy());
     //TODO: Refactor... possibly add more initialization to decrease the size of each test
   }
 
@@ -379,6 +382,26 @@ public class TestAlphaCiv {
   }
 
   @Test
+  public void shouldPlaceUnitClockwiseOfOtherUnitIfTileIsOccupiedButNotOnMountainsAndOceans(){
+    // initialize position of city by row and column
+    int cityRow = GameImpl.RED_CITY_POSITION.getRow();
+    int cityColumn = GameImpl.RED_CITY_POSITION.getColumn();
+
+    // 16 rounds passes
+    for(int i = 0; i < 16; i++) {
+      game.endOfTurn();
+      game.endOfTurn();
+    }
+
+    // All tiles around the city should be occupied by units
+    assertThat(game.getUnitAt(new Position(cityRow - 1, cityColumn - 1)), instanceOf(UnitImpl.class));
+
+    // But not on oceans and mountains
+    assertThat(game.getUnitAt(new Position(cityRow, cityColumn - 1)), is(nullValue())); // Ocean
+    assertThat(game.getUnitAt(new Position(cityRow + 1, cityColumn + 1)), is(nullValue())); // Mountain
+  }
+
+  @Test
   public void shouldBe3DefenceForArcher(){
     Unit archer = new UnitImpl(Player.RED, ARCHER);
     assertThat(archer.getDefensiveStrength(), is(3));
@@ -584,6 +607,9 @@ public class TestAlphaCiv {
 
     // There should not be a legion at position (2,2)
     assertThat(game.getUnitAt(mountainPos), is(nullValue()));
+
+    // The legion is owned by blue, and cannot move before one round has passed
+    game.endOfTurn();
 
     // The legion tries to move one tile to the north
     Boolean hasMoved = game.moveUnit(initialLegionPos, mountainPos);

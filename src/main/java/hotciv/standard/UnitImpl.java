@@ -10,12 +10,34 @@ public class UnitImpl implements Unit {
     private final Player owner;
     private final String typeString;
     private int moveCount;
-
+    private int defensiveStrength;
+    private int attackingStrength;
+    private Boolean movable;
 
     public UnitImpl(Player owner, String typeString) {
         this.owner = owner;
         this.typeString = typeString;
         moveCount = STANDARD_MOVE_COUNT;
+        movable = true;
+        initializeStrengths(typeString);
+    }
+
+    private void initializeStrengths(String typeString) {
+        // Attacking- and defensive constants according to specifications in table 36.2
+        switch (typeString) {
+            case SETTLER:
+                attackingStrength = 0;
+                defensiveStrength = 3;
+                break;
+            case ARCHER:
+                attackingStrength = 2;
+                defensiveStrength = 3;
+                break;
+            case LEGION:
+                attackingStrength = 4;
+                defensiveStrength = 2;
+                break;
+        }
     }
 
     @Override
@@ -35,29 +57,19 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getDefensiveStrength() {
-        // Defensive constants according to specifications in table 36.2
-        switch (typeString){
-            case LEGION:
-                return 2;
-            case ARCHER:
-            case SETTLER:
-                return 3;
-        }
-        return -1;
+        return defensiveStrength;
     }
 
     @Override
     public int getAttackingStrength() {
-        // Attacking constants according to specifications in table 36.2
-        switch (typeString) {
-            case SETTLER:
-                return 0;
-            case ARCHER:
-                return 2;
-            case LEGION:
-                return 4;
+       return attackingStrength;
+    }
+
+    public void changeDefensiveStrength() {
+        if (typeString.equals(ARCHER)) {
+            if (defensiveStrength == 3) defensiveStrength *=2;
+            else if (defensiveStrength == 6) defensiveStrength /= 2;
         }
-        return -1;
     }
 
     public void decrementMoveCount() {
@@ -65,6 +77,15 @@ public class UnitImpl implements Unit {
     }
     public void resetMoveCount() {
         moveCount = STANDARD_MOVE_COUNT;
+    }
+    public Boolean isMovable() {
+        return movable;
+    }
+
+    public void changeMovable() {
+        if (typeString.equals(ARCHER)) {
+            movable = !movable;
+        }
     }
 
 }
