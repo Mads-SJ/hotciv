@@ -9,7 +9,7 @@ import hotciv.standard.UnitImpl;
 import static hotciv.framework.GameConstants.*;
 
 
-public class EnabledActionStrategy implements ActionStrategy {
+public class GammaActionStrategy implements ActionStrategy {
     @Override
     public void performUnitActionAt(GameImpl game, Position p) {
         UnitImpl unit = (UnitImpl) game.getUnitAt(p);

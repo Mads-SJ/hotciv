@@ -2,16 +2,11 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
-import hotciv.variants.DisabledActionStrategy;
-import hotciv.variants.LinearAgingStrategy;
-import hotciv.variants.RedWinningStrategy;
 import org.junit.jupiter.api.*;
 
 import static hotciv.framework.GameConstants.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.util.*;
 
 /** Skeleton class for AlphaCiv test cases
 

@@ -4,7 +4,7 @@ import hotciv.common.WinningStrategy;
 import hotciv.framework.*;
 import hotciv.standard.GameImpl;
 
-public class OwnAllCitiesWinningStrategy implements WinningStrategy {
+public class BetaWinningStrategy implements WinningStrategy {
     @Override
     public Player checkIfGameOver(GameImpl game) {
         City seen = null;

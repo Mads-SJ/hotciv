@@ -7,7 +7,7 @@ import hotciv.standard.GameImpl;
 
 import static hotciv.framework.GameConstants.END_AGE;
 
-public class RedWinningStrategy implements WinningStrategy {
+public class AlphaWinningStrategy implements WinningStrategy {
     @Override
     public Player checkIfGameOver(GameImpl game) {
         if (game.getAge() == END_AGE) {

@@ -5,7 +5,7 @@ import hotciv.standard.TileImpl;
 
 import static hotciv.framework.GameConstants.*;
 
-public class SimpleWorldLayoutStrategy implements WorldLayoutStrategy {
+public class AlphaWorldLayoutStrategy implements WorldLayoutStrategy {
     @Override
     public TileImpl[][] createWorldLayout() {
         // Set plains in the entire world. Update afterwards with specific tiles.

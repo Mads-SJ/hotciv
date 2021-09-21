@@ -4,7 +4,7 @@ import hotciv.common.AgingStrategy;
 
 import static hotciv.framework.GameConstants.AGING_PER_ROUND;
 
-public class SpecialAgingStrategy implements AgingStrategy {
+public class BetaAgingStrategy implements AgingStrategy {
     @Override
     public int ageWorld(int currentAge) {
         if (currentAge < -100) {

@@ -4,10 +4,10 @@ import hotciv.common.WorldLayoutStrategy;
 import static hotciv.framework.GameConstants.*;
 import hotciv.standard.TileImpl;
 
-public class CustomizableWorldLayoutStrategy implements WorldLayoutStrategy {
-    private String[] layout;
+public class DeltaWorldLayoutStrategy implements WorldLayoutStrategy {
+    private String[] layout; //TODO: fix
 
-    public CustomizableWorldLayoutStrategy(String[] layout) {
+    public DeltaWorldLayoutStrategy(String[] layout) {
         this.layout = layout;
     }
     @Override

@@ -68,23 +68,23 @@ public class GameImpl implements Game {
 
     private void initializeGameVariant(String gameVariant) {
         // Set default (Alpha Civ) game strategy variants
-        winningStrategy = new RedWinningStrategy();
-        agingStrategy = new LinearAgingStrategy();
-        actionStrategy = new DisabledActionStrategy();
-        worldLayoutStrategy = new SimpleWorldLayoutStrategy();
+        winningStrategy = new AlphaWinningStrategy();
+        agingStrategy = new AlphaAgingStrategy();
+        actionStrategy = new AlphaActionStrategy();
+        worldLayoutStrategy = new AlphaWorldLayoutStrategy();
 
         switch(gameVariant) {
             case ALPHA_CIV:
                 // do nothing, game already set as default
                 break;
             case BETA_CIV:
-                winningStrategy = new OwnAllCitiesWinningStrategy();
-                agingStrategy = new SpecialAgingStrategy();
+                winningStrategy = new BetaWinningStrategy();
+                agingStrategy = new BetaAgingStrategy();
                 break;
             case GAMMA_CIV:
-                actionStrategy = new EnabledActionStrategy();
+                actionStrategy = new GammaActionStrategy();
             case DELTA_CIV:
-                worldLayoutStrategy = new CustomizableWorldLayoutStrategy(DELTA_CIV_WORLD_LAYOUT);
+                worldLayoutStrategy = new DeltaWorldLayoutStrategy(DELTA_CIV_WORLD_LAYOUT);
         }
     }
 
@@ -128,7 +128,7 @@ public class GameImpl implements Game {
     }
 
     public void removeUnitAt(Position p) {
-        unitPositions[p.getRow()][p.getColumn()] = null; //TODO: evt flere andre steder refaktorer
+        unitPositions[p.getRow()][p.getColumn()] = null;
     }
 
     public City getCityAt(Position p) {
@@ -187,7 +187,7 @@ public class GameImpl implements Game {
                 // Change position of the unit.
                 unitPositions[toRow][toColumn] = unitPositions[fromRow][fromColumn];
                 // The old position is now free.
-                unitPositions[fromRow][fromColumn] = null;
+                removeUnitAt(from);
 
                 fromUnit.decrementMoveCount();
 
