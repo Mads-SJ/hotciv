@@ -301,6 +301,8 @@ public class GameImpl implements Game {
         // starting from the tile just north of the city and moving clockwise
         else {
             for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
+                String tileTypeString = getTileAt(candidatePosition).getTypeString();
+                if (tileTypeString.equals(MOUNTAINS) || tileTypeString.equals(OCEANS)) continue;
                 if (unitPositions[candidatePosition.getRow()][candidatePosition.getColumn()] == null) {
                     placeUnit(c, candidatePosition);
                     break;

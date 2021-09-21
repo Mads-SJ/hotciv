@@ -377,6 +377,26 @@ public class TestAlphaCiv {
   }
 
   @Test
+  public void shouldPlaceUnitClockwiseOfOtherUnitIfTileIsOccupiedButNotOnMountainsAndOceans(){
+    // initialize position of city by row and column
+    int cityRow = GameImpl.RED_CITY_POSITION.getRow();
+    int cityColumn = GameImpl.RED_CITY_POSITION.getColumn();
+
+    // 16 rounds passes
+    for(int i = 0; i < 16; i++) {
+      game.endOfTurn();
+      game.endOfTurn();
+    }
+
+    // All tiles around the city should be occupied by units
+    assertThat(game.getUnitAt(new Position(cityRow - 1, cityColumn - 1)), instanceOf(UnitImpl.class));
+
+    // But not on oceans and mountains
+    assertThat(game.getUnitAt(new Position(cityRow, cityColumn - 1)), is(nullValue())); // Ocean
+    assertThat(game.getUnitAt(new Position(cityRow + 1, cityColumn + 1)), is(nullValue())); // Mountain
+  }
+
+  @Test
   public void shouldBe3DefenceForArcher(){
     Unit archer = new UnitImpl(Player.RED, ARCHER);
     assertThat(archer.getDefensiveStrength(), is(3));
