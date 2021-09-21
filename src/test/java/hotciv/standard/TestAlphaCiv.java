@@ -583,6 +583,9 @@ public class TestAlphaCiv {
     // There should not be a legion at position (2,2)
     assertThat(game.getUnitAt(mountainPos), is(nullValue()));
 
+    // The legion is owned by blue, and cannot move before one round has passed
+    game.endOfTurn();
+
     // The legion tries to move one tile to the north
     Boolean hasMoved = game.moveUnit(initialLegionPos, mountainPos);
 
