@@ -17,7 +17,8 @@ public class TestBetaCiv {
     /** Fixture for betaciv testing. */
     @BeforeEach
     public void setUp() {
-        game = new GameImpl(BETA_CIV);
+        game = new GameImpl(new BetaWinningStrategy(), new BetaAgingStrategy(), new AlphaActionStrategy(),
+                new AlphaWorldLayoutStrategy());
         agingStrategy = new BetaAgingStrategy();
     }
 
@@ -86,6 +87,7 @@ public class TestBetaCiv {
     public void shouldBeYear1775ACAfter1750(){
         assertThat(agingStrategy.ageWorld(1750), is(1775));
     }
+
 
     @Test
     public void shouldBeYear1905ACAfter1900AC(){

@@ -15,7 +15,8 @@ public class TestDeltaCiv {
     /** Fixture for deltaciv testing. */
     @BeforeEach
     public void setUp() {
-        game = new GameImpl(DELTA_CIV);
+        game = new GameImpl(new AlphaWinningStrategy(), new AlphaAgingStrategy(), new AlphaActionStrategy(),
+                new DeltaWorldLayoutStrategy());
     }
 
     @Test

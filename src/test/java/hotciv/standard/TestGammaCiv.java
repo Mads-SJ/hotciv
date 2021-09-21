@@ -17,8 +17,9 @@ public class TestGammaCiv {
     /** Fixture for gammaciv testing. */
     @BeforeEach
     public void setUp() {
-        game = new GameImpl(GAMMA_CIV);
-        settlerPos = new Position(4,3);
+        game = new GameImpl(new AlphaWinningStrategy(), new AlphaAgingStrategy(), new GammaActionStrategy(),
+                new AlphaWorldLayoutStrategy());
+        settlerPos = new Position(4, 3);
         archerPos = new Position(2,0);
     }
 

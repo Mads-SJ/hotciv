@@ -55,36 +55,19 @@ public class GameImpl implements Game {
     private ActionStrategy actionStrategy;
     private WorldLayoutStrategy worldLayoutStrategy;
 
-    public GameImpl(String gameVariant) {
+    public GameImpl(WinningStrategy winningStrategy, AgingStrategy agingStrategy, ActionStrategy actionStrategy,
+                    WorldLayoutStrategy worldLayoutStrategy) {
         playerInTurn = Player.RED; // Red always starts
         age = START_AGE;
 
-        initializeGameVariant(gameVariant);
+        this.winningStrategy = winningStrategy;
+        this.agingStrategy = agingStrategy;
+        this.actionStrategy = actionStrategy;
+        this.worldLayoutStrategy = worldLayoutStrategy;
+
         initializeCityMap();
         initializeWorldGrid();
-        initializeUnitPositions(gameVariant);
-    }
-
-    private void initializeGameVariant(String gameVariant) {
-        // Set default (Alpha Civ) game strategy variants
-        winningStrategy = new AlphaWinningStrategy();
-        agingStrategy = new AlphaAgingStrategy();
-        actionStrategy = new AlphaActionStrategy();
-        worldLayoutStrategy = new AlphaWorldLayoutStrategy();
-
-        switch(gameVariant) {
-            case ALPHA_CIV:
-                // do nothing, game already set as default
-                break;
-            case BETA_CIV:
-                winningStrategy = new BetaWinningStrategy();
-                agingStrategy = new BetaAgingStrategy();
-                break;
-            case GAMMA_CIV:
-                actionStrategy = new GammaActionStrategy();
-            case DELTA_CIV:
-                worldLayoutStrategy = new DeltaWorldLayoutStrategy();
-        }
+        initializeUnitPositions();
     }
 
     private void initializeCityMap() { // TODO: switch med constants eller metode i strategy??
@@ -112,23 +95,13 @@ public class GameImpl implements Game {
         }
     }
 
-    private void initializeUnitPositions(String gameVariant) {
+    private void initializeUnitPositions() {
         unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE];
 
-        // Some units are placed before game starts for certain game variants.
-        // TODO: Parametiseret løsning... metode i strategy i stedet?
-        switch (gameVariant) {
-            case ALPHA_CIV:
-            case BETA_CIV:
-            case GAMMA_CIV:
-                unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
-                unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
-                unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER);
-                break;
-            case DELTA_CIV:
-                // do nothing
-                break;
-        }
+        unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
+        unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
+        unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER);
+
     }
 
     public Tile getTileAt(Position p) {
