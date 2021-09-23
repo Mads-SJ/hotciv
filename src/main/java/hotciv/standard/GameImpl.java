@@ -70,7 +70,7 @@ public class GameImpl implements Game {
         initializeUnitPositions();
     }
 
-    private void initializeCityMap() { // TODO: switch med constants eller metode i strategy??
+    private void initializeCityMap() {
         cityMap = worldLayoutStrategy.getCityMap();
     }
 
@@ -101,7 +101,6 @@ public class GameImpl implements Game {
         unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
         unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
         unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER);
-
     }
 
     public Tile getTileAt(Position p) {
@@ -140,7 +139,7 @@ public class GameImpl implements Game {
         return age;
     }
 
-    public boolean moveUnit(Position from, Position to) {
+    public boolean moveUnit(Position from, Position to) { //TODO: clean code
         int fromRow = from.getRow();
         int fromColumn = from.getColumn();
         int toRow = to.getRow();
@@ -265,7 +264,7 @@ public class GameImpl implements Game {
         c.subtractTreasury(c.getCostOfNewUnit());
     }
 
-    private void buyUnitIfPositionAvailable(CityImpl c, Position cityPosition) {
+    private void buyUnitIfPositionAvailable(CityImpl c, Position cityPosition) { //TODO: clean code
         // A unit is placed on the city position if no other unit is present
         if (unitPositions[cityPosition.getRow()][cityPosition.getColumn()] == null) {
             placeUnit(c, cityPosition);
