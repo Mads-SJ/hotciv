@@ -244,7 +244,7 @@ public class GameImpl implements Game {
             c.addTreasury(PRODUCTION_AMOUNT);
 
             if (c.getTreasury() >= c.getCostOfNewUnit()) {
-                buyUnitIfPositionAvailable(c, p);
+                buyUnit(p);
             }
         }
     }
@@ -272,8 +272,10 @@ public class GameImpl implements Game {
         setUnitAt(p, u);
     }
 
-    private void buyUnitIfPositionAvailable(CityImpl c, Position cityPosition) { //TODO: clean code
+    private void buyUnit(Position cityPosition) { //TODO: clean code
+        CityImpl c = (CityImpl) getCityAt(cityPosition);
         Position availablePosition = getAvailablePosition(cityPosition);
+
         if (availablePosition != null) {
             placeNewUnit(c, availablePosition);
             c.subtractTreasury(c.getCostOfNewUnit());
