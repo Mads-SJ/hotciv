@@ -272,7 +272,7 @@ public class GameImpl implements Game {
         setUnitAt(p, u);
     }
 
-    private void buyUnit(Position cityPosition) { //TODO: clean code
+    private void buyUnit(Position cityPosition) {
         CityImpl c = (CityImpl) getCityAt(cityPosition);
         Position availablePosition = getAvailablePosition(cityPosition);
 
@@ -290,9 +290,10 @@ public class GameImpl implements Game {
         if (getUnitAt(cityPosition) == null) return cityPosition;
 
         for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
-            String tileTypeString = getTileAt(candidatePosition).getTypeString();
-            if (tileTypeString.equals(MOUNTAINS) || tileTypeString.equals(OCEANS)) continue;
-            if (getUnitAt(candidatePosition) == null) return candidatePosition;
+            if (! isPassableTerrain(candidatePosition)) continue;
+
+            boolean isAvailablePosition = getUnitAt(candidatePosition) == null;
+            if (isAvailablePosition) return candidatePosition;
         }
 
         return null;
