@@ -273,23 +273,22 @@ public class GameImpl implements Game {
     }
 
     private void buyUnitIfPositionAvailable(CityImpl c, Position cityPosition) { //TODO: clean code
-        // A unit is placed on the city position if no other unit is present
-        if (getUnitAt(cityPosition) == null) {
-            placeNewUnit(c, cityPosition);
+        Position availablePosition = getAvailablePosition(cityPosition);
+        if (availablePosition != null) {
+            placeNewUnit(c, availablePosition);
             c.subtractTreasury(c.getCostOfNewUnit());
         }
-        // A unit is placed on the first non-occupied adjacent tile,
-        // starting from the tile just north of the city and moving clockwise
-        else {
-            for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
-                String tileTypeString = getTileAt(candidatePosition).getTypeString();
-                if (tileTypeString.equals(MOUNTAINS) || tileTypeString.equals(OCEANS)) continue;
-                if (getUnitAt(candidatePosition) == null) {
-                    placeNewUnit(c, candidatePosition);
-                    c.subtractTreasury(c.getCostOfNewUnit());
-                    break;
-                }
-            }
+    }
+
+    private Position getAvailablePosition(Position cityPosition) {
+        if (getUnitAt(cityPosition) == null) return cityPosition;
+
+        for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
+            String tileTypeString = getTileAt(candidatePosition).getTypeString();
+            if (tileTypeString.equals(MOUNTAINS) || tileTypeString.equals(OCEANS)) continue;
+            if (getUnitAt(candidatePosition) == null) return candidatePosition;
         }
+
+        return null;
     }
 }
