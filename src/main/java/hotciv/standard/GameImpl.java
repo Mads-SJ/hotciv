@@ -122,7 +122,7 @@ public class GameImpl implements Game {
     }
 
     public void createCityAt(Position p) {
-        cityMap.put(p, new CityImpl(getPlayerInTurn())); //TODO: refaktorer med denne metode
+        cityMap.put(p, new CityImpl(getPlayerInTurn()));
     }
 
     public Map<Position, City> getCities() {

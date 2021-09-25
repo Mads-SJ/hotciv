@@ -47,6 +47,11 @@ public class TestBetaCiv {
     }
 
     @Test
+    public void shouldBeNoWinnerAtStartOfGame() {
+        assertThat(game.getWinner(), is(nullValue()));
+    }
+
+    @Test
     public void shouldBeYear3900BCAfter4000BC(){
         assertThat(agingStrategy.ageWorld(START_AGE), is(-3900));
     }

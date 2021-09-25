@@ -1,10 +1,9 @@
-Missing features:
+Missing features: //TODO: skulle vi bare slette en linje?
 City gathers production and food from surrounding tiles
 Each city produces selected type of production and food at end of round
 Food leads to increase in the population
 The higher population the more resources the city gathers
     Population indicates the number of tiles in the immediate vicinity of the city that the workforce can work on
-Units can have special actions
 The higher attack- and defensive strength, the higher chance of winning a battle
 
 
