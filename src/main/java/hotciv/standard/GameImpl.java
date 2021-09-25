@@ -111,6 +111,10 @@ public class GameImpl implements Game {
         return unitPositions[p.getRow()][p.getColumn()];
     }
 
+    public void setUnitAt(Position p, Unit u) {
+        unitPositions[p.getRow()][p.getColumn()] = u;
+    }
+
     public void removeUnitAt(Position p) {
         unitPositions[p.getRow()][p.getColumn()] = null;
     }
@@ -167,22 +171,22 @@ public class GameImpl implements Game {
 
             // The move should be legal (meaning that the unit only moves 1 tile in either direction)
             if (rowDist <= moveCount && columnDist <= moveCount) {
-
-                // Change position of the unit.
-                unitPositions[toRow][toColumn] = fromUnit;
-                // The old position is now free.
-                removeUnitAt(from);
-
-                fromUnit.decrementMoveCount();
+                makeActualMove(from, to, fromUnit);
 
                 // If there's a city on the 'to' position, transfer it to the player arriving at the tile.
                 transferCityOwner(to);
 
                 return true;
-
             }
         }
         return false;
+    }
+
+    private void makeActualMove(Position from, Position to, UnitImpl fromUnit) {
+        setUnitAt(to, fromUnit); //TODO: fromUnit?
+        removeUnitAt(from);
+
+        fromUnit.decrementMoveCount();
     }
 
     private void transferCityOwner(Position to) {
