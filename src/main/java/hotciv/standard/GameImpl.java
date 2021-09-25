@@ -287,7 +287,8 @@ public class GameImpl implements Game {
     }
 
     private Position getAvailablePosition(Position cityPosition) {
-        if (getUnitAt(cityPosition) == null) return cityPosition;
+        boolean isCityPositionAvailable = getUnitAt(cityPosition) == null;
+        if (isCityPositionAvailable) return cityPosition;
 
         for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
             if (! isPassableTerrain(candidatePosition)) continue;
