@@ -216,19 +216,17 @@ public class GameImpl implements Game {
 
     private void endOfRound() {
         updateCities();
-        age = agingStrategy.ageWorld(age);
-        winner = winningStrategy.checkIfGameOver(this);
+        ageWorld();
+        checkIfGameOver();
         resetMoveCount();
     }
 
     private void ageWorld() {
-        age += AGING_PER_ROUND;
+        age = agingStrategy.ageWorld(age);
     }
 
     private void checkIfGameOver() {
-        if (age == END_AGE) {
-            winner = Player.RED;
-        }
+        winner = winningStrategy.checkIfGameOver(this);
     }
 
     private void resetMoveCount() {
