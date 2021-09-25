@@ -144,11 +144,6 @@ public class GameImpl implements Game {
     }
 
     public boolean moveUnit(Position from, Position to) { //TODO: clean code
-        int fromRow = from.getRow();
-        int fromColumn = from.getColumn();
-        int toRow = to.getRow();
-        int toColumn = to.getColumn();
-
         // Gets the unit at the two positions, if there is a unit. If not, the unit will be null.
         UnitImpl fromUnit = (UnitImpl) getUnitAt(from);
         UnitImpl toUnit = (UnitImpl) getUnitAt(to);
@@ -162,24 +157,22 @@ public class GameImpl implements Game {
         if (getTileAt(to).getTypeString().equals(OCEANS)) return false;
 
         // to-position should be empty or the unit should not be owned by the same owner as from unit
-        if (toUnit == null || fromUnit.getOwner() != toUnit.getOwner()) {
-            int moveCount = fromUnit.getMoveCount();
+        if (! (toUnit == null || fromUnit.getOwner() != toUnit.getOwner())) return false;
 
-            // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
-            int rowDist = Math.abs(fromRow - toRow);
-            int columnDist = Math.abs(fromColumn - toColumn);
+        int moveCount = fromUnit.getMoveCount();
 
-            // The move should be legal (meaning that the unit only moves 1 tile in either direction)
-            if (rowDist <= moveCount && columnDist <= moveCount) {
-                makeActualMove(from, to, fromUnit);
+        // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
+        int rowDist = Math.abs(from.getRow() - to.getRow());
+        int columnDist = Math.abs(from.getColumn() - to.getColumn());
 
-                // If there's a city on the 'to' position, transfer it to the player arriving at the tile.
-                transferCityOwner(to);
+        // The move should be legal (meaning that the unit only moves 1 tile in either direction)
+        if (! (rowDist <= moveCount && columnDist <= moveCount)) return false;
 
-                return true;
-            }
-        }
-        return false;
+        makeActualMove(from, to, fromUnit);
+
+        // If there's a city on the 'to' position, transfer it to the player arriving at the tile.
+        transferCityOwner(to);
+        return true;
     }
 
     private void makeActualMove(Position from, Position to, UnitImpl fromUnit) {
