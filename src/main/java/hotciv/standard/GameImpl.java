@@ -6,10 +6,8 @@ import hotciv.common.WinningStrategy;
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
-import hotciv.variants.*;
 
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static hotciv.framework.GameConstants.*;
@@ -144,22 +142,32 @@ public class GameImpl implements Game {
     }
 
     public boolean moveUnit(Position from, Position to) { //TODO: clean code
-        // Gets the unit at the two positions, if there is a unit. If not, the unit will be null.
-        UnitImpl fromUnit = (UnitImpl) getUnitAt(from);
-        UnitImpl toUnit = (UnitImpl) getUnitAt(to);
+        if (! isMoveValid(from, to)) return false;
+
+        makeActualMove(from, to);
+
+        // If there's a city on the 'to' position, transfer it to the player arriving at the tile.
+        transferCityOwner(to);
+        return true;
+    }
+
+    private boolean isMoveValid(Position from, Position to) {
+        UnitImpl unitToMove = (UnitImpl) getUnitAt(from);
+        UnitImpl potentialUnitAtToPosition = (UnitImpl) getUnitAt(to);
 
         // If archer is fortified, it cannot move.
-        if (!fromUnit.isMovable()) return false;
+        if (!unitToMove.isMovable()) return false;
         // Units can only be moved, if their owner is the player in turn.
-        if (fromUnit.getOwner() != playerInTurn) return false;
+        if (unitToMove.getOwner() != playerInTurn) return false;
         // Unit cannot move over mountains and oceans
         if (getTileAt(to).getTypeString().equals(MOUNTAINS)) return false;
         if (getTileAt(to).getTypeString().equals(OCEANS)) return false;
 
         // to-position should be empty or the unit should not be owned by the same owner as from unit
-        if (! (toUnit == null || fromUnit.getOwner() != toUnit.getOwner())) return false;
+        if (! (potentialUnitAtToPosition == null ||
+                unitToMove.getOwner() != potentialUnitAtToPosition.getOwner())) return false;
 
-        int moveCount = fromUnit.getMoveCount();
+        int moveCount = unitToMove.getMoveCount();
 
         // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
         int rowDist = Math.abs(from.getRow() - to.getRow());
@@ -167,19 +175,15 @@ public class GameImpl implements Game {
 
         // The move should be legal (meaning that the unit only moves 1 tile in either direction)
         if (! (rowDist <= moveCount && columnDist <= moveCount)) return false;
-
-        makeActualMove(from, to, fromUnit);
-
-        // If there's a city on the 'to' position, transfer it to the player arriving at the tile.
-        transferCityOwner(to);
         return true;
     }
 
-    private void makeActualMove(Position from, Position to, UnitImpl fromUnit) {
-        setUnitAt(to, fromUnit); //TODO: fromUnit?
+    private void makeActualMove(Position from, Position to) {
+        UnitImpl unitToMove = (UnitImpl) getUnitAt(from);
+        setUnitAt(to, unitToMove);
         removeUnitAt(from);
 
-        fromUnit.decrementMoveCount();
+        unitToMove.decrementMoveCount();
     }
 
     private void transferCityOwner(Position to) {
