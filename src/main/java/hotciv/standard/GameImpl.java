@@ -147,7 +147,7 @@ public class GameImpl implements Game {
         makeActualMove(from, to);
 
         // If there's a city on the 'to' position, transfer it to the player arriving at the tile.
-        transferCityOwner(to);
+        transferCityOwner(to); // TODO: fix
         return true;
     }
 
