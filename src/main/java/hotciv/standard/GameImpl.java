@@ -277,9 +277,13 @@ public class GameImpl implements Game {
         Position availablePosition = getAvailablePosition(cityPosition);
 
         if (availablePosition != null) {
-            placeNewUnit(c, availablePosition);
-            c.subtractTreasury(c.getCostOfNewUnit());
+            makeActualBuy(c, availablePosition);
         }
+    }
+
+    private void makeActualBuy(CityImpl c, Position p) {
+        placeNewUnit(c, p);
+        c.subtractTreasury(c.getCostOfNewUnit());
     }
 
     private Position getAvailablePosition(Position cityPosition) {
