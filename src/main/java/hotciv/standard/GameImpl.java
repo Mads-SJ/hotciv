@@ -146,7 +146,6 @@ public class GameImpl implements Game {
 
         makeActualMove(from, to);
 
-        // If there's a city on the 'to' position, transfer it to the player arriving at the tile.
         transferCityOwner(to); // TODO: fix
         return true;
     }
@@ -155,27 +154,37 @@ public class GameImpl implements Game {
         UnitImpl unitToMove = (UnitImpl) getUnitAt(from);
         UnitImpl potentialUnitAtToPosition = (UnitImpl) getUnitAt(to);
 
-        // If archer is fortified, it cannot move.
-        if (!unitToMove.isMovable()) return false;
-        // Units can only be moved, if their owner is the player in turn.
-        if (unitToMove.getOwner() != playerInTurn) return false;
-        // Unit cannot move over mountains and oceans
-        if (getTileAt(to).getTypeString().equals(MOUNTAINS)) return false;
-        if (getTileAt(to).getTypeString().equals(OCEANS)) return false;
+        if (! unitToMove.isMovable()) return false;
 
-        // to-position should be empty or the unit should not be owned by the same owner as from unit
-        if (! (potentialUnitAtToPosition == null ||
-                unitToMove.getOwner() != potentialUnitAtToPosition.getOwner())) return false;
+        boolean isUnitOwnerPlayerInTurn = unitToMove.getOwner() == playerInTurn;
+        if (! isUnitOwnerPlayerInTurn) return false;
 
-        int moveCount = unitToMove.getMoveCount();
+        if (! isPassableTerrain(to)) return false;
+
+        boolean isStackingUnits = potentialUnitAtToPosition != null &&
+                unitToMove.getOwner() == potentialUnitAtToPosition.getOwner();
+        if (isStackingUnits) return false;
+
+        if (! isWithinMoveRange(to, from)) return false;
+
+        return true;
+    }
+
+    private boolean isWithinMoveRange(Position to, Position from) {
+        int moveCount = getUnitAt(from).getMoveCount();
 
         // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
         int rowDist = Math.abs(from.getRow() - to.getRow());
         int columnDist = Math.abs(from.getColumn() - to.getColumn());
 
-        // The move should be legal (meaning that the unit only moves 1 tile in either direction)
-        if (! (rowDist <= moveCount && columnDist <= moveCount)) return false;
-        return true;
+        // The move should be within move range (meaning that the unit only moves 1 tile in either direction)
+        return rowDist <= moveCount && columnDist <= moveCount;
+    }
+
+    private boolean isPassableTerrain(Position p) {
+        boolean isMountains = getTileAt(p).getTypeString().equals(MOUNTAINS);
+        boolean isOceans = getTileAt(p).getTypeString().equals(OCEANS);
+        return (! isMountains) && (! isOceans);
     }
 
     private void makeActualMove(Position from, Position to) {
