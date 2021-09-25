@@ -267,7 +267,7 @@ public class GameImpl implements Game {
         actionStrategy.performUnitActionAt(this, p);
     }
 
-    private void placeUnit(CityImpl c, Position p) {
+    private void placeNewUnit(CityImpl c, Position p) {
         Unit u = new UnitImpl(c.getOwner(), c.getProduction());
         setUnitAt(p, u);
     }
@@ -275,7 +275,7 @@ public class GameImpl implements Game {
     private void buyUnitIfPositionAvailable(CityImpl c, Position cityPosition) { //TODO: clean code
         // A unit is placed on the city position if no other unit is present
         if (getUnitAt(cityPosition) == null) {
-            placeUnit(c, cityPosition);
+            placeNewUnit(c, cityPosition);
             c.subtractTreasury(c.getCostOfNewUnit());
         }
         // A unit is placed on the first non-occupied adjacent tile,
@@ -285,7 +285,7 @@ public class GameImpl implements Game {
                 String tileTypeString = getTileAt(candidatePosition).getTypeString();
                 if (tileTypeString.equals(MOUNTAINS) || tileTypeString.equals(OCEANS)) continue;
                 if (getUnitAt(candidatePosition) == null) {
-                    placeUnit(c, candidatePosition);
+                    placeNewUnit(c, candidatePosition);
                     c.subtractTreasury(c.getCostOfNewUnit());
                     break;
                 }
