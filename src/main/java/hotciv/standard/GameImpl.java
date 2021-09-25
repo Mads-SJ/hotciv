@@ -154,8 +154,8 @@ public class GameImpl implements Game {
         // Units can only be moved, if their owner is the player in turn.
         if (fromUnit.getOwner() != playerInTurn) return false;
         // Unit cannot move over mountains and oceans
-        if (worldGrid[toRow][toColumn].getTypeString().equals(MOUNTAINS)) return false;
-        if (worldGrid[toRow][toColumn].getTypeString().equals(OCEANS)) return false;
+        if (getTileAt(to).getTypeString().equals(MOUNTAINS)) return false;
+        if (getTileAt(to).getTypeString().equals(OCEANS)) return false;
 
         // to-position should be empty or the unit should not be owned by the same owner as from unit
         if (toUnit == null || fromUnit.getOwner() != toUnit.getOwner()) {
@@ -169,7 +169,7 @@ public class GameImpl implements Game {
             if (rowDist <= moveCount && columnDist <= moveCount) {
 
                 // Change position of the unit.
-                unitPositions[toRow][toColumn] = unitPositions[fromRow][fromColumn];
+                unitPositions[toRow][toColumn] = fromUnit;
                 // The old position is now free.
                 removeUnitAt(from);
 
@@ -232,7 +232,7 @@ public class GameImpl implements Game {
 
     private void updateCities() {
         for (Position p : cityMap.keySet()) {
-            CityImpl c = (CityImpl) cityMap.get(p);
+            CityImpl c = (CityImpl) getCityAt(p);
             c.addTreasury(PRODUCTION_AMOUNT);
 
             if (c.getTreasury() >= c.getCostOfNewUnit()) {
@@ -268,6 +268,7 @@ public class GameImpl implements Game {
         // A unit is placed on the city position if no other unit is present
         if (unitPositions[cityPosition.getRow()][cityPosition.getColumn()] == null) {
             placeUnit(c, cityPosition);
+
         }
         // A unit is placed on the first non-occupied adjacent tile,
         // starting from the tile just north of the city and moving clockwise
