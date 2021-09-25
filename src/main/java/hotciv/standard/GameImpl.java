@@ -141,12 +141,13 @@ public class GameImpl implements Game {
         return age;
     }
 
-    public boolean moveUnit(Position from, Position to) { //TODO: clean code
+    public boolean moveUnit(Position from, Position to) {
         if (! isMoveValid(from, to)) return false;
 
         makeActualMove(from, to);
 
         transferCityOwner(to); // TODO: fix
+
         return true;
     }
 
@@ -156,8 +157,8 @@ public class GameImpl implements Game {
 
         if (! unitToMove.isMovable()) return false;
 
-        boolean isUnitOwnerPlayerInTurn = unitToMove.getOwner() == playerInTurn;
-        if (! isUnitOwnerPlayerInTurn) return false;
+        boolean isUnitOwnerThePlayerInTurn = unitToMove.getOwner() == playerInTurn;
+        if (! isUnitOwnerThePlayerInTurn) return false;
 
         if (! isPassableTerrain(to)) return false;
 
@@ -184,14 +185,13 @@ public class GameImpl implements Game {
     private boolean isPassableTerrain(Position p) {
         boolean isMountains = getTileAt(p).getTypeString().equals(MOUNTAINS);
         boolean isOceans = getTileAt(p).getTypeString().equals(OCEANS);
-        return (! isMountains) && (! isOceans);
+        return ! isMountains && ! isOceans;
     }
 
     private void makeActualMove(Position from, Position to) {
         UnitImpl unitToMove = (UnitImpl) getUnitAt(from);
         setUnitAt(to, unitToMove);
         removeUnitAt(from);
-
         unitToMove.decrementMoveCount();
     }
 
