@@ -274,9 +274,8 @@ public class GameImpl implements Game {
 
     private void buyUnitIfPositionAvailable(CityImpl c, Position cityPosition) { //TODO: clean code
         // A unit is placed on the city position if no other unit is present
-        if (unitPositions[cityPosition.getRow()][cityPosition.getColumn()] == null) {
+        if (getUnitAt(cityPosition) == null) {
             placeUnit(c, cityPosition);
-
         }
         // A unit is placed on the first non-occupied adjacent tile,
         // starting from the tile just north of the city and moving clockwise
@@ -284,7 +283,7 @@ public class GameImpl implements Game {
             for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
                 String tileTypeString = getTileAt(candidatePosition).getTypeString();
                 if (tileTypeString.equals(MOUNTAINS) || tileTypeString.equals(OCEANS)) continue;
-                if (unitPositions[candidatePosition.getRow()][candidatePosition.getColumn()] == null) {
+                if (getUnitAt(candidatePosition) == null) {
                     placeUnit(c, candidatePosition);
                     break;
                 }
