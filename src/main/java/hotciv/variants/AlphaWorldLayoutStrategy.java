@@ -5,14 +5,11 @@ import hotciv.framework.City;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.standard.CityImpl;
-import hotciv.standard.TileImpl;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static hotciv.framework.GameConstants.*;
-import static hotciv.standard.GameImpl.BLUE_CITY_POSITION;
-import static hotciv.standard.GameImpl.RED_CITY_POSITION;
 
 public class AlphaWorldLayoutStrategy implements WorldLayoutStrategy {
     @Override
