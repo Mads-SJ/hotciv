@@ -1,4 +1,4 @@
-Missing features: //TODO: skulle vi bare slette en linje?
+Missing features (ETA CIV):
 City gathers production and food from surrounding tiles
 Each city produces selected type of production and food at end of round
 Food leads to increase in the population

@@ -49,7 +49,6 @@ public class TestAlphaCiv {
   public void setUp() {
     game = new GameImpl(new AlphaWinningStrategy(), new AlphaAgingStrategy(), new AlphaActionStrategy(),
             new AlphaWorldLayoutStrategy());
-    //TODO: Refactor... possibly add more initialization to decrease the size of each test
   }
 
   // FRS p. 455 states that 'Red is the first player to take a turn'.

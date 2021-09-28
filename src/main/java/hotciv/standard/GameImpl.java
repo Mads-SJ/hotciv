@@ -144,9 +144,13 @@ public class GameImpl implements Game {
 
         makeActualMove(from, to);
 
-        transferCityOwner(to); // TODO: fix
+        if (isCityAt(to)) transferCityOwner(to);
 
         return true;
+    }
+
+    private boolean isCityAt(Position p) {
+        return getCityAt(p) != null;
     }
 
     private boolean isMoveValid(Position from, Position to) {
@@ -194,10 +198,8 @@ public class GameImpl implements Game {
     }
 
     private void transferCityOwner(Position to) {
-        CityImpl candidateCity = (CityImpl) getCityAt(to);
-        if (candidateCity != null) {
-            candidateCity.setOwner(playerInTurn);
-        }
+        CityImpl c = (CityImpl) getCityAt(to);
+        c.setOwner(playerInTurn);
     }
 
     public void endOfTurn() {
@@ -265,7 +267,7 @@ public class GameImpl implements Game {
         actionStrategy.performUnitActionAt(this, p);
     }
 
-    private void placeNewUnit(CityImpl c, Position p) {
+    private void placeNewUnitAt(CityImpl c, Position p) {
         Unit u = new UnitImpl(c.getOwner(), c.getProduction());
         setUnitAt(p, u);
     }
@@ -280,7 +282,7 @@ public class GameImpl implements Game {
     }
 
     private void makeActualBuy(CityImpl c, Position p) {
-        placeNewUnit(c, p);
+        placeNewUnitAt(c, p);
         c.subtractTreasury(c.getCostOfNewUnit());
     }
 
@@ -295,6 +297,6 @@ public class GameImpl implements Game {
             if (isAvailablePosition) return candidatePosition;
         }
 
-        return null; //TODO: hvad sker der, hvis null bliver returneret?
+        return null;
     }
 }
