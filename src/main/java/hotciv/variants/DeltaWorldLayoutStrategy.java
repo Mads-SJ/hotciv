@@ -2,8 +2,6 @@ package hotciv.variants;
 
 import hotciv.common.WorldLayoutStrategy;
 import static hotciv.framework.GameConstants.*;
-import static hotciv.standard.GameImpl.BLUE_CITY_POSITION;
-import static hotciv.standard.GameImpl.RED_CITY_POSITION;
 
 import hotciv.framework.City;
 import hotciv.framework.Player;

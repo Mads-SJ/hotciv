@@ -6,10 +6,8 @@ import hotciv.common.WinningStrategy;
 import hotciv.common.WorldLayoutStrategy;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
-import hotciv.variants.*;
 
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static hotciv.framework.GameConstants.*;
@@ -46,8 +44,6 @@ public class GameImpl implements Game {
     private Map<Position, City> cityMap;
     private Tile[][] worldGrid;
     private Unit[][] unitPositions;
-    public static final Position RED_CITY_POSITION = new Position(1, 1); //TODO: Fjern og put i game constants
-    public static final Position BLUE_CITY_POSITION = new Position(4, 1);
     private int age;
     private Player winner;
     private WinningStrategy winningStrategy;
@@ -70,7 +66,7 @@ public class GameImpl implements Game {
         initializeUnitPositions();
     }
 
-    private void initializeCityMap() { // TODO: switch med constants eller metode i strategy??
+    private void initializeCityMap() {
         cityMap = worldLayoutStrategy.getCityMap();
     }
 
@@ -101,7 +97,6 @@ public class GameImpl implements Game {
         unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
         unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
         unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER);
-
     }
 
     public Tile getTileAt(Position p) {
@@ -110,6 +105,10 @@ public class GameImpl implements Game {
 
     public Unit getUnitAt(Position p) {
         return unitPositions[p.getRow()][p.getColumn()];
+    }
+
+    public void setUnitAt(Position p, Unit u) {
+        unitPositions[p.getRow()][p.getColumn()] = u;
     }
 
     public void removeUnitAt(Position p) {
@@ -121,7 +120,7 @@ public class GameImpl implements Game {
     }
 
     public void createCityAt(Position p) {
-        cityMap.put(p, new CityImpl(getPlayerInTurn())); //TODO: refaktorer med denne metode
+        cityMap.put(p, new CityImpl(getPlayerInTurn()));
     }
 
     public Map<Position, City> getCities() {
@@ -141,56 +140,66 @@ public class GameImpl implements Game {
     }
 
     public boolean moveUnit(Position from, Position to) {
-        int fromRow = from.getRow();
-        int fromColumn = from.getColumn();
-        int toRow = to.getRow();
-        int toColumn = to.getColumn();
+        if (! isMoveValid(from, to)) return false;
 
-        // Gets the unit at the two positions, if there is a unit. If not, the unit will be null.
-        UnitImpl fromUnit = (UnitImpl) getUnitAt(from);
-        UnitImpl toUnit = (UnitImpl) getUnitAt(to);
+        makeActualMove(from, to);
 
-        // If archer is fortified, it cannot move.
-        if (!fromUnit.isMovable()) return false;
-        // Units can only be moved, if their owner is the player in turn.
-        if (fromUnit.getOwner() != playerInTurn) return false;
-        // Unit cannot move over mountains and oceans
-        if (worldGrid[toRow][toColumn].getTypeString().equals(MOUNTAINS)) return false;
-        if (worldGrid[toRow][toColumn].getTypeString().equals(OCEANS)) return false;
+        if (isCityAt(to)) transferCityOwnerAt(to);
 
-        // to-position should be empty or the unit should not be owned by the same owner as from unit
-        if (toUnit == null || fromUnit.getOwner() != toUnit.getOwner()) {
-            int moveCount = fromUnit.getMoveCount();
-
-            // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
-            int rowDist = Math.abs(fromRow - toRow);
-            int columnDist = Math.abs(fromColumn - toColumn);
-
-            // The move should be legal (meaning that the unit only moves 1 tile in either direction)
-            if (rowDist <= moveCount && columnDist <= moveCount) {
-
-                // Change position of the unit.
-                unitPositions[toRow][toColumn] = unitPositions[fromRow][fromColumn];
-                // The old position is now free.
-                removeUnitAt(from);
-
-                fromUnit.decrementMoveCount();
-
-                // If there's a city on the 'to' position, transfer it to the player arriving at the tile.
-                transferCityOwner(to);
-
-                return true;
-
-            }
-        }
-        return false;
+        return true;
     }
 
-    private void transferCityOwner(Position to) {
-        CityImpl candidateCity = (CityImpl) getCityAt(to);
-        if (candidateCity != null) {
-            candidateCity.setOwner(playerInTurn);
-        }
+    private boolean isCityAt(Position p) {
+        return getCityAt(p) != null;
+    }
+
+    private boolean isMoveValid(Position from, Position to) {
+        UnitImpl unitToMove = (UnitImpl) getUnitAt(from);
+        UnitImpl potentialUnitAtToPosition = (UnitImpl) getUnitAt(to);
+
+        if (! unitToMove.isMovable()) return false;
+
+        boolean isUnitOwnerThePlayerInTurn = unitToMove.getOwner() == playerInTurn;
+        if (! isUnitOwnerThePlayerInTurn) return false;
+
+        if (! isPassableTerrain(to)) return false;
+
+        boolean isStackingUnits = potentialUnitAtToPosition != null &&
+                unitToMove.getOwner() == potentialUnitAtToPosition.getOwner();
+        if (isStackingUnits) return false;
+
+        if (! isWithinMoveRange(to, from)) return false;
+
+        return true;
+    }
+
+    private boolean isWithinMoveRange(Position to, Position from) {
+        int moveCount = getUnitAt(from).getMoveCount();
+
+        // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
+        int rowDist = Math.abs(from.getRow() - to.getRow());
+        int columnDist = Math.abs(from.getColumn() - to.getColumn());
+
+        // The move should be within move range (meaning that the unit only moves 1 tile in either direction)
+        return rowDist <= moveCount && columnDist <= moveCount;
+    }
+
+    private boolean isPassableTerrain(Position p) {
+        boolean isMountains = getTileAt(p).getTypeString().equals(MOUNTAINS);
+        boolean isOceans = getTileAt(p).getTypeString().equals(OCEANS);
+        return ! isMountains && ! isOceans;
+    }
+
+    private void makeActualMove(Position from, Position to) {
+        UnitImpl unitToMove = (UnitImpl) getUnitAt(from);
+        setUnitAt(to, unitToMove);
+        removeUnitAt(from);
+        unitToMove.decrementMoveCount();
+    }
+
+    private void transferCityOwnerAt(Position to) {
+        CityImpl c = (CityImpl) getCityAt(to);
+        c.setOwner(playerInTurn);
     }
 
     public void endOfTurn() {
@@ -207,19 +216,17 @@ public class GameImpl implements Game {
 
     private void endOfRound() {
         updateCities();
-        age = agingStrategy.ageWorld(age);
-        winner = winningStrategy.checkIfGameOver(this);
+        ageWorld();
+        checkIfGameOver();
         resetMoveCount();
     }
 
     private void ageWorld() {
-        age += AGING_PER_ROUND;
+        age = agingStrategy.ageWorld(age);
     }
 
     private void checkIfGameOver() {
-        if (age == END_AGE) {
-            winner = Player.RED;
-        }
+        winner = winningStrategy.checkIfGameOver(this);
     }
 
     private void resetMoveCount() {
@@ -233,11 +240,11 @@ public class GameImpl implements Game {
 
     private void updateCities() {
         for (Position p : cityMap.keySet()) {
-            CityImpl c = (CityImpl) cityMap.get(p);
+            CityImpl c = (CityImpl) getCityAt(p);
             c.addTreasury(PRODUCTION_AMOUNT);
 
             if (c.getTreasury() >= c.getCostOfNewUnit()) {
-                buyUnitIfPositionAvailable(c, p);
+                buyUnit(p);
             }
         }
     }
@@ -260,27 +267,36 @@ public class GameImpl implements Game {
         actionStrategy.performUnitActionAt(this, p);
     }
 
-    private void placeUnit(CityImpl c, Position p) {
-        unitPositions[p.getRow()][p.getColumn()] = new UnitImpl(c.getOwner(), c.getProduction());
+    private void placeNewUnitAt(CityImpl c, Position p) {
+        Unit u = new UnitImpl(c.getOwner(), c.getProduction());
+        setUnitAt(p, u);
+    }
+
+    private void buyUnit(Position cityPosition) {
+        CityImpl c = (CityImpl) getCityAt(cityPosition);
+        Position availablePosition = getAvailablePosition(cityPosition);
+
+        if (availablePosition != null) {
+            makeActualBuy(c, availablePosition);
+        }
+    }
+
+    private void makeActualBuy(CityImpl c, Position p) {
+        placeNewUnitAt(c, p);
         c.subtractTreasury(c.getCostOfNewUnit());
     }
 
-    private void buyUnitIfPositionAvailable(CityImpl c, Position cityPosition) {
-        // A unit is placed on the city position if no other unit is present
-        if (unitPositions[cityPosition.getRow()][cityPosition.getColumn()] == null) {
-            placeUnit(c, cityPosition);
+    private Position getAvailablePosition(Position cityPosition) {
+        boolean isCityPositionAvailable = getUnitAt(cityPosition) == null;
+        if (isCityPositionAvailable) return cityPosition;
+
+        for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
+            if (! isPassableTerrain(candidatePosition)) continue;
+
+            boolean isAvailablePosition = getUnitAt(candidatePosition) == null;
+            if (isAvailablePosition) return candidatePosition;
         }
-        // A unit is placed on the first non-occupied adjacent tile,
-        // starting from the tile just north of the city and moving clockwise
-        else {
-            for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
-                String tileTypeString = getTileAt(candidatePosition).getTypeString();
-                if (tileTypeString.equals(MOUNTAINS) || tileTypeString.equals(OCEANS)) continue;
-                if (unitPositions[candidatePosition.getRow()][candidatePosition.getColumn()] == null) {
-                    placeUnit(c, candidatePosition);
-                    break;
-                }
-            }
-        }
+
+        return null;
     }
 }

@@ -49,7 +49,6 @@ public class TestAlphaCiv {
   public void setUp() {
     game = new GameImpl(new AlphaWinningStrategy(), new AlphaAgingStrategy(), new AlphaActionStrategy(),
             new AlphaWorldLayoutStrategy());
-    //TODO: Refactor... possibly add more initialization to decrease the size of each test
   }
 
   // FRS p. 455 states that 'Red is the first player to take a turn'.
@@ -91,7 +90,7 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldProduce6ProductionForRedCityAtEndOfRound() {
-    City redCity = game.getCityAt(GameImpl.RED_CITY_POSITION);
+    City redCity = game.getCityAt(ALPHA_RED_CITY_POS);
     assertThat(redCity.getTreasury(), is(0));
 
     game.endOfTurn(); // Turn goes to Blue
@@ -102,7 +101,7 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldProduce6ProductionForBlueCityAtEndOfRound() {
-    City blueCity = game.getCityAt(GameImpl.BLUE_CITY_POSITION);
+    City blueCity = game.getCityAt(ALPHA_BLUE_CITY_POS);
     assertThat(blueCity.getTreasury(), is(0));
 
     game.endOfTurn(); // Turn goes to Blue
@@ -240,13 +239,13 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldBeArcherForRedCityProduction(){
-    City redCity = game.getCityAt(GameImpl.RED_CITY_POSITION);
+    City redCity = game.getCityAt(ALPHA_RED_CITY_POS);
     assertThat(redCity.getProduction(), is(ARCHER));
   }
 
   @Test
   public void shouldChangeProductionOfRedCityToLegion(){
-    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    CityImpl redCity = (CityImpl) game.getCityAt(ALPHA_RED_CITY_POS);
     assertThat(redCity.getProduction(), is(ARCHER));
 
     redCity.setProduction(LEGION);
@@ -255,14 +254,14 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldCost10ForArcher(){
-    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    CityImpl redCity = (CityImpl) game.getCityAt(ALPHA_RED_CITY_POS);
     assertThat(redCity.getProduction(), is(ARCHER));
     assertThat(redCity.getCostOfNewUnit(), is(10));
   }
 
   @Test
   public void shouldCost15ForLegion(){
-    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    CityImpl redCity = (CityImpl) game.getCityAt(ALPHA_RED_CITY_POS);
     redCity.setProduction(LEGION);
 
     assertThat(redCity.getProduction(), is(LEGION));
@@ -271,7 +270,7 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldCost30ForSettler(){
-    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    CityImpl redCity = (CityImpl) game.getCityAt(ALPHA_RED_CITY_POS);
     redCity.setProduction(SETTLER);
 
     assertThat(redCity.getProduction(), is(SETTLER));
@@ -280,7 +279,7 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldBe6TreasuryInCityAfterAddTreasury() {
-    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    CityImpl redCity = (CityImpl) game.getCityAt(ALPHA_RED_CITY_POS);
     assertThat(redCity.getTreasury(), is(0));
 
     redCity.addTreasury(6);
@@ -289,8 +288,7 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldProduceArcherWhenAffordableForRedCity(){
-    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
-    assertThat(game.getUnitAt(GameImpl.RED_CITY_POSITION), is(nullValue()));
+    assertThat(game.getUnitAt(ALPHA_RED_CITY_POS), is(nullValue()));
 
     // First round, 0 treasury
     game.endOfTurn();
@@ -302,15 +300,15 @@ public class TestAlphaCiv {
 
     // After second round, 12 treasury.
 
-    Unit redArcher = game.getUnitAt(GameImpl.RED_CITY_POSITION); // Unit is at city's position.
+    Unit redArcher = game.getUnitAt(ALPHA_RED_CITY_POS); // Unit is at city's position.
     assertThat(redArcher.getTypeString(), is(ARCHER));
     assertThat(redArcher.getOwner(), is(Player.RED));
   }
 
   @Test
   public void shouldProduceLegionWhenAffordableForRedCity(){
-    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
-    assertThat(game.getUnitAt(GameImpl.RED_CITY_POSITION), is(nullValue()));
+    CityImpl redCity = (CityImpl) game.getCityAt(ALPHA_RED_CITY_POS);
+    assertThat(game.getUnitAt(ALPHA_RED_CITY_POS), is(nullValue()));
 
     // Set production goal to Legion
     redCity.setProduction(LEGION);
@@ -329,14 +327,14 @@ public class TestAlphaCiv {
 
     // After third round, 18 treasury.
 
-    Unit redLegion = game.getUnitAt(GameImpl.RED_CITY_POSITION); // Unit is at city's position.
+    Unit redLegion = game.getUnitAt(ALPHA_RED_CITY_POS); // Unit is at city's position.
     assertThat(redLegion.getTypeString(), is(LEGION));
     assertThat(redLegion.getOwner(), is(Player.RED));
   }
   
   @Test
   public void shouldWithdrawCostAmountFromTreasuryWhenCityBuysArcher() {
-    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    CityImpl redCity = (CityImpl) game.getCityAt(ALPHA_RED_CITY_POS);
 
     // First round, 0 treasury
     game.endOfTurn();
@@ -356,8 +354,8 @@ public class TestAlphaCiv {
   @Test
   public void shouldPlaceUnitClockwiseOfOtherUnitIfTileIsOccupied(){
     // initialize position of city by row and column
-    int cityRow = GameImpl.RED_CITY_POSITION.getRow();
-    int cityColumn = GameImpl.RED_CITY_POSITION.getColumn();
+    int cityRow = ALPHA_RED_CITY_POS.getRow();
+    int cityColumn = ALPHA_RED_CITY_POS.getColumn();
 
     // 5 rounds passes
     for(int i = 0; i < 5; i++) {
@@ -384,8 +382,8 @@ public class TestAlphaCiv {
   @Test
   public void shouldPlaceUnitClockwiseOfOtherUnitIfTileIsOccupiedButNotOnMountainsAndOceans(){
     // initialize position of city by row and column
-    int cityRow = GameImpl.RED_CITY_POSITION.getRow();
-    int cityColumn = GameImpl.RED_CITY_POSITION.getColumn();
+    int cityRow = ALPHA_RED_CITY_POS.getRow();
+    int cityColumn = ALPHA_RED_CITY_POS.getColumn();
 
     // 16 rounds passes
     for(int i = 0; i < 16; i++) {
@@ -698,7 +696,7 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldChangeOwnershipFromRedToBlueForCity() {
-    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    CityImpl redCity = (CityImpl) game.getCityAt(ALPHA_RED_CITY_POS);
     assertThat(redCity.getOwner(), is(Player.RED));
     redCity.setOwner(Player.BLUE);
     assertThat(redCity.getOwner(), is(Player.BLUE));
@@ -712,7 +710,7 @@ public class TestAlphaCiv {
     // Asserts that the units is at the correct positions, and that blue owns the city at blue city position.
     assertThat(game.getUnitAt(blueLegionPos).getTypeString(), is(LEGION));
     assertThat(game.getUnitAt(redSettlerPos).getTypeString(), is(SETTLER));
-    assertThat(game.getCityAt(GameImpl.BLUE_CITY_POSITION).getOwner(), is(Player.BLUE));
+    assertThat(game.getCityAt(ALPHA_BLUE_CITY_POS).getOwner(), is(Player.BLUE));
 
     // Moves red settler one tile west.
     game.moveUnit(redSettlerPos, new Position(4, 2));
@@ -721,49 +719,49 @@ public class TestAlphaCiv {
     game.endOfTurn();
 
     // Moves blue legion to blue's city.
-    game.moveUnit(blueLegionPos, GameImpl.BLUE_CITY_POSITION);
+    game.moveUnit(blueLegionPos, ALPHA_BLUE_CITY_POS);
 
     // Changes turn to red.
     game.endOfTurn();
 
     // Moves red settler to blue's city. Wins battle over blue legion, and ownership of the city changes to Red.
-    game.moveUnit(new Position(4,2), GameImpl.BLUE_CITY_POSITION);
-    assertThat(game.getCityAt(GameImpl.BLUE_CITY_POSITION).getOwner(), is(Player.RED));
+    game.moveUnit(new Position(4,2), ALPHA_BLUE_CITY_POS);
+    assertThat(game.getCityAt(ALPHA_BLUE_CITY_POS).getOwner(), is(Player.RED));
   }
 
   @Test
   public void shouldBePopulationOfOneForRedCity() {
-    City redCity = game.getCityAt(GameImpl.RED_CITY_POSITION);
+    City redCity = game.getCityAt(ALPHA_RED_CITY_POS);
     assertThat(redCity.getSize(), is(1));
   }
 
   @Test
   public void shouldChangeProductionOfRedCityInGame() {
-    assertThat(game.getCityAt(GameImpl.RED_CITY_POSITION).getProduction(), is(ARCHER));
-    game.changeProductionInCityAt(GameImpl.RED_CITY_POSITION, LEGION);
-    assertThat(game.getCityAt(GameImpl.RED_CITY_POSITION).getProduction(), is(LEGION));
+    assertThat(game.getCityAt(ALPHA_RED_CITY_POS).getProduction(), is(ARCHER));
+    game.changeProductionInCityAt(ALPHA_RED_CITY_POS, LEGION);
+    assertThat(game.getCityAt(ALPHA_RED_CITY_POS).getProduction(), is(LEGION));
   }
 
   @Test
   public void shouldNotBeAbleToChangeProductionOfRedCityWhenBluesTurn() {
     game.endOfTurn(); // Blue's turn now.
 
-    assertThat(game.getCityAt(GameImpl.RED_CITY_POSITION).getProduction(), is(ARCHER));
-    game.changeProductionInCityAt(GameImpl.RED_CITY_POSITION, LEGION);
+    assertThat(game.getCityAt(ALPHA_RED_CITY_POS).getProduction(), is(ARCHER));
+    game.changeProductionInCityAt(ALPHA_RED_CITY_POS, LEGION);
 
     // Should not be able to change, so production should still be ARCHER.
-    assertThat(game.getCityAt(GameImpl.RED_CITY_POSITION).getProduction(), is(ARCHER));
+    assertThat(game.getCityAt(ALPHA_RED_CITY_POS).getProduction(), is(ARCHER));
   }
 
   @Test
   public void shouldBeWorkforceFocusFoodForRedCity() {
-    City redCity = game.getCityAt(GameImpl.RED_CITY_POSITION);
+    City redCity = game.getCityAt(ALPHA_RED_CITY_POS);
     assertThat(redCity.getWorkforceFocus(), is(foodFocus));
   }
 
   @Test
   public void shouldBeWorkforceFocusProductionForBlueCity() {
-    CityImpl blueCity = (CityImpl) game.getCityAt(GameImpl.BLUE_CITY_POSITION);
+    CityImpl blueCity = (CityImpl) game.getCityAt(ALPHA_BLUE_CITY_POS);
     assertThat(blueCity.getWorkforceFocus(), is(foodFocus));
     blueCity.setWorkforceFocus(productionFocus);
     assertThat(blueCity.getWorkforceFocus(), is(productionFocus));
@@ -771,16 +769,16 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldBeAbleToSetWorkforceFocusProductionForRedCityInGame() {
-    CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+    CityImpl redCity = (CityImpl) game.getCityAt(ALPHA_RED_CITY_POS);
     assertThat(redCity.getWorkforceFocus(), is(foodFocus));
-    game.changeWorkForceFocusInCityAt(GameImpl.RED_CITY_POSITION, productionFocus);
+    game.changeWorkForceFocusInCityAt(ALPHA_RED_CITY_POS, productionFocus);
     assertThat(redCity.getWorkforceFocus(), is(productionFocus));
   }
   @Test
   public void shouldNotBeAbleToSetWorkforceFocusProductionForBlueCityInGameWhenItIsRedsTurn() {
-    CityImpl blueCity = (CityImpl) game.getCityAt(GameImpl.BLUE_CITY_POSITION);
+    CityImpl blueCity = (CityImpl) game.getCityAt(ALPHA_BLUE_CITY_POS);
     assertThat(blueCity.getWorkforceFocus(), is(foodFocus));
-    game.changeWorkForceFocusInCityAt(GameImpl.BLUE_CITY_POSITION, productionFocus);
+    game.changeWorkForceFocusInCityAt(ALPHA_BLUE_CITY_POS, productionFocus);
     //no change, still food as focus.
     assertThat(blueCity.getWorkforceFocus(), is(foodFocus));
   }

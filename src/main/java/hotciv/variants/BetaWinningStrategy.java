@@ -20,7 +20,7 @@ public class BetaWinningStrategy implements WinningStrategy {
             }
         }
         // Assuming that a city always exists because of this winning strategy
-        return seen.getOwner(); // TODO: check null value?
+        return seen.getOwner();
     }
 
 }
