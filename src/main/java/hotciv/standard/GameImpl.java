@@ -144,7 +144,7 @@ public class GameImpl implements Game {
 
         makeActualMove(from, to);
 
-        if (isCityAt(to)) transferCityOwner(to);
+        if (isCityAt(to)) transferCityOwnerAt(to);
 
         return true;
     }
@@ -197,7 +197,7 @@ public class GameImpl implements Game {
         unitToMove.decrementMoveCount();
     }
 
-    private void transferCityOwner(Position to) {
+    private void transferCityOwnerAt(Position to) {
         CityImpl c = (CityImpl) getCityAt(to);
         c.setOwner(playerInTurn);
     }
