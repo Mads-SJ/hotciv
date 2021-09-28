@@ -24,7 +24,7 @@ public class TestBetaCiv {
 
     @Test
     public void shouldBeBlueWinningWhenBlueOwnsAllCities() {
-        CityImpl redCity = (CityImpl) game.getCityAt(GameImpl.RED_CITY_POSITION);
+        CityImpl redCity = (CityImpl) game.getCityAt(ALPHA_RED_CITY_POS);
         redCity.setOwner(Player.BLUE);
 
         // Winner is only updated at end of each round
@@ -36,7 +36,7 @@ public class TestBetaCiv {
 
     @Test
     public void shouldBeRedWinningWhenRedOwnsAllCities() {
-        CityImpl blueCity = (CityImpl) game.getCityAt(GameImpl.BLUE_CITY_POSITION);
+        CityImpl blueCity = (CityImpl) game.getCityAt(ALPHA_BLUE_CITY_POS);
         blueCity.setOwner(Player.RED);
 
         // Winner is only updated at end of each round

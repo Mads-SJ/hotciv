@@ -44,8 +44,6 @@ public class GameImpl implements Game {
     private Map<Position, City> cityMap;
     private Tile[][] worldGrid;
     private Unit[][] unitPositions;
-    public static final Position RED_CITY_POSITION = new Position(1, 1); //TODO: Fjern og put i game constants
-    public static final Position BLUE_CITY_POSITION = new Position(4, 1);
     private int age;
     private Player winner;
     private WinningStrategy winningStrategy;
@@ -297,6 +295,6 @@ public class GameImpl implements Game {
             if (isAvailablePosition) return candidatePosition;
         }
 
-        return null;
+        return null; //TODO: hvad sker der, hvis null bliver returneret?
     }
 }
