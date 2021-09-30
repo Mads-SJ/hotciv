@@ -142,11 +142,29 @@ public class GameImpl implements Game {
     public boolean moveUnit(Position from, Position to) {
         if (! isMoveValid(from, to)) return false;
 
-        makeActualMove(from, to);
+        boolean isAttackSuccessful = true;
+        if (isEnemyUnitAt(to)) isAttackSuccessful = resolveAttack(from, to);
+
+        if (isAttackSuccessful) makeActualMove(from, to);
 
         if (isCityAt(to)) transferCityOwnerAt(to);
 
         return true;
+    }
+
+    private boolean resolveAttack(Position from, Position to) {
+        return true;
+    }
+
+    private boolean isEnemyUnitAt(Position to) {
+        Unit potentialUnit = getUnitAt(to);
+
+        boolean isUnitAtPos = potentialUnit != null;
+        if (! isUnitAtPos) return false;
+
+        boolean isEnemyUnit = potentialUnit.getOwner() != getPlayerInTurn();
+
+        return isEnemyUnit;
     }
 
     private boolean isCityAt(Position p) {
@@ -299,5 +317,4 @@ public class GameImpl implements Game {
 
         return null;
     }
-
 }
