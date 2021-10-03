@@ -1,0 +1,11 @@
+The winner is the first player to win three attacks.
+    [OK] Red is the winner after 3 successful attacks
+    [OK] Blue is the winner after 3 successful attacks
+    [OK] There is no winner after red has 1 successful attacks
+    Red still has an attack win count of 0 after a successful defense
+
+
+Blue legion should win the attack when engaging i battle against red settler and the die roll for blue is 4 and red is 3
+Red settler should lose when engaging battle against blue legion and be removed from the game
+    Red settler loses
+    Red settler should be removed

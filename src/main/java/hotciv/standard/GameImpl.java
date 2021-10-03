@@ -48,11 +48,15 @@ public class GameImpl implements Game {
     private ActionStrategy actionStrategy;
     private WorldLayoutStrategy worldLayoutStrategy;
     private AttackingStrategy attackingStrategy;
+    private int redAttackingWins;
+    private int blueAttackingWins;
 
     public GameImpl(WinningStrategy winningStrategy, AgingStrategy agingStrategy, ActionStrategy actionStrategy,
                     WorldLayoutStrategy worldLayoutStrategy, AttackingStrategy attackingStrategy) {
         playerInTurn = Player.RED; // Red always starts
         age = START_AGE;
+        redAttackingWins = 0;
+        blueAttackingWins = 0;
 
         this.winningStrategy = winningStrategy;
         this.agingStrategy = agingStrategy;
@@ -154,7 +158,20 @@ public class GameImpl implements Game {
     }
 
     private boolean resolveAttack(Position from, Position to) {
-        return attackingStrategy.resolveAttack(from, to);
+        boolean isAttackSuccessful = attackingStrategy.resolveAttack(from, to);
+
+        if(! isAttackSuccessful) return false;
+
+        switch (getPlayerInTurn()) {
+            case RED:
+                redAttackingWins++;
+                break;
+            case BLUE:
+                blueAttackingWins++;
+                break;
+        }
+
+        return true;
     }
 
     private boolean isEnemyUnitAt(Position to) {
@@ -317,5 +334,13 @@ public class GameImpl implements Game {
         }
 
         return null;
+    }
+
+    public int getRedAttackingWins() {
+        return redAttackingWins;
+    }
+
+    public int getBlueAttackingWins() {
+        return blueAttackingWins;
     }
 }
