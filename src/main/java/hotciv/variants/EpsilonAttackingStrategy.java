@@ -6,6 +6,7 @@ import hotciv.framework.Game;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
 import hotciv.utility.Utility2;
+import jdk.jshell.execution.Util;
 
 public class EpsilonAttackingStrategy implements AttackingStrategy {
     private StrengthFactorDecisionStrategy decisionStrategy;
@@ -27,6 +28,8 @@ public class EpsilonAttackingStrategy implements AttackingStrategy {
         combinedAttackingStrength += Utility2.getFriendlySupport(game, attackerPos, attackingUnit.getOwner());
         combinedDefensiveStrength += Utility2.getFriendlySupport(game, defenderPos, defendingUnit.getOwner());
         // tile multiplied
+        combinedAttackingStrength *= Utility2.getTerrainFactor(game, attackerPos);
+        combinedDefensiveStrength *= Utility2.getTerrainFactor(game, defenderPos);
         // die roll multiplier
 
         // same for defense

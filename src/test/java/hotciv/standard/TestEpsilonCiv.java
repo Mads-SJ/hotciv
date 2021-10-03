@@ -142,8 +142,20 @@ public class TestEpsilonCiv {
         assertThat(gameImpl.getRedAttackingWins(), is(1));
     }
 
-    /*@Test
+    @Test
     public void shouldBeLossForBlueLegionAgainstRedSettlerWhenRedSettlerIsOnAHill() {
+        GameImpl gameImpl = (GameImpl) game;
+        assertThat(gameImpl.getBlueAttackingWins(), is(0));
 
-    }*/
+        Position blueLegionPos = new Position(0, 2);
+        gameImpl.setUnitAt(blueLegionPos, new UnitImpl(Player.BLUE, LEGION));
+
+        Position hillPosition = new Position(0, 1);
+        gameImpl.setUnitAt(hillPosition, new UnitImpl(Player.RED, SETTLER));
+
+        game.endOfTurn(); // blue's turn to move
+        game.moveUnit(blueLegionPos, hillPosition);
+
+        assertThat(gameImpl.getBlueAttackingWins(), is(0));
+    }
 }
