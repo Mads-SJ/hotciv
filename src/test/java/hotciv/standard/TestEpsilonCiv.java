@@ -24,7 +24,8 @@ public class TestEpsilonCiv {
                 new AlphaWorldLayoutStrategy(), new EpsilonAttackingStrategy(decisionStrategy));
     }
 
-    @Test
+    //TODO BYT RUNDT PÅ RÆKKEFØLGE AF TEST
+/*    @Test
     public void shouldBeRedWinningAfter3SuccessfulAttacks() {
         Position redArcherPos = new Position(2,0);
         Position firstBlueSettlerPos = new Position(3,0);
@@ -97,7 +98,7 @@ public class TestEpsilonCiv {
         game.endOfTurn();
 
         assertThat(game.getWinner(), is(nullValue()));
-    }
+    }*/
 
     /*@Test
     public void shouldBeSuccessfulAttackWhenBlueLegionAttacksRedSettler() {
@@ -113,7 +114,7 @@ public class TestEpsilonCiv {
     }*/
 
     @Test
-    public void shouldNotBeSuccessfulAttackWhenRedSettlerAttacksBlueLegion() {
+    public void shouldBeLossForRedSettlerAgainstBlueLegion() {
         GameImpl gameImpl = (GameImpl) game;
         assertThat(gameImpl.getRedAttackingWins(), is(0));
         Position blueLegionPos = new Position(3,2);
@@ -123,4 +124,26 @@ public class TestEpsilonCiv {
 
         assertThat(gameImpl.getRedAttackingWins(), is(0));
     }
+
+    @Test
+    public void shouldBeWinForRedSettlerOverBlueLegionWhenThereAreThreeSupportingUnitsAroundIt() {
+        GameImpl gameImpl = (GameImpl) game;
+        assertThat(gameImpl.getRedAttackingWins(), is(0));
+        Position blueLegionPos = new Position(3,2);
+        Position redSettlerPos = new Position(4,3);
+
+        // Add red units around red settler
+        gameImpl.setUnitAt(new Position(4,4), new UnitImpl(Player.RED, ARCHER));
+        gameImpl.setUnitAt(new Position(4,2), new UnitImpl(Player.RED, ARCHER));
+        gameImpl.setUnitAt(new Position(3,3), new UnitImpl(Player.RED, ARCHER));
+
+        game.moveUnit(redSettlerPos, blueLegionPos);
+
+        assertThat(gameImpl.getRedAttackingWins(), is(1));
+    }
+
+    /*@Test
+    public void shouldBeLossForBlueLegionAgainstRedSettlerWhenRedSettlerIsOnAHill() {
+
+    }*/
 }

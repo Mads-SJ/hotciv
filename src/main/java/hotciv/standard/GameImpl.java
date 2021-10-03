@@ -158,9 +158,11 @@ public class GameImpl implements Game {
     }
 
     private boolean resolveAttack(Position from, Position to) {
-        boolean isAttackSuccessful = attackingStrategy.resolveAttack(from, to);
+        boolean isAttackSuccessful = attackingStrategy.resolveAttack(this, from, to);
 
-        if(! isAttackSuccessful) return false;
+        if(! isAttackSuccessful) {
+            return false;
+        }
 
         switch (getPlayerInTurn()) {
             case RED:
