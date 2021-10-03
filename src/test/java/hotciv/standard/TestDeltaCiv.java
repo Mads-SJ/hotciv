@@ -16,7 +16,7 @@ public class TestDeltaCiv {
     @BeforeEach
     public void setUp() {
         game = new GameImpl(new AlphaWinningStrategy(), new AlphaAgingStrategy(), new AlphaActionStrategy(),
-                new DeltaWorldLayoutStrategy());
+                new DeltaWorldLayoutStrategy(), new AlphaAttackingStrategy());
     }
 
     @Test

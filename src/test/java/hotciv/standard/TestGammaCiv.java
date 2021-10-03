@@ -18,7 +18,7 @@ public class TestGammaCiv {
     @BeforeEach
     public void setUp() {
         game = new GameImpl(new AlphaWinningStrategy(), new AlphaAgingStrategy(), new GammaActionStrategy(),
-                new AlphaWorldLayoutStrategy());
+                new AlphaWorldLayoutStrategy(), new AlphaAttackingStrategy());
         settlerPos = new Position(4, 3);
         archerPos = new Position(2,0);
     }

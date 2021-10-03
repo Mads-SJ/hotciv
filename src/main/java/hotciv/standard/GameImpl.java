@@ -1,9 +1,6 @@
 package hotciv.standard;
 
-import hotciv.common.ActionStrategy;
-import hotciv.common.AgingStrategy;
-import hotciv.common.WinningStrategy;
-import hotciv.common.WorldLayoutStrategy;
+import hotciv.common.*;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
 
@@ -50,9 +47,10 @@ public class GameImpl implements Game {
     private AgingStrategy agingStrategy;
     private ActionStrategy actionStrategy;
     private WorldLayoutStrategy worldLayoutStrategy;
+    private AttackingStrategy attackingStrategy;
 
     public GameImpl(WinningStrategy winningStrategy, AgingStrategy agingStrategy, ActionStrategy actionStrategy,
-                    WorldLayoutStrategy worldLayoutStrategy) {
+                    WorldLayoutStrategy worldLayoutStrategy, AttackingStrategy attackingStrategy) {
         playerInTurn = Player.RED; // Red always starts
         age = START_AGE;
 
@@ -60,6 +58,7 @@ public class GameImpl implements Game {
         this.agingStrategy = agingStrategy;
         this.actionStrategy = actionStrategy;
         this.worldLayoutStrategy = worldLayoutStrategy;
+        this.attackingStrategy = attackingStrategy;
 
         initializeCityMap();
         initializeWorldGrid();
@@ -145,7 +144,9 @@ public class GameImpl implements Game {
         boolean isAttackSuccessful = true;
         if (isEnemyUnitAt(to)) isAttackSuccessful = resolveAttack(from, to);
 
-        if (isAttackSuccessful) makeActualMove(from, to);
+        if (! isAttackSuccessful) return false;
+
+        makeActualMove(from, to);
 
         if (isCityAt(to)) transferCityOwnerAt(to);
 
@@ -153,7 +154,7 @@ public class GameImpl implements Game {
     }
 
     private boolean resolveAttack(Position from, Position to) {
-        return true;
+        return attackingStrategy.resolveAttack(from, to);
     }
 
     private boolean isEnemyUnitAt(Position to) {
