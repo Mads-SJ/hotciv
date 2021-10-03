@@ -31,8 +31,13 @@ public class EpsilonAttackingStrategy implements AttackingStrategy {
         combinedAttackingStrength *= Utility2.getTerrainFactor(game, attackerPos);
         combinedDefensiveStrength *= Utility2.getTerrainFactor(game, defenderPos);
         // die roll multiplier
-
+        // decisionStrategy.rollDie();
+        combinedAttackingStrength *= decisionStrategy.getAttackingEyes();
+        combinedDefensiveStrength *= decisionStrategy.getDefendingEyes();
         // same for defense
+
+        System.out.println(combinedAttackingStrength);
+        System.out.println(combinedDefensiveStrength);
 
         return combinedAttackingStrength > combinedDefensiveStrength;
     }

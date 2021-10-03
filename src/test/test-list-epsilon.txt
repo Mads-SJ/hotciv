@@ -9,5 +9,5 @@ Unit support and Terrain Factor
     [OK] Red Settler wins over Blue Legion when there are 3 supporting units around it
     [OK] Blue Legion loses to Red Settler, when the Red Settler is on a hill
         (Blue legion should be removed)
-    Blue Legion wins over Red Settler, when the Red Settler is on a hill, but the die roll for Blue is 2 (red 1).
+    [OK] Blue Legion wins over Red Settler, when the Red Settler is on a hill, but the die roll for Blue is 2 (red 1).
 

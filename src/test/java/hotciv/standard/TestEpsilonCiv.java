@@ -16,7 +16,7 @@ public class TestEpsilonCiv {
     private Game game;
     private FixedDecisionStrategy decisionStrategy;
 
-    /** Fixture for alphaciv testing. */
+    /** Fixture for epislonciv testing. */
     @BeforeEach
     public void setUp() {
         decisionStrategy = new FixedDecisionStrategy();
@@ -157,5 +157,24 @@ public class TestEpsilonCiv {
         game.moveUnit(blueLegionPos, hillPosition);
 
         assertThat(gameImpl.getBlueAttackingWins(), is(0));
+    }
+
+    @Test
+    public void shouldBeWinForBlueLegionAgainstRedSettlerWhenRedSettlerIsOnAHillButBlueHasDieRoll2AndRed1() {
+        GameImpl gameImpl = (GameImpl) game;
+        assertThat(gameImpl.getBlueAttackingWins(), is(0));
+
+        Position blueLegionPos = new Position(0, 2);
+        gameImpl.setUnitAt(blueLegionPos, new UnitImpl(Player.BLUE, LEGION));
+
+        Position hillPosition = new Position(0, 1);
+        gameImpl.setUnitAt(hillPosition, new UnitImpl(Player.RED, SETTLER));
+
+        decisionStrategy.setAttackingEyes(2);
+
+        game.endOfTurn(); // blue's turn to move
+        game.moveUnit(blueLegionPos, hillPosition);
+
+        assertThat(gameImpl.getBlueAttackingWins(), is(1));
     }
 }
