@@ -4,8 +4,9 @@ The winner is the first player to win three attacks.
     [OK] There is no winner after red has 1 successful attacks
     Red still has an attack win count of 0 after a successful defense
 
+Unit support and Terrain Factor
+    Red Settler wins over Blue Legion when there are 3 supporting units around it
+    Blue Legion loses to Red Settler, when the Red Settler is on a hill
+        (Blue legion should be removed)
+    Blue Legion wins over Red Settler, when the Red Settler is on a hill, but the die roll for Blue is 2 (red 1).
 
-Blue legion should win the attack when engaging i battle against red settler and the die roll for blue is 4 and red is 3
-Red settler should lose when engaging battle against blue legion and be removed from the game
-    Red settler loses
-    Red settler should be removed
