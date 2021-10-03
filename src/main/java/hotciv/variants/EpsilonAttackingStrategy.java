@@ -6,7 +6,6 @@ import hotciv.framework.Game;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
 import hotciv.utility.Utility2;
-import jdk.jshell.execution.Util;
 
 public class EpsilonAttackingStrategy implements AttackingStrategy {
     private StrengthFactorDecisionStrategy decisionStrategy;
