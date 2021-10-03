@@ -161,6 +161,7 @@ public class GameImpl implements Game {
         boolean isAttackSuccessful = attackingStrategy.resolveAttack(this, from, to);
 
         if(! isAttackSuccessful) {
+            removeUnitAt(from); // TODO: bør dette være med i strategien i stedet for?
             return false;
         }
 

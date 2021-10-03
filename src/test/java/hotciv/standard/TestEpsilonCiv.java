@@ -177,4 +177,17 @@ public class TestEpsilonCiv {
 
         assertThat(gameImpl.getBlueAttackingWins(), is(1));
     }
+
+    @Test
+    public void shouldRemoveRedSettlerWhenLosingEngagingBattleToBlueLegion() {
+        GameImpl gameImpl = (GameImpl) game;
+        Position blueLegionPos = new Position(3,2);
+        Position redSettlerPos = new Position(4,3);
+
+        game.moveUnit(redSettlerPos, blueLegionPos);
+
+        assertThat(gameImpl.getRedAttackingWins(), is(0));
+        assertThat(game.getUnitAt(redSettlerPos), is(nullValue()));
+        assertThat(game.getUnitAt(blueLegionPos).getOwner(), is(Player.BLUE));
+    }
 }
