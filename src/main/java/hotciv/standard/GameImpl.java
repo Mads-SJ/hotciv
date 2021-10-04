@@ -250,11 +250,11 @@ public class GameImpl implements Game {
     }
 
     private void endOfRound() {
-        currentRound++;
         updateCities();
         ageWorld();
         checkIfGameOver();
         resetMoveCount();
+        currentRound++;
     }
 
     private void ageWorld() {
