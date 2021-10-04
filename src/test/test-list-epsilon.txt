@@ -1,10 +1,9 @@
-The winner is the first player to win three attacks.
+[OK] The winner is the first player to win three attacks.
     [OK] Red is the winner after 3 successful attacks
     [OK] Blue is the winner after 3 successful attacks
     [OK] There is no winner after red has 1 successful attacks
-    Red still has an attack win count of 0 after a successful defense
 
-Unit support and Terrain Factor
+[OK] Unit support and Terrain Factor
     [OK] Red Settler loses against Blue Legion
         [OK] should remove red settler
     [OK] Red Settler wins over Blue Legion when there are 3 supporting units around it

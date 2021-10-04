@@ -22,21 +22,16 @@ public class EpsilonAttackingStrategy implements AttackingStrategy {
         int combinedAttackingStrength = attackingUnit.getAttackingStrength();
         int combinedDefensiveStrength = defendingUnit.getDefensiveStrength();
 
-        // attack default strength
-        // support added
         combinedAttackingStrength += Utility2.getFriendlySupport(game, attackerPos, attackingUnit.getOwner());
         combinedDefensiveStrength += Utility2.getFriendlySupport(game, defenderPos, defendingUnit.getOwner());
-        // tile multiplied
+
         combinedAttackingStrength *= Utility2.getTerrainFactor(game, attackerPos);
         combinedDefensiveStrength *= Utility2.getTerrainFactor(game, defenderPos);
-        // die roll multiplier
-        // decisionStrategy.rollDie();
+
+        decisionStrategy.roll();
+
         combinedAttackingStrength *= decisionStrategy.getAttackingEyes();
         combinedDefensiveStrength *= decisionStrategy.getDefendingEyes();
-        // same for defense
-
-        System.out.println(combinedAttackingStrength);
-        System.out.println(combinedDefensiveStrength);
 
         return combinedAttackingStrength > combinedDefensiveStrength;
     }
