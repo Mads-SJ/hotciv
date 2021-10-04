@@ -23,4 +23,9 @@ public class BetaWinningStrategy implements WinningStrategy {
         return seen.getOwner();
     }
 
+    @Override
+    public void incrementBattlesWonBy(Player p) {
+        // do nothing
+    }
+
 }

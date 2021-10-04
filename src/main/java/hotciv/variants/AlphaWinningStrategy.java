@@ -16,4 +16,9 @@ public class AlphaWinningStrategy implements WinningStrategy {
         return null;
     }
 
+    @Override
+    public void incrementBattlesWonBy(Player p) {
+        // do nothing
+    }
+
 }

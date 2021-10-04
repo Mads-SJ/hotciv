@@ -5,11 +5,24 @@ import hotciv.framework.Player;
 import hotciv.standard.GameImpl;
 
 public class EpsilonWinningStrategy implements WinningStrategy {
+    private int redAttackingWins;
+    private int blueAttackingWins;
+
+    public EpsilonWinningStrategy() {
+        redAttackingWins = 0;
+        blueAttackingWins = 0;
+    }
 
     @Override
     public Player checkIfGameOver(GameImpl game) {
-        if (game.getRedAttackingWins() == 3) return Player.RED;
-        if (game.getBlueAttackingWins() == 3) return Player.BLUE;
+        if (redAttackingWins == 3) return Player.RED;
+        if (blueAttackingWins == 3) return Player.BLUE;
         return null;
+    }
+
+    @Override
+    public void incrementBattlesWonBy(Player p) {
+        if (p == Player.RED) redAttackingWins++;
+        else blueAttackingWins++;
     }
 }
