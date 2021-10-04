@@ -1,6 +1,6 @@
-package hotciv.variants;
+package hotciv.variants.strategy;
 
-import hotciv.common.WinningStrategy;
+import hotciv.common.strategy.WinningStrategy;
 import hotciv.framework.Player;
 import hotciv.standard.GameImpl;
 
@@ -25,5 +25,9 @@ public class ZetaWinningStrategy implements WinningStrategy {
         if (game.getCurrentRound() > 20) {
             epsilonWinningStrategy.incrementBattlesWonBy(game, p);
         }
+    }
+
+    public EpsilonWinningStrategy getEpsilonWinningStrategy() {
+        return epsilonWinningStrategy;
     }
 }

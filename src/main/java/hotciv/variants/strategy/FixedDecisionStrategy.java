@@ -1,6 +1,6 @@
-package hotciv.variants;
+package hotciv.variants.strategy;
 
-import hotciv.common.StrengthFactorDecisionStrategy;
+import hotciv.common.strategy.StrengthFactorDecisionStrategy;
 
 public class FixedDecisionStrategy implements StrengthFactorDecisionStrategy {
     private int attackingEyes;

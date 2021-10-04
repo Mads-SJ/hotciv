@@ -1,7 +1,7 @@
-package hotciv.variants;
+package hotciv.variants.strategy;
 
-import hotciv.common.AttackingStrategy;
-import hotciv.common.StrengthFactorDecisionStrategy;
+import hotciv.common.strategy.AttackingStrategy;
+import hotciv.common.strategy.StrengthFactorDecisionStrategy;
 import hotciv.framework.Game;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
@@ -34,5 +34,9 @@ public class EpsilonAttackingStrategy implements AttackingStrategy {
         combinedDefensiveStrength *= decisionStrategy.getDefendingEyes();
 
         return combinedAttackingStrength > combinedDefensiveStrength;
+    }
+
+    public StrengthFactorDecisionStrategy getDecisionStrategy() {
+        return decisionStrategy;
     }
 }

@@ -2,7 +2,8 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
-import hotciv.variants.*;
+import hotciv.variants.factory.ZetaFactory;
+import hotciv.variants.strategy.*;
 import org.junit.jupiter.api.*;
 
 import static hotciv.framework.GameConstants.*;
@@ -10,15 +11,15 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestZetaCiv {
-    private Game game;
+    private GameImpl game;
     private EpsilonWinningStrategy epsilonWinningStrategy;
 
     /** Fixture for zetaciv testing. */
     @BeforeEach
     public void setUp() {
-        epsilonWinningStrategy = new EpsilonWinningStrategy();
-        game = new GameImpl(new ZetaWinningStrategy(new BetaWinningStrategy(), epsilonWinningStrategy), new AlphaAgingStrategy(), new AlphaActionStrategy(),
-                new AlphaWorldLayoutStrategy(), new AlphaAttackingStrategy());
+        game = new GameImpl(new ZetaFactory());
+        ZetaWinningStrategy zetaWinningStrategy = (ZetaWinningStrategy) game.getWinningStrategy();
+        epsilonWinningStrategy = zetaWinningStrategy.getEpsilonWinningStrategy();
     }
 
     @Test

@@ -1,10 +1,11 @@
 package hotciv.standard;
 
+import hotciv.common.strategy.AttackingStrategy;
 import hotciv.framework.Game;
-import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.variants.*;
+import hotciv.variants.factory.EpsilonFactory;
+import hotciv.variants.strategy.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,17 +14,17 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestEpsilonCiv {
-    private Game game;
+    private GameImpl game; //TODO FIX gameimpl
     private FixedDecisionStrategy decisionStrategy;
     private EpsilonWinningStrategy epsilonWinningStrategy;
 
     /** Fixture for epislonciv testing. */
     @BeforeEach
     public void setUp() {
-        decisionStrategy = new FixedDecisionStrategy();
-        epsilonWinningStrategy = new EpsilonWinningStrategy();
-        game = new GameImpl(epsilonWinningStrategy, new AlphaAgingStrategy(), new AlphaActionStrategy(),
-                new AlphaWorldLayoutStrategy(), new EpsilonAttackingStrategy(decisionStrategy));
+        game = new GameImpl(new EpsilonFactory()); //TODO: Hvordan håndterer vi at vi bruger winning og decision direkte?
+        epsilonWinningStrategy = (EpsilonWinningStrategy) game.getWinningStrategy();
+        EpsilonAttackingStrategy attackingStrategy = (EpsilonAttackingStrategy) game.getAttackingStrategy();
+        decisionStrategy = (FixedDecisionStrategy) attackingStrategy.getDecisionStrategy();
     }
 
     @Test

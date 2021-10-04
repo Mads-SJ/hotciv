@@ -1,6 +1,6 @@
-package hotciv.variants;
+package hotciv.variants.strategy;
 
-import hotciv.common.AgingStrategy;
+import hotciv.common.strategy.AgingStrategy;
 
 import static hotciv.framework.GameConstants.AGING_PER_ROUND;
 

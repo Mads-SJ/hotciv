@@ -1,9 +1,8 @@
-package hotciv.variants;
+package hotciv.variants.strategy;
 
-import hotciv.common.AttackingStrategy;
+import hotciv.common.strategy.AttackingStrategy;
 import hotciv.framework.Game;
 import hotciv.framework.Position;
-import hotciv.framework.Unit;
 
 public class AlphaAttackingStrategy implements AttackingStrategy {
     @Override

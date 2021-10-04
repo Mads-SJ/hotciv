@@ -1,7 +1,6 @@
-package hotciv.variants;
+package hotciv.variants.strategy;
 
-import hotciv.common.WinningStrategy;
-import hotciv.framework.Game;
+import hotciv.common.strategy.WinningStrategy;
 import hotciv.framework.Player;
 import hotciv.standard.GameImpl;
 

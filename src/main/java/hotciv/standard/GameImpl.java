@@ -1,6 +1,7 @@
 package hotciv.standard;
 
-import hotciv.common.*;
+import hotciv.common.factory.GameFactory;
+import hotciv.common.strategy.*;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
 
@@ -49,19 +50,19 @@ public class GameImpl implements Game {
     private ActionStrategy actionStrategy;
     private WorldLayoutStrategy worldLayoutStrategy;
     private AttackingStrategy attackingStrategy;
+    private GameFactory gameFactory; //TODO ?!??!?!?!?
 
 
-    public GameImpl(WinningStrategy winningStrategy, AgingStrategy agingStrategy, ActionStrategy actionStrategy,
-                    WorldLayoutStrategy worldLayoutStrategy, AttackingStrategy attackingStrategy) {
+    public GameImpl(GameFactory gameFactory) {
         playerInTurn = Player.RED; // Red always starts
         currentRound = 1;
         age = START_AGE; // TODO: refaktorer age med roundsPassed?
 
-        this.winningStrategy = winningStrategy;
-        this.agingStrategy = agingStrategy;
-        this.actionStrategy = actionStrategy;
-        this.worldLayoutStrategy = worldLayoutStrategy;
-        this.attackingStrategy = attackingStrategy;
+        this.winningStrategy = gameFactory.createWinningStrategy();
+        this.agingStrategy = gameFactory.createAgingStrategy();
+        this.actionStrategy = gameFactory.createActionStrategy();
+        this.worldLayoutStrategy = gameFactory.createWorldLayoutStrategy();
+        this.attackingStrategy = gameFactory.createAttackingStrategy();
 
         initializeCityMap();
         initializeWorldGrid();
@@ -334,5 +335,13 @@ public class GameImpl implements Game {
         }
 
         return null;
+    }
+
+    public WinningStrategy getWinningStrategy() {
+        return winningStrategy;
+    }
+
+    public AttackingStrategy getAttackingStrategy() {
+        return attackingStrategy;
     }
 }

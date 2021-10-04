@@ -1,9 +1,10 @@
 package hotciv.standard;
 
-import hotciv.common.AgingStrategy;
+import hotciv.common.strategy.AgingStrategy;
 import hotciv.framework.*;
 
-import hotciv.variants.*;
+import hotciv.variants.factory.BetaFactory;
+import hotciv.variants.strategy.*;
 import org.junit.jupiter.api.*;
 
 import static hotciv.framework.GameConstants.*;
@@ -17,8 +18,7 @@ public class TestBetaCiv {
     /** Fixture for betaciv testing. */
     @BeforeEach
     public void setUp() {
-        game = new GameImpl(new BetaWinningStrategy(), new BetaAgingStrategy(), new AlphaActionStrategy(),
-                new AlphaWorldLayoutStrategy(), new AlphaAttackingStrategy());
+        game = new GameImpl(new BetaFactory());
         agingStrategy = new BetaAgingStrategy();
     }
 

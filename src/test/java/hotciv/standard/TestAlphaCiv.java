@@ -2,7 +2,8 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
-import hotciv.variants.*;
+import hotciv.variants.factory.AlphaFactory;
+import hotciv.variants.strategy.*;
 import org.junit.jupiter.api.*;
 
 import static hotciv.framework.GameConstants.*;
@@ -44,8 +45,7 @@ public class TestAlphaCiv {
   /** Fixture for alphaciv testing. */
   @BeforeEach
   public void setUp() {
-    game = new GameImpl(new AlphaWinningStrategy(), new AlphaAgingStrategy(), new AlphaActionStrategy(),
-            new AlphaWorldLayoutStrategy(), new AlphaAttackingStrategy());
+    game = new GameImpl(new AlphaFactory());
   }
 
   // FRS p. 455 states that 'Red is the first player to take a turn'.
