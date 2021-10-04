@@ -1,0 +1,4 @@
+[OK] Red player should be winner when red owns all cities after 1 round
+Blue player should not be winner when blue has won 3 attacks after 1 round
+Red player should not be winner when red owns all cities after 21 rounds
+Blue player should be winner when blue has won 3 attacks after 21 rounds
