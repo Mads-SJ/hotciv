@@ -24,7 +24,7 @@ public class BetaWinningStrategy implements WinningStrategy {
     }
 
     @Override
-    public void incrementBattlesWonBy(Player p) {
+    public void incrementBattlesWonBy(GameImpl game, Player p) {
         // do nothing
     }
 

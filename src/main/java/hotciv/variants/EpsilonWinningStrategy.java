@@ -21,8 +21,16 @@ public class EpsilonWinningStrategy implements WinningStrategy {
     }
 
     @Override
-    public void incrementBattlesWonBy(Player p) {
+    public void incrementBattlesWonBy(GameImpl game, Player p) {
         if (p == Player.RED) redAttackingWins++;
         else blueAttackingWins++;
+    }
+
+    public int getRedAttackingWins() {
+        return redAttackingWins;
+    }
+
+    public int getBlueAttackingWins() {
+        return blueAttackingWins;
     }
 }

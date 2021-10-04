@@ -15,44 +15,44 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TestEpsilonCiv {
     private Game game;
     private FixedDecisionStrategy decisionStrategy;
+    private EpsilonWinningStrategy epsilonWinningStrategy;
 
     /** Fixture for epislonciv testing. */
     @BeforeEach
     public void setUp() {
         decisionStrategy = new FixedDecisionStrategy();
-        game = new GameImpl(new EpsilonWinningStrategy(), new AlphaAgingStrategy(), new AlphaActionStrategy(),
+        epsilonWinningStrategy = new EpsilonWinningStrategy();
+        game = new GameImpl(epsilonWinningStrategy, new AlphaAgingStrategy(), new AlphaActionStrategy(),
                 new AlphaWorldLayoutStrategy(), new EpsilonAttackingStrategy(decisionStrategy));
     }
 
-/*    @Test
+    @Test
     public void shouldBeSuccessfulAttackWhenBlueLegionAttacksRedSettler() {
-        GameImpl gameImpl = (GameImpl) game;
-        assertThat(gameImpl.getBlueAttackingWins(), is(0));
+        assertThat(epsilonWinningStrategy.getBlueAttackingWins(), is(0));
         Position blueLegionPos = new Position(3,2);
         Position redSettlerPos = new Position(4,3);
 
         game.endOfTurn();
         game.moveUnit(blueLegionPos, redSettlerPos);
 
-        assertThat(gameImpl.getBlueAttackingWins(), is(1));
+        assertThat(epsilonWinningStrategy.getBlueAttackingWins(), is(1));
     }
 
     @Test
     public void shouldBeLossForRedSettlerAgainstBlueLegion() {
-        GameImpl gameImpl = (GameImpl) game;
-        assertThat(gameImpl.getRedAttackingWins(), is(0));
+        assertThat(epsilonWinningStrategy.getRedAttackingWins(), is(0));
         Position blueLegionPos = new Position(3,2);
         Position redSettlerPos = new Position(4,3);
 
         game.moveUnit(redSettlerPos, blueLegionPos);
 
-        assertThat(gameImpl.getRedAttackingWins(), is(0));
+        assertThat(epsilonWinningStrategy.getRedAttackingWins(), is(0));
     }
 
     @Test
     public void shouldBeWinForRedSettlerOverBlueLegionWhenThereAreThreeSupportingUnitsAroundIt() {
         GameImpl gameImpl = (GameImpl) game;
-        assertThat(gameImpl.getRedAttackingWins(), is(0));
+        assertThat(epsilonWinningStrategy.getRedAttackingWins(), is(0));
         Position blueLegionPos = new Position(3,2);
         Position redSettlerPos = new Position(4,3);
 
@@ -63,13 +63,13 @@ public class TestEpsilonCiv {
 
         game.moveUnit(redSettlerPos, blueLegionPos);
 
-        assertThat(gameImpl.getRedAttackingWins(), is(1));
+        assertThat(epsilonWinningStrategy.getRedAttackingWins(), is(1));
     }
 
     @Test
     public void shouldBeLossForBlueLegionAgainstRedSettlerWhenRedSettlerIsOnAHill() {
         GameImpl gameImpl = (GameImpl) game;
-        assertThat(gameImpl.getBlueAttackingWins(), is(0));
+        assertThat(epsilonWinningStrategy.getBlueAttackingWins(), is(0));
 
         Position blueLegionPos = new Position(0, 2);
         gameImpl.setUnitAt(blueLegionPos, new UnitImpl(Player.BLUE, LEGION));
@@ -80,13 +80,13 @@ public class TestEpsilonCiv {
         game.endOfTurn(); // blue's turn to move
         game.moveUnit(blueLegionPos, hillPosition);
 
-        assertThat(gameImpl.getBlueAttackingWins(), is(0));
+        assertThat(epsilonWinningStrategy.getBlueAttackingWins(), is(0));
     }
 
     @Test
     public void shouldBeWinForBlueLegionAgainstRedSettlerWhenRedSettlerIsOnAHillButBlueHasDieRoll2AndRed1() {
         GameImpl gameImpl = (GameImpl) game;
-        assertThat(gameImpl.getBlueAttackingWins(), is(0));
+        assertThat(epsilonWinningStrategy.getBlueAttackingWins(), is(0));
 
         Position blueLegionPos = new Position(0, 2);
         gameImpl.setUnitAt(blueLegionPos, new UnitImpl(Player.BLUE, LEGION));
@@ -99,21 +99,20 @@ public class TestEpsilonCiv {
         game.endOfTurn(); // blue's turn to move
         game.moveUnit(blueLegionPos, hillPosition);
 
-        assertThat(gameImpl.getBlueAttackingWins(), is(1));
+        assertThat(epsilonWinningStrategy.getBlueAttackingWins(), is(1));
     }
 
     @Test
     public void shouldRemoveRedSettlerWhenLosingEngagingBattleToBlueLegion() {
-        GameImpl gameImpl = (GameImpl) game;
         Position blueLegionPos = new Position(3,2);
         Position redSettlerPos = new Position(4,3);
 
         game.moveUnit(redSettlerPos, blueLegionPos);
 
-        assertThat(gameImpl.getRedAttackingWins(), is(0));
+        assertThat(epsilonWinningStrategy.getRedAttackingWins(), is(0));
         assertThat(game.getUnitAt(redSettlerPos), is(nullValue()));
         assertThat(game.getUnitAt(blueLegionPos).getOwner(), is(Player.BLUE));
-    }*/
+    }
 
     @Test
     public void shouldBeRedWinningAfter3SuccessfulAttacks() {

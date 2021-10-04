@@ -41,6 +41,7 @@ public class GameImpl implements Game {
     private Map<Position, City> cityMap;
     private Tile[][] worldGrid;
     private Unit[][] unitPositions;
+    private int currentRound;
     private int age;
     private Player winner;
     private WinningStrategy winningStrategy;
@@ -53,7 +54,8 @@ public class GameImpl implements Game {
     public GameImpl(WinningStrategy winningStrategy, AgingStrategy agingStrategy, ActionStrategy actionStrategy,
                     WorldLayoutStrategy worldLayoutStrategy, AttackingStrategy attackingStrategy) {
         playerInTurn = Player.RED; // Red always starts
-        age = START_AGE;
+        currentRound = 1;
+        age = START_AGE; // TODO: refaktorer age med roundsPassed?
 
         this.winningStrategy = winningStrategy;
         this.agingStrategy = agingStrategy;
@@ -135,6 +137,10 @@ public class GameImpl implements Game {
         return winner;
     }
 
+    public int getCurrentRound() {
+        return currentRound;
+    }
+
     public int getAge() {
         return age;
     }
@@ -162,7 +168,7 @@ public class GameImpl implements Game {
             return false;
         }
 
-        winningStrategy.incrementBattlesWonBy(getPlayerInTurn());
+        winningStrategy.incrementBattlesWonBy(this, getPlayerInTurn());
 
         return true;
     }
@@ -244,6 +250,7 @@ public class GameImpl implements Game {
     }
 
     private void endOfRound() {
+        currentRound++;
         updateCities();
         ageWorld();
         checkIfGameOver();
