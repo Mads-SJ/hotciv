@@ -1,7 +1,6 @@
-package hotciv.variants;
+package hotciv.variants.strategy;
 
-import hotciv.common.WinningStrategy;
-import hotciv.framework.Game;
+import hotciv.common.strategy.WinningStrategy;
 import hotciv.framework.Player;
 import hotciv.standard.GameImpl;
 
@@ -14,6 +13,11 @@ public class AlphaWinningStrategy implements WinningStrategy {
             return Player.RED;
         }
         return null;
+    }
+
+    @Override
+    public void incrementBattlesWonBy(GameImpl game, Player p) {
+        // do nothing
     }
 
 }

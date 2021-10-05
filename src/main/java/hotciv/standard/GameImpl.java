@@ -1,9 +1,7 @@
 package hotciv.standard;
 
-import hotciv.common.ActionStrategy;
-import hotciv.common.AgingStrategy;
-import hotciv.common.WinningStrategy;
-import hotciv.common.WorldLayoutStrategy;
+import hotciv.common.factory.GameFactory;
+import hotciv.common.strategy.*;
 import hotciv.framework.*;
 import hotciv.utility.Utility;
 
@@ -44,22 +42,26 @@ public class GameImpl implements Game {
     private Map<Position, City> cityMap;
     private Tile[][] worldGrid;
     private Unit[][] unitPositions;
+    private int currentRound;
     private int age;
     private Player winner;
     private WinningStrategy winningStrategy;
     private AgingStrategy agingStrategy;
     private ActionStrategy actionStrategy;
     private WorldLayoutStrategy worldLayoutStrategy;
+    private AttackingStrategy attackingStrategy;
 
-    public GameImpl(WinningStrategy winningStrategy, AgingStrategy agingStrategy, ActionStrategy actionStrategy,
-                    WorldLayoutStrategy worldLayoutStrategy) {
+
+    public GameImpl(GameFactory gameFactory) {
         playerInTurn = Player.RED; // Red always starts
-        age = START_AGE;
+        currentRound = 1;
+        age = START_AGE; // TODO: refaktorer age med roundsPassed?
 
-        this.winningStrategy = winningStrategy;
-        this.agingStrategy = agingStrategy;
-        this.actionStrategy = actionStrategy;
-        this.worldLayoutStrategy = worldLayoutStrategy;
+        this.winningStrategy = gameFactory.createWinningStrategy();
+        this.agingStrategy = gameFactory.createAgingStrategy();
+        this.actionStrategy = gameFactory.createActionStrategy();
+        this.worldLayoutStrategy = gameFactory.createWorldLayoutStrategy();
+        this.attackingStrategy = gameFactory.createAttackingStrategy();
 
         initializeCityMap();
         initializeWorldGrid();
@@ -135,6 +137,10 @@ public class GameImpl implements Game {
         return winner;
     }
 
+    public int getCurrentRound() {
+        return currentRound;
+    }
+
     public int getAge() {
         return age;
     }
@@ -142,11 +148,40 @@ public class GameImpl implements Game {
     public boolean moveUnit(Position from, Position to) {
         if (! isMoveValid(from, to)) return false;
 
+        boolean isAttackSuccessful = true;
+        if (isEnemyUnitAt(to)) isAttackSuccessful = resolveAttack(from, to);
+
+        if (! isAttackSuccessful) return false;
+
         makeActualMove(from, to);
 
         if (isCityAt(to)) transferCityOwnerAt(to);
 
         return true;
+    }
+
+    private boolean resolveAttack(Position from, Position to) {
+        boolean isAttackSuccessful = attackingStrategy.resolveAttack(this, from, to);
+
+        if(! isAttackSuccessful) {
+            removeUnitAt(from);
+            return false;
+        }
+
+        winningStrategy.incrementBattlesWonBy(this, getPlayerInTurn());
+
+        return true;
+    }
+
+    private boolean isEnemyUnitAt(Position to) {
+        Unit potentialUnit = getUnitAt(to);
+
+        boolean isUnitAtPos = potentialUnit != null;
+        if (! isUnitAtPos) return false;
+
+        boolean isEnemyUnit = potentialUnit.getOwner() != getPlayerInTurn();
+
+        return isEnemyUnit;
     }
 
     private boolean isCityAt(Position p) {
@@ -219,6 +254,7 @@ public class GameImpl implements Game {
         ageWorld();
         checkIfGameOver();
         resetMoveCount();
+        currentRound++;
     }
 
     private void ageWorld() {

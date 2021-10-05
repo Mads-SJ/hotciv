@@ -1,6 +1,6 @@
-package hotciv.variants;
+package hotciv.variants.strategy;
 
-import hotciv.common.WorldLayoutStrategy;
+import hotciv.common.strategy.WorldLayoutStrategy;
 import hotciv.framework.City;
 import hotciv.framework.Player;
 import hotciv.framework.Position;

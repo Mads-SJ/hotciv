@@ -1,6 +1,6 @@
-package hotciv.variants;
+package hotciv.variants.strategy;
 
-import hotciv.common.WinningStrategy;
+import hotciv.common.strategy.WinningStrategy;
 import hotciv.framework.*;
 import hotciv.standard.GameImpl;
 
@@ -21,6 +21,11 @@ public class BetaWinningStrategy implements WinningStrategy {
         }
         // Assuming that a city always exists because of this winning strategy
         return seen.getOwner();
+    }
+
+    @Override
+    public void incrementBattlesWonBy(GameImpl game, Player p) {
+        // do nothing
     }
 
 }

@@ -2,10 +2,10 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
-import hotciv.variants.*;
+import hotciv.variants.factory.GammaFactory;
+import hotciv.variants.strategy.*;
 import org.junit.jupiter.api.*;
 
-import static hotciv.framework.GameConstants.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -17,8 +17,7 @@ public class TestGammaCiv {
     /** Fixture for gammaciv testing. */
     @BeforeEach
     public void setUp() {
-        game = new GameImpl(new AlphaWinningStrategy(), new AlphaAgingStrategy(), new GammaActionStrategy(),
-                new AlphaWorldLayoutStrategy());
+        game = new GameImpl(new GammaFactory());
         settlerPos = new Position(4, 3);
         archerPos = new Position(2,0);
     }

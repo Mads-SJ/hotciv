@@ -2,7 +2,8 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
-import hotciv.variants.*;
+import hotciv.variants.factory.DeltaFactory;
+import hotciv.variants.strategy.*;
 import org.junit.jupiter.api.*;
 
 import static hotciv.framework.GameConstants.*;
@@ -15,8 +16,7 @@ public class TestDeltaCiv {
     /** Fixture for deltaciv testing. */
     @BeforeEach
     public void setUp() {
-        game = new GameImpl(new AlphaWinningStrategy(), new AlphaAgingStrategy(), new AlphaActionStrategy(),
-                new DeltaWorldLayoutStrategy());
+        game = new GameImpl(new DeltaFactory());
     }
 
     @Test
