@@ -5,7 +5,7 @@ import hotciv.framework.Player;
 import hotciv.standard.GameImpl;
 
 public class ZetaWinningStrategy implements WinningStrategy {
-    private BetaWinningStrategy betaWinningStrategy; // TODO skal man bruge interfacet eller konkret impl.
+    private BetaWinningStrategy betaWinningStrategy;
     private EpsilonWinningStrategy epsilonWinningStrategy;
 
     public ZetaWinningStrategy(BetaWinningStrategy betaWinningStrategy,

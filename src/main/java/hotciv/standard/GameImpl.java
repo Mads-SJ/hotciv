@@ -50,7 +50,6 @@ public class GameImpl implements Game {
     private ActionStrategy actionStrategy;
     private WorldLayoutStrategy worldLayoutStrategy;
     private AttackingStrategy attackingStrategy;
-    private GameFactory gameFactory; //TODO ?!??!?!?!?
 
 
     public GameImpl(GameFactory gameFactory) {
@@ -335,13 +334,5 @@ public class GameImpl implements Game {
         }
 
         return null;
-    }
-
-    public WinningStrategy getWinningStrategy() {
-        return winningStrategy;
-    }
-
-    public AttackingStrategy getAttackingStrategy() {
-        return attackingStrategy;
     }
 }

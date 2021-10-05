@@ -1,6 +1,6 @@
 package hotciv.common.strategy;
 
-public interface StrengthFactorDecisionStrategy { //TODO: bør "roll" være en del af interfacet?
+public interface StrengthFactorDecisionStrategy {
     int getAttackingEyes();
     int getDefendingEyes();
     void roll();

@@ -1,5 +1,7 @@
 package hotciv.standard;
 
+import hotciv.common.factory.GameFactory;
+import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.variants.factory.EpsilonTestFactory;
@@ -12,16 +14,17 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestEpsilonCiv {
-    private GameImpl game; //TODO FIX gameimpl
+    private Game game;
     private FixedDecisionStrategy decisionStrategy;
     private EpsilonWinningStrategy epsilonWinningStrategy;
 
     /** Fixture for epislonciv testing. */
     @BeforeEach
     public void setUp() {
-        game = new GameImpl(new EpsilonTestFactory()); //TODO: Hvordan håndterer vi at vi bruger winning og decision direkte?
-        epsilonWinningStrategy = (EpsilonWinningStrategy) game.getWinningStrategy();
-        EpsilonAttackingStrategy attackingStrategy = (EpsilonAttackingStrategy) game.getAttackingStrategy();
+        EpsilonTestFactory epsilonTestFactory = new EpsilonTestFactory();
+        game = new GameImpl(epsilonTestFactory);
+        epsilonWinningStrategy = (EpsilonWinningStrategy) epsilonTestFactory.createWinningStrategy();
+        EpsilonAttackingStrategy attackingStrategy = (EpsilonAttackingStrategy) epsilonTestFactory.createAttackingStrategy();
         decisionStrategy = (FixedDecisionStrategy) attackingStrategy.getDecisionStrategy();
     }
 

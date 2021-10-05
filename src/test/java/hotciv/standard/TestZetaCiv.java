@@ -3,6 +3,7 @@ package hotciv.standard;
 import hotciv.framework.*;
 
 import hotciv.variants.factory.ZetaFactory;
+import hotciv.variants.factory.ZetaTestFactory;
 import hotciv.variants.strategy.*;
 import org.junit.jupiter.api.*;
 
@@ -11,20 +12,20 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestZetaCiv {
-    private GameImpl game;
+    private Game game;
     private EpsilonWinningStrategy epsilonWinningStrategy;
 
     /** Fixture for zetaciv testing. */
     @BeforeEach
     public void setUp() {
-        game = new GameImpl(new ZetaFactory());
-        ZetaWinningStrategy zetaWinningStrategy = (ZetaWinningStrategy) game.getWinningStrategy();
+        ZetaTestFactory zetaTestFactory = new ZetaTestFactory();
+        game = new GameImpl(zetaTestFactory);
+        ZetaWinningStrategy zetaWinningStrategy = (ZetaWinningStrategy) zetaTestFactory.createWinningStrategy();
         epsilonWinningStrategy = zetaWinningStrategy.getEpsilonWinningStrategy();
     }
 
     @Test
     public void shouldBeRedWinnerWhenRedOwnsAllCitiesAfter2Rounds() {
-        // TODO: eventuelt tilføj asserts der viser antal vundne battles.
         Position redSettlerPos = new Position(4, 3);
         Position intermediatePos = new Position(4, 2);
 
@@ -38,6 +39,7 @@ public class TestZetaCiv {
         game.endOfTurn();
         game.endOfTurn();
 
+        assertThat(epsilonWinningStrategy.getRedAttackingWins(), is(0));
         assertThat(game.getWinner(), is(Player.RED));
     }
 
@@ -72,7 +74,8 @@ public class TestZetaCiv {
         game.endOfTurn();
 
         // Not all cities are owned by blue.
-        // TODO: eventuelt assert at røds by er ejet af rød
+        assertThat(game.getCityAt(ALPHA_RED_CITY_POS).getOwner(), is(Player.RED));
+
         assertThat(epsilonWinningStrategy.getBlueAttackingWins(), is(3));
         assertThat(game.getWinner(), is(Player.BLUE));
     }
