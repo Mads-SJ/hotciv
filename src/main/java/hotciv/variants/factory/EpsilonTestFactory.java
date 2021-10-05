@@ -4,7 +4,7 @@ import hotciv.common.factory.GameFactory;
 import hotciv.common.strategy.*;
 import hotciv.variants.strategy.*;
 
-public class EpsilonFactory implements GameFactory {
+public class EpsilonTestFactory implements GameFactory {
     @Override
     public ActionStrategy createActionStrategy() {
         return new AlphaActionStrategy();

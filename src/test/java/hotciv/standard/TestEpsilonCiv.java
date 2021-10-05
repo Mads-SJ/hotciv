@@ -1,10 +1,8 @@
 package hotciv.standard;
 
-import hotciv.common.strategy.AttackingStrategy;
-import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.variants.factory.EpsilonFactory;
+import hotciv.variants.factory.EpsilonTestFactory;
 import hotciv.variants.strategy.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +19,7 @@ public class TestEpsilonCiv {
     /** Fixture for epislonciv testing. */
     @BeforeEach
     public void setUp() {
-        game = new GameImpl(new EpsilonFactory()); //TODO: Hvordan håndterer vi at vi bruger winning og decision direkte?
+        game = new GameImpl(new EpsilonTestFactory()); //TODO: Hvordan håndterer vi at vi bruger winning og decision direkte?
         epsilonWinningStrategy = (EpsilonWinningStrategy) game.getWinningStrategy();
         EpsilonAttackingStrategy attackingStrategy = (EpsilonAttackingStrategy) game.getAttackingStrategy();
         decisionStrategy = (FixedDecisionStrategy) attackingStrategy.getDecisionStrategy();
