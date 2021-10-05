@@ -2,7 +2,6 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
-import hotciv.variants.factory.ZetaFactory;
 import hotciv.variants.factory.ZetaTestFactory;
 import hotciv.variants.strategy.*;
 import org.junit.jupiter.api.*;

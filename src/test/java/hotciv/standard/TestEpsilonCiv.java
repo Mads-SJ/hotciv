@@ -109,6 +109,8 @@ public class TestEpsilonCiv {
         Position blueLegionPos = new Position(3,2);
         Position redSettlerPos = new Position(4,3);
 
+        decisionStrategy.setDefendingEyes(6);
+
         game.moveUnit(redSettlerPos, blueLegionPos);
 
         assertThat(epsilonWinningStrategy.getRedAttackingWins(), is(0));
