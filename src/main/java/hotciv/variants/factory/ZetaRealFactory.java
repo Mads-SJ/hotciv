@@ -22,7 +22,7 @@ public class ZetaRealFactory implements GameFactory {
 
     @Override
     public WinningStrategy createWinningStrategy() {
-        return new ZetaWinningStrategy(new BetaWinningStrategy(), new EpsilonWinningStrategy());
+        return new ZetaWinningStrategy();
     }
 
     @Override

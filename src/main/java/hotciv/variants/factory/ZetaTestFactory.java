@@ -8,7 +8,7 @@ public class ZetaTestFactory implements GameFactory {
     private ZetaWinningStrategy zetaWinningStrategy;
 
     public ZetaTestFactory() {
-        this.zetaWinningStrategy = new ZetaWinningStrategy(new BetaWinningStrategy(), new EpsilonWinningStrategy());
+        this.zetaWinningStrategy = new ZetaWinningStrategy();
     }
     @Override
     public ActionStrategy createActionStrategy() {
