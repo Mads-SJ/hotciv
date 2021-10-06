@@ -44,6 +44,7 @@ public class GameConstants {
     public static final int ARCHER_COST = 10;
     public static final int LEGION_COST = 15;
     public static final int SETTLER_COST = 30;
+    public static final int SANDWORM_COST = 30;
     // Valid terrain types
     public static final String PLAINS = "plains";
     public static final String OCEANS = "ocean";
@@ -63,6 +64,7 @@ public class GameConstants {
     public static final int END_AGE = -3000; // 3000BC
     // Movement related constants
     public static final int STANDARD_MOVE_COUNT = 1;
+    public static final int SANDWORM_MOVE_COUNT = 2;
     // Game variants
     public static final String ALPHA_CIV = "Alpha Civ";
     public static final String BETA_CIV = "Beta Civ";

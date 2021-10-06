@@ -67,6 +67,9 @@ public class CityImpl implements City {
             case SETTLER:
                 costOfNewUnit = SETTLER_COST;
                 break;
+            case SANDWORM:
+                costOfNewUnit = SANDWORM_COST;
+                break;
         }
     }
 

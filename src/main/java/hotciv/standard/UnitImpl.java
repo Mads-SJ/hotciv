@@ -17,9 +17,14 @@ public class UnitImpl implements Unit {
     public UnitImpl(Player owner, String typeString) {
         this.owner = owner;
         this.typeString = typeString;
-        moveCount = STANDARD_MOVE_COUNT;
         movable = true;
         initializeStrengths(typeString);
+        initializeMoveCount(typeString);
+    }
+
+    private void initializeMoveCount(String typeString) {
+        if (typeString.equals(SANDWORM)) moveCount = SANDWORM_MOVE_COUNT;
+        else moveCount = STANDARD_MOVE_COUNT;
     }
 
     private void initializeStrengths(String typeString) {

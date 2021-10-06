@@ -1,6 +1,7 @@
 package hotciv.standard;
 
 import hotciv.framework.Game;
+import hotciv.framework.Player;
 import hotciv.variants.factory.AlphaFactory;
 import hotciv.variants.factory.GammaFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,5 +23,17 @@ public class TestThetaCiv {
     @Test
     public void shouldBe0ResourcesForDesertTile() {
         assertThat(new TileImpl(DESERT).getResources(), is(0));
+    }
+
+    @Test
+    public void shouldBeCostOf30ForSandworm() {
+        CityImpl city = new CityImpl(Player.RED);
+        city.setProduction(SANDWORM);
+        assertThat(city.getCostOfNewUnit(), is(30));
+    }
+
+    @Test
+    public void shouldBeMoveCountOf2ForSandworm() {
+        assertThat(new UnitImpl(Player.RED, SANDWORM).getMoveCount(), is(2));
     }
 }

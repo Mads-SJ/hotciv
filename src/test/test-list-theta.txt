@@ -1,6 +1,7 @@
 [OK] should be 0 resources for desert tile
-Cost of sandworm should be 30 production
-Move distance of sandworm should be 2
+[OK] Cost of sandworm should be 30 production
+[OK] Move count of sandworm should be 2
+A sandworm should be able to move twice in one round
 defensive strength for sandworm should be 10
 attacking strength for sandworm should be 0
 A sandworm can only move in desert tiles
