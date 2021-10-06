@@ -20,7 +20,7 @@ public class EpsilonTestFactory implements GameFactory {
 
     @Override
     public AgingStrategy createAgingStrategy() {
-        return new BetaAgingStrategy();
+        return new AlphaAgingStrategy();
     }
 
     @Override
