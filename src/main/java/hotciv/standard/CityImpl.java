@@ -31,7 +31,7 @@ public class CityImpl implements City {
 
     @Override
     public int getSize() {
-        return POPULATION_SIZE;
+        return population;
     }
 
     @Override
