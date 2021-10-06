@@ -39,6 +39,7 @@ public class GameConstants {
     public static final String ARCHER = "archer";
     public static final String LEGION = "legion";
     public static final String SETTLER = "settler";
+    public static final String SANDWORM = "sandworm";
     // Cost of unit types
     public static final int ARCHER_COST = 10;
     public static final int LEGION_COST = 15;
@@ -49,6 +50,7 @@ public class GameConstants {
     public static final String FOREST = "forest";
     public static final String HILLS = "hills";
     public static final String MOUNTAINS = "mountain";
+    public static final String DESERT = "desert";
     // Valid production balance types
     public static final String productionFocus = "hammer";
     public static final String foodFocus = "apple";

@@ -34,6 +34,8 @@ public class TileImpl implements Tile {
     public int getResources() {
         // resource amounts according to table 36.1
         switch (typeString){
+            case DESERT:
+                return 0;
             case OCEANS:
             case MOUNTAINS:
                 return 1;
