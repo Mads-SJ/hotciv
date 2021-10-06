@@ -29,4 +29,9 @@ public class DeltaFactory implements GameFactory {
     public WorldLayoutStrategy createWorldLayoutStrategy() {
         return new DeltaWorldLayoutStrategy();
     }
+
+    @Override
+    public PopulationStrategy createPopulationStrategy() {
+        return new AlphaPopulationStrategy();
+    }
 }

@@ -50,6 +50,7 @@ public class GameImpl implements Game {
     private ActionStrategy actionStrategy;
     private WorldLayoutStrategy worldLayoutStrategy;
     private AttackingStrategy attackingStrategy;
+    private PopulationStrategy populationStrategy;
 
 
     public GameImpl(GameFactory gameFactory) {
@@ -62,6 +63,7 @@ public class GameImpl implements Game {
         this.actionStrategy = gameFactory.createActionStrategy();
         this.worldLayoutStrategy = gameFactory.createWorldLayoutStrategy();
         this.attackingStrategy = gameFactory.createAttackingStrategy();
+        this.populationStrategy = gameFactory.createPopulationStrategy();
 
         initializeCityMap();
         initializeWorldGrid();
@@ -282,6 +284,9 @@ public class GameImpl implements Game {
             if (c.getTreasury() >= c.getCostOfNewUnit()) {
                 buyUnit(p);
             }
+            
+            populationStrategy.increaseCityPopulation(c);
+            
         }
     }
 
