@@ -37,6 +37,6 @@ public class EtaFactory implements GameFactory {
 
     @Override
     public ResourceGainStrategy createResourceGainStrategy() {
-        return new AlphaResourceGainStrategy();
+        return new EtaResourceGainStrategy();
     }
 }

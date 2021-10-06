@@ -29,25 +29,51 @@ public class EtaResourceGainStrategy implements ResourceGainStrategy {
     public int calculateProductionGain(GameImpl game, Position cityPos) {
         CityImpl c = (CityImpl) game.getCityAt(cityPos);
         int population = c.getSize() - 1;
-        int result = 0;
+        int productionGain = 0;
         Iterable<Position> neighboringTiles = Utility.get8neighborhoodOf(cityPos);
 
         for (Position p : neighboringTiles) {
-            if (population > 0 && game.getTileAt(p).getTypeString().equals(FOREST)) {
-                result += 3;
-                population--;
-            }
-            else if (population > 0 && game.getTileAt(p).getTypeString().equals(HILLS)) {
-                result += 2;
-                population--;
+            if (population < 1) return productionGain;
+
+            switch (game.getTileAt(p).getTypeString()) {
+                case FOREST:
+                    productionGain += 3;
+                    population--;
+                    break;
+                case HILLS:
+                    productionGain += 2;
+                    population--;
+                    break;
+                case MOUNTAINS:
+                    productionGain += 1;
+                    population--;
+                    break;
             }
         }
-
-        return 0;
+        return productionGain;
     }
 
     @Override
     public int calculateFoodGain(GameImpl game, Position cityPos) {
-        return 0;
+        CityImpl c = (CityImpl) game.getCityAt(cityPos);
+        int population = c.getSize() - 1;
+        int foodGain = 0;
+        Iterable<Position> neighboringTiles = Utility.get8neighborhoodOf(cityPos);
+
+        for (Position p : neighboringTiles) {
+            if (population < 1) return foodGain;
+
+            switch (game.getTileAt(p).getTypeString()) {
+                case PLAINS:
+                    foodGain += 3;
+                    population--;
+                    break;
+                case OCEANS:
+                    foodGain += 1;
+                    population--;
+                    break;
+            }
+        }
+        return foodGain;
     }
 }

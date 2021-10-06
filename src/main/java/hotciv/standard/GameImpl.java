@@ -288,7 +288,6 @@ public class GameImpl implements Game {
             }
             
             populationStrategy.increaseCityPopulation(c);
-            
         }
     }
 
