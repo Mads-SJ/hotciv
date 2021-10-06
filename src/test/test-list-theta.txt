@@ -1,0 +1,11 @@
+[OK] should be 0 resources for desert tile
+Cost of sandworm should be 30 production
+Move distance of sandworm should be 2
+defensive strength for sandworm should be 10
+attacking strength for sandworm should be 0
+A sandworm can only move in desert tiles
+A sandworm can only be made if the city is adjacent or on a desert tile
+city production can also be of sandworm type string
+sandworm has action devour
+    it kills all non-friendly units in the 8-neighbourhood
+Specific world layout
