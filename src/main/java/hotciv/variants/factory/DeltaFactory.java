@@ -34,4 +34,9 @@ public class DeltaFactory implements GameFactory {
     public PopulationStrategy createPopulationStrategy() {
         return new AlphaPopulationStrategy();
     }
+
+    @Override
+    public ResourceGainStrategy createResourceGainStrategy() {
+        return new AlphaResourceGainStrategy();
+    }
 }

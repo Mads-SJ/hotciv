@@ -34,4 +34,9 @@ public class EtaFactory implements GameFactory {
     public PopulationStrategy createPopulationStrategy() {
         return new EtaPopulationStrategy();
     }
+
+    @Override
+    public ResourceGainStrategy createResourceGainStrategy() {
+        return new AlphaResourceGainStrategy();
+    }
 }

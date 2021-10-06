@@ -9,4 +9,5 @@ public interface GameFactory {
     WinningStrategy createWinningStrategy();
     WorldLayoutStrategy createWorldLayoutStrategy();
     PopulationStrategy createPopulationStrategy();
+    ResourceGainStrategy createResourceGainStrategy();
 }
