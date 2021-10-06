@@ -7,6 +7,7 @@ sandworm has action devour
 
 Specific world layout
 
+
 Movement:
     [OK] Move count of sandworm should be 2
     A sandworm should be able to move twice in one round

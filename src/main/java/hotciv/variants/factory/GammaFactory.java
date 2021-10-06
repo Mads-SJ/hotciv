@@ -12,7 +12,7 @@ public class GammaFactory implements GameFactory {
 
     @Override
     public AgingStrategy createAgingStrategy() {
-        return new BetaAgingStrategy();
+        return new AlphaAgingStrategy();
     }
 
     @Override
@@ -22,7 +22,7 @@ public class GammaFactory implements GameFactory {
 
     @Override
     public WinningStrategy createWinningStrategy() {
-        return new BetaWinningStrategy();
+        return new AlphaWinningStrategy();
     }
 
     @Override

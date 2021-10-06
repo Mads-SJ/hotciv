@@ -75,5 +75,4 @@ public class GameConstants {
     public static final Position ALPHA_BLUE_CITY_POS = new Position(4,1);
     public static final Position DELTA_RED_CITY_POS = new Position(8,12);
     public static final Position DELTA_BLUE_CITY_POS = new Position(4,5);
-
 }

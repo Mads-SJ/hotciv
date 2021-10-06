@@ -4,10 +4,10 @@ import hotciv.common.factory.GameFactory;
 import hotciv.common.strategy.*;
 import hotciv.variants.strategy.*;
 
-public class EpsilonRealFactory implements GameFactory {
+public class ThetaFactory implements GameFactory {
     @Override
     public ActionStrategy createActionStrategy() {
-        return new AlphaActionStrategy();
+        return new GammaActionStrategy();
     }
 
     @Override
@@ -17,16 +17,16 @@ public class EpsilonRealFactory implements GameFactory {
 
     @Override
     public AttackingStrategy createAttackingStrategy() {
-        return new EpsilonAttackingStrategy(new DieRollDecisionStrategy());
+        return new AlphaAttackingStrategy();
     }
 
     @Override
     public WinningStrategy createWinningStrategy() {
-        return new EpsilonWinningStrategy();
+        return new AlphaWinningStrategy();
     }
 
     @Override
     public WorldLayoutStrategy createWorldLayoutStrategy() {
-        return new AlphaWorldLayoutStrategy();
+        return new ThetaWorldLayoutStrategy();
     }
 }
