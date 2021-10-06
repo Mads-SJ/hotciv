@@ -1,8 +1,6 @@
 package hotciv.standard;
 
-import hotciv.framework.City;
 import hotciv.framework.Game;
-import hotciv.variants.factory.AlphaFactory;
 import hotciv.variants.factory.EtaFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,11 +55,42 @@ public class TestEtaCiv {
         assertThat(city.getSize(), is(4));
 
         city.addFood(18);
-        assertThat(city.getFood(), is(18));
 
         game.endOfTurn();
         game.endOfTurn();
 
         assertThat(city.getSize(), is(5));
+    }
+
+    @Test
+    public void shouldResetFoodOfCityAfterIncreaseInPopulation() {
+        assertThat(city.getSize(), is(1));
+        assertThat(city.getFood(), is(0));
+
+        city.addFood(9);
+        assertThat(city.getFood(), is(9));
+
+        game.endOfTurn();
+        game.endOfTurn();
+
+        assertThat(city.getSize(), is(2));
+        assertThat(city.getFood(), is(0));
+    }
+
+    @Test
+    public void shouldNotIncreasePopulationForCityWithSize9() {
+        for (int i = 0; i < 8; i++) {
+            city.addFood(100);
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+
+        assertThat(city.getSize(), is(9));
+
+        city.addFood(100);
+        game.endOfTurn();
+        game.endOfTurn();
+
+        assertThat(city.getSize(), is(9));
     }
 }
