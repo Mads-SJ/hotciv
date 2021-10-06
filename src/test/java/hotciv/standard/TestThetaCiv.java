@@ -58,4 +58,29 @@ public class TestThetaCiv {
     public void shouldBeOceansAt0_0() {
         assertThat(game.getTileAt(new Position(0,0)).getTypeString(), is(OCEANS));
     }
+
+    @Test
+    public void shouldBeHillsAt1_3() {
+        assertThat(game.getTileAt(new Position(1,3)).getTypeString(), is(HILLS));
+    }
+
+    @Test
+    public void shouldBeForestAt12_9() {
+        assertThat(game.getTileAt(new Position(12,9)).getTypeString(), is(FOREST));
+    }
+
+    @Test
+    public void shouldBeMountainAt14_10() {
+        assertThat(game.getTileAt(new Position(14,10)).getTypeString(), is(MOUNTAINS));
+    }
+
+    @Test
+    public void shouldBeDesertAt0_5() {
+        assertThat(game.getTileAt(new Position(0,5)).getTypeString(), is(DESERT));
+    }
+
+    @Test
+    public void shouldBeDesertAt15_11() {
+        assertThat(game.getTileAt(new Position(15,11)).getTypeString(), is(DESERT));
+    }
 }

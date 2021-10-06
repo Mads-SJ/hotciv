@@ -5,8 +5,14 @@
 sandworm has action devour
     it kills all non-friendly units in the 8-neighbourhood
 
-Specific world layout
-
+[OK] Specific world layout
+    [OK] Plains at 0,3
+    [OK] Oceans at 0,0
+    [OK] Hills at 1,3
+    [OK] Forest at 12, 9
+    [OK] Mountain at 14, 10
+    [OK] Desert at 0,5
+    [OK] Desert at 15,11
 
 Movement:
     [OK] Move count of sandworm should be 2

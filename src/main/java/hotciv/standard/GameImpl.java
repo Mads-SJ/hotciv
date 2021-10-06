@@ -87,6 +87,7 @@ public class GameImpl implements Game {
                 if ( tileChar == 'M' ) { type = MOUNTAINS; }
                 if ( tileChar == 'f' ) { type = FOREST; }
                 if ( tileChar == 'h' ) { type = HILLS; }
+                if ( tileChar == 'd' ) { type = DESERT; }
 
                 worldGrid[r][c] = new TileImpl(type);
             }
