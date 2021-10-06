@@ -1,5 +1,13 @@
+Population:
 [OK] Population size in the city increases by one once the total collected food in the city exceeds 5+(city size)*3
     [OK] Population size in the city of size 4 will increase to size 5 once the total collected food in the city exceeds 5 + 4 * 3 = 17
     [OK] Population size in the city of size 1 will increase to size 2 once the total collected food in the city exceeds 5 + 1 * 3 = 8
 [OK] When the city population increases, the food total is reset to 0
 [OK] Cities cannot exceed size 9
+
+Resource gain:
+    Production:
+        Forests should be the highest priority
+        Hills should be second highest priority
+        Mountains should be third highest priority
+    Food:

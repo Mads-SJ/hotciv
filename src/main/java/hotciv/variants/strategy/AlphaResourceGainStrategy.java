@@ -16,12 +16,13 @@ public class AlphaResourceGainStrategy implements ResourceGainStrategy {
     }
 
     @Override
-    public int calculateProductionGain(Position p) {
+    public int calculateProductionGain(GameImpl game, Position p) {
         return 0;
     }
 
     @Override
-    public int calculateFoodGain(Position p) {
+    public int calculateFoodGain(GameImpl game, Position p) {
         return 0;
     }
+
 }
