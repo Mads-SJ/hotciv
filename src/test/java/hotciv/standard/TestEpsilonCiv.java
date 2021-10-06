@@ -179,6 +179,8 @@ public class TestEpsilonCiv {
     }
 
     @Test
+
+
     public void shouldBeNoWinnerAfter1SuccessfulAttack() {
         Position redArcherPos = new Position(2,0);
         Position firstBlueSettlerPos = new Position(3,0);

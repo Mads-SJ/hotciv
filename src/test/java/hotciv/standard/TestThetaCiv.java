@@ -36,4 +36,14 @@ public class TestThetaCiv {
     public void shouldBeMoveCountOf2ForSandworm() {
         assertThat(new UnitImpl(Player.RED, SANDWORM).getMoveCount(), is(2));
     }
+
+    @Test
+    public void shouldBe10DefensiveStrengthForSandworm() {
+        assertThat(new UnitImpl(Player.RED, SANDWORM).getDefensiveStrength(), is(10));
+    }
+
+    @Test
+    public void shouldBe0AttackingStrengthForSandworm() {
+        assertThat(new UnitImpl(Player.RED, SANDWORM).getAttackingStrength(), is(0));
+    }
 }

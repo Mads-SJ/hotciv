@@ -42,6 +42,10 @@ public class UnitImpl implements Unit {
                 attackingStrength = 4;
                 defensiveStrength = 2;
                 break;
+            case SANDWORM:
+                attackingStrength = 0;
+                defensiveStrength = 10;
+                break;
         }
     }
 
