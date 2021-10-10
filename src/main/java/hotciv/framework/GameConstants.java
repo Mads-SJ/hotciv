@@ -65,6 +65,7 @@ public class GameConstants {
     // Movement related constants
     public static final int STANDARD_MOVE_COUNT = 1;
     public static final int SANDWORM_MOVE_COUNT = 2;
+    public static final int MOVE_DISTANCE = 1;
     // Game variants
     public static final String ALPHA_CIV = "Alpha Civ";
     public static final String BETA_CIV = "Beta Civ";

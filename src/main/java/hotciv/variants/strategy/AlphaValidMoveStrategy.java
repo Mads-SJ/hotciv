@@ -5,11 +5,16 @@ import hotciv.framework.Position;
 import hotciv.standard.GameImpl;
 import hotciv.standard.UnitImpl;
 
+import static hotciv.framework.GameConstants.*;
+
 public class AlphaValidMoveStrategy implements ValidMoveStrategy {
     @Override
     public boolean isMoveValid(GameImpl game, Position from, Position to) {
         UnitImpl unitToMove = (UnitImpl) game.getUnitAt(from);
         UnitImpl potentialUnitAtToPosition = (UnitImpl) game.getUnitAt(to);
+
+        boolean hasMovesLeft = unitToMove.getMoveCount() > 0;
+        if (! hasMovesLeft) return false;
 
         if (! unitToMove.isMovable()) return false;
 
@@ -29,13 +34,11 @@ public class AlphaValidMoveStrategy implements ValidMoveStrategy {
 
     @Override
     public boolean isWithinMoveRange(GameImpl game, Position to, Position from) {
-        int moveCount = game.getUnitAt(from).getMoveCount();
-
         // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
         int rowDist = Math.abs(from.getRow() - to.getRow());
         int columnDist = Math.abs(from.getColumn() - to.getColumn());
 
         // The move should be within move range (meaning that the unit only moves 1 tile in either direction)
-        return rowDist <= moveCount && columnDist <= moveCount;
+        return rowDist <= MOVE_DISTANCE && columnDist <= MOVE_DISTANCE;
     }
 }

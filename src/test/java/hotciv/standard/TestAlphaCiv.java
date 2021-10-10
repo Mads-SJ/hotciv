@@ -578,6 +578,22 @@ public class TestAlphaCiv {
   }
 
   @Test
+  public void shouldNotBeAbleToMoveTwiceInOneRoundForArcher() {
+    Position initialArcherPos = new Position(2,0);
+    Position intermediatePos = new Position(3,0);
+    Position finalArcherPos = new Position(4, 0);
+    assertThat(game.getUnitAt(initialArcherPos).getTypeString(), is(ARCHER));
+
+    boolean hasMoved = game.moveUnit(initialArcherPos, intermediatePos);
+    assertThat(hasMoved, is(true));
+
+    hasMoved = game.moveUnit(intermediatePos, finalArcherPos);
+    assertThat(hasMoved, is(false));
+
+    assertThat(game.getUnitAt(finalArcherPos), is(nullValue()));
+  }
+
+  @Test
   public void shouldHaveMoveCountOf1ForArcher() {
     Unit archer = game.getUnitAt(new Position(2,0));
     assertThat(archer.getMoveCount(), is(1));

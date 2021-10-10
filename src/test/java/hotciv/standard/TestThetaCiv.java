@@ -114,4 +114,21 @@ public class TestThetaCiv {
         assertThat(game.getUnitAt(sandwormPos).getTypeString(), is(SANDWORM));
         assertThat(game.getUnitAt(candidatePos), is(nullValue()));
     }
+
+    @Test
+    public void shouldBeAbleToMoveTwiceInATurnForSandworm() {
+        GameImpl gameImpl = (GameImpl) game;
+        Position sandwormPos = new Position(15, 6);
+        Position intermediatePos = new Position(15, 7);
+        Position finalPos = new Position(15, 8);
+
+        assertThat(game.getTileAt(intermediatePos).getTypeString(), is(DESERT));
+        assertThat(game.getTileAt(finalPos).getTypeString(), is(DESERT));
+
+        gameImpl.setUnitAt(sandwormPos, new UnitImpl(Player.RED, SANDWORM));
+        gameImpl.moveUnit(sandwormPos, intermediatePos);
+        gameImpl.moveUnit(intermediatePos, finalPos);
+
+        assertThat(game.getUnitAt(finalPos).getTypeString(), is(SANDWORM));
+    }
 }
