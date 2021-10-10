@@ -27,5 +27,5 @@ Movement:
 Production:
     [OK] should be 0 resources for desert tile
     [OK] Cost of sandworm should be 30 production
-    A sandworm can only be made if the city is adjacent or on a desert tile
+    [OK] A sandworm can only be made if the city is adjacent or on a desert tile
     [OK] city production can also be of sandworm type string
