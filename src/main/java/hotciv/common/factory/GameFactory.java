@@ -9,4 +9,5 @@ public interface GameFactory {
     WinningStrategy createWinningStrategy();
     WorldLayoutStrategy createWorldLayoutStrategy();
     ValidMoveStrategy createValidMoveStrategy();
+    LegalPositionStrategy createLegalPositionStrategy();
 }

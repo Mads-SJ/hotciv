@@ -131,4 +131,34 @@ public class TestThetaCiv {
 
         assertThat(game.getUnitAt(finalPos).getTypeString(), is(SANDWORM));
     }
+
+    @Test
+    public void shouldPlaceSandwormOnRedCityPositionWhenAffordable() {
+        assertThat(game.getTileAt(DELTA_RED_CITY_POS).getTypeString(), is(DESERT));
+
+        game.changeProductionInCityAt(DELTA_RED_CITY_POS, SANDWORM);
+
+        for (int i = 0; i < 5; i++) {
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+
+        assertThat(game.getUnitAt(DELTA_RED_CITY_POS).getTypeString(), is(SANDWORM));
+    }
+
+    @Test
+    public void shouldPlaceSandwormEastOfRedCityPositionWhenAffordable() {
+        Position finalPosition = new Position(8, 13);
+
+        assertThat(game.getTileAt(finalPosition).getTypeString(), is(DESERT));
+
+        game.changeProductionInCityAt(DELTA_RED_CITY_POS, SANDWORM);
+
+        for (int i = 0; i < 10; i++) {
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+
+        assertThat(game.getUnitAt(finalPosition).getTypeString(), is(SANDWORM));
+    }
 }

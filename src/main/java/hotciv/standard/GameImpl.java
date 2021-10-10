@@ -51,6 +51,7 @@ public class GameImpl implements Game {
     private WorldLayoutStrategy worldLayoutStrategy;
     private AttackingStrategy attackingStrategy;
     private ValidMoveStrategy validMoveStrategy;
+    private LegalPositionStrategy legalPositionStrategy;
 
 
     public GameImpl(GameFactory gameFactory) {
@@ -64,6 +65,7 @@ public class GameImpl implements Game {
         this.worldLayoutStrategy = gameFactory.createWorldLayoutStrategy();
         this.attackingStrategy = gameFactory.createAttackingStrategy();
         this.validMoveStrategy = gameFactory.createValidMoveStrategy();
+        this.legalPositionStrategy = gameFactory.createLegalPositionStrategy();
 
         initializeCityMap();
         initializeWorldGrid();
@@ -302,11 +304,16 @@ public class GameImpl implements Game {
     }
 
     private Position getAvailablePosition(Position cityPosition) {
-        boolean isCityPositionAvailable = getUnitAt(cityPosition) == null;
-        if (isCityPositionAvailable) return cityPosition;
+        String unitToBeMade = getCityAt(cityPosition).getProduction();
+
+        if (legalPositionStrategy.isPositionLegal(this, cityPosition, unitToBeMade)) {
+            boolean isCityPositionAvailable = getUnitAt(cityPosition) == null;
+            if (isCityPositionAvailable) return cityPosition;
+        }
 
         for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
-            if (! isPassableTerrain(candidatePosition)) continue;
+            boolean isPositionLegal = legalPositionStrategy.isPositionLegal(this, candidatePosition, unitToBeMade);
+            if (! isPositionLegal) continue;
 
             boolean isAvailablePosition = getUnitAt(candidatePosition) == null;
             if (isAvailablePosition) return candidatePosition;

@@ -34,4 +34,9 @@ public class GammaFactory implements GameFactory {
     public ValidMoveStrategy createValidMoveStrategy() {
         return new AlphaValidMoveStrategy();
     }
+
+    @Override
+    public LegalPositionStrategy createLegalPositionStrategy() {
+        return new AlphaLegalPositionStrategy();
+    }
 }

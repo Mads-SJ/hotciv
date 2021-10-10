@@ -34,4 +34,9 @@ public class ThetaFactory implements GameFactory {
     public ValidMoveStrategy createValidMoveStrategy() {
         return new ThetaValidMoveStrategy();
     }
+
+    @Override
+    public LegalPositionStrategy createLegalPositionStrategy() {
+        return new ThetaLegalPositionStrategy();
+    }
 }
