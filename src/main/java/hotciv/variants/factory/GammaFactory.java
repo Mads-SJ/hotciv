@@ -29,4 +29,9 @@ public class GammaFactory implements GameFactory {
     public WorldLayoutStrategy createWorldLayoutStrategy() {
         return new AlphaWorldLayoutStrategy();
     }
+
+    @Override
+    public ValidMoveStrategy createValidMoveStrategy() {
+        return new AlphaValidMoveStrategy();
+    }
 }

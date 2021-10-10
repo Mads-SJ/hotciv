@@ -29,4 +29,9 @@ public class ThetaFactory implements GameFactory {
     public WorldLayoutStrategy createWorldLayoutStrategy() {
         return new ThetaWorldLayoutStrategy();
     }
+
+    @Override
+    public ValidMoveStrategy createValidMoveStrategy() {
+        return new AlphaValidMoveStrategy();
+    }
 }

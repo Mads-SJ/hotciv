@@ -50,6 +50,7 @@ public class GameImpl implements Game {
     private ActionStrategy actionStrategy;
     private WorldLayoutStrategy worldLayoutStrategy;
     private AttackingStrategy attackingStrategy;
+    private ValidMoveStrategy validMoveStrategy;
 
 
     public GameImpl(GameFactory gameFactory) {
@@ -62,6 +63,7 @@ public class GameImpl implements Game {
         this.actionStrategy = gameFactory.createActionStrategy();
         this.worldLayoutStrategy = gameFactory.createWorldLayoutStrategy();
         this.attackingStrategy = gameFactory.createAttackingStrategy();
+        this.validMoveStrategy = gameFactory.createValidMoveStrategy();
 
         initializeCityMap();
         initializeWorldGrid();
@@ -190,37 +192,10 @@ public class GameImpl implements Game {
     }
 
     private boolean isMoveValid(Position from, Position to) {
-        UnitImpl unitToMove = (UnitImpl) getUnitAt(from);
-        UnitImpl potentialUnitAtToPosition = (UnitImpl) getUnitAt(to);
-
-        if (! unitToMove.isMovable()) return false;
-
-        boolean isUnitOwnerThePlayerInTurn = unitToMove.getOwner() == playerInTurn;
-        if (! isUnitOwnerThePlayerInTurn) return false;
-
-        if (! isPassableTerrain(to)) return false;
-
-        boolean isStackingUnits = potentialUnitAtToPosition != null &&
-                unitToMove.getOwner() == potentialUnitAtToPosition.getOwner();
-        if (isStackingUnits) return false;
-
-        if (! isWithinMoveRange(to, from)) return false;
-
-        return true;
+        return validMoveStrategy.isMoveValid(this, from, to);
     }
 
-    private boolean isWithinMoveRange(Position to, Position from) {
-        int moveCount = getUnitAt(from).getMoveCount();
-
-        // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
-        int rowDist = Math.abs(from.getRow() - to.getRow());
-        int columnDist = Math.abs(from.getColumn() - to.getColumn());
-
-        // The move should be within move range (meaning that the unit only moves 1 tile in either direction)
-        return rowDist <= moveCount && columnDist <= moveCount;
-    }
-
-    private boolean isPassableTerrain(Position p) {
+    public boolean isPassableTerrain(Position p) { //TODO: public?
         boolean isMountains = getTileAt(p).getTypeString().equals(MOUNTAINS);
         boolean isOceans = getTileAt(p).getTypeString().equals(OCEANS);
         return ! isMountains && ! isOceans;
