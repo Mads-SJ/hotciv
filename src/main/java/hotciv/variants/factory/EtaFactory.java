@@ -4,7 +4,7 @@ import hotciv.common.factory.GameFactory;
 import hotciv.common.strategy.*;
 import hotciv.variants.strategy.*;
 
-public class BetaFactory implements GameFactory {
+public class EtaFactory implements GameFactory {
     @Override
     public ActionStrategy createActionStrategy() {
         return new AlphaActionStrategy();
@@ -12,7 +12,7 @@ public class BetaFactory implements GameFactory {
 
     @Override
     public AgingStrategy createAgingStrategy() {
-        return new BetaAgingStrategy();
+        return new AlphaAgingStrategy();
     }
 
     @Override
@@ -22,7 +22,7 @@ public class BetaFactory implements GameFactory {
 
     @Override
     public WinningStrategy createWinningStrategy() {
-        return new BetaWinningStrategy();
+        return new AlphaWinningStrategy();
     }
 
     @Override
@@ -32,11 +32,11 @@ public class BetaFactory implements GameFactory {
 
     @Override
     public PopulationStrategy createPopulationStrategy() {
-        return new AlphaPopulationStrategy();
+        return new EtaPopulationStrategy();
     }
 
     @Override
     public ResourceGainStrategy createResourceGainStrategy() {
-        return new AlphaResourceGainStrategy();
+        return new EtaResourceGainStrategy();
     }
 }

@@ -39,12 +39,12 @@ public class EpsilonTestFactory implements GameFactory {
     }
 
     @Override
-    public ValidMoveStrategy createValidMoveStrategy() {
-        return new AlphaValidMoveStrategy();
+    public PopulationStrategy createPopulationStrategy() {
+        return new AlphaPopulationStrategy();
     }
 
     @Override
-    public LegalPositionStrategy createLegalPositionStrategy() {
-        return new AlphaLegalPositionStrategy();
+    public ResourceGainStrategy createResourceGainStrategy() {
+        return new AlphaResourceGainStrategy();
     }
 }
