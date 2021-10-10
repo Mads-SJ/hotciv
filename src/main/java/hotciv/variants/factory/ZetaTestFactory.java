@@ -44,4 +44,14 @@ public class ZetaTestFactory implements GameFactory {
     public ResourceGainStrategy createResourceGainStrategy() {
         return new AlphaResourceGainStrategy();
     }
+
+    @Override
+    public ValidMoveStrategy createValidMoveStrategy() {
+        return new AlphaValidMoveStrategy();
+    }
+
+    @Override
+    public LegalPositionStrategy createLegalPositionStrategy() {
+        return new AlphaLegalPositionStrategy();
+    }
 }

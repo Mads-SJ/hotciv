@@ -10,4 +10,6 @@ public interface GameFactory {
     WorldLayoutStrategy createWorldLayoutStrategy();
     PopulationStrategy createPopulationStrategy();
     ResourceGainStrategy createResourceGainStrategy();
+    ValidMoveStrategy createValidMoveStrategy();
+    LegalPositionStrategy createLegalPositionStrategy();
 }

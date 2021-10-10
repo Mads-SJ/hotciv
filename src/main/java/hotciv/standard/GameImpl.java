@@ -52,6 +52,8 @@ public class GameImpl implements Game {
     private AttackingStrategy attackingStrategy;
     private PopulationStrategy populationStrategy;
     private ResourceGainStrategy resourceGainStrategy;
+    private ValidMoveStrategy validMoveStrategy;
+    private LegalPositionStrategy legalPositionStrategy;
 
 
     public GameImpl(GameFactory gameFactory) {
@@ -66,6 +68,8 @@ public class GameImpl implements Game {
         this.attackingStrategy = gameFactory.createAttackingStrategy();
         this.populationStrategy = gameFactory.createPopulationStrategy();
         this.resourceGainStrategy = gameFactory.createResourceGainStrategy();
+        this.validMoveStrategy = gameFactory.createValidMoveStrategy();
+        this.legalPositionStrategy = gameFactory.createLegalPositionStrategy();
 
         initializeCityMap();
         initializeWorldGrid();
@@ -91,6 +95,7 @@ public class GameImpl implements Game {
                 if ( tileChar == 'M' ) { type = MOUNTAINS; }
                 if ( tileChar == 'f' ) { type = FOREST; }
                 if ( tileChar == 'h' ) { type = HILLS; }
+                if ( tileChar == 'd' ) { type = DESERT; }
 
                 worldGrid[r][c] = new TileImpl(type);
             }
@@ -193,37 +198,10 @@ public class GameImpl implements Game {
     }
 
     private boolean isMoveValid(Position from, Position to) {
-        UnitImpl unitToMove = (UnitImpl) getUnitAt(from);
-        UnitImpl potentialUnitAtToPosition = (UnitImpl) getUnitAt(to);
-
-        if (! unitToMove.isMovable()) return false;
-
-        boolean isUnitOwnerThePlayerInTurn = unitToMove.getOwner() == playerInTurn;
-        if (! isUnitOwnerThePlayerInTurn) return false;
-
-        if (! isPassableTerrain(to)) return false;
-
-        boolean isStackingUnits = potentialUnitAtToPosition != null &&
-                unitToMove.getOwner() == potentialUnitAtToPosition.getOwner();
-        if (isStackingUnits) return false;
-
-        if (! isWithinMoveRange(to, from)) return false;
-
-        return true;
+        return validMoveStrategy.isMoveValid(this, from, to);
     }
 
-    private boolean isWithinMoveRange(Position to, Position from) {
-        int moveCount = getUnitAt(from).getMoveCount();
-
-        // Calculating the distance moved horizontally and vertically (these numbers should not exceed 1)
-        int rowDist = Math.abs(from.getRow() - to.getRow());
-        int columnDist = Math.abs(from.getColumn() - to.getColumn());
-
-        // The move should be within move range (meaning that the unit only moves 1 tile in either direction)
-        return rowDist <= moveCount && columnDist <= moveCount;
-    }
-
-    private boolean isPassableTerrain(Position p) {
+    public boolean isPassableTerrain(Position p) {
         boolean isMountains = getTileAt(p).getTypeString().equals(MOUNTAINS);
         boolean isOceans = getTileAt(p).getTypeString().equals(OCEANS);
         return ! isMountains && ! isOceans;
@@ -329,11 +307,16 @@ public class GameImpl implements Game {
     }
 
     private Position getAvailablePosition(Position cityPosition) {
-        boolean isCityPositionAvailable = getUnitAt(cityPosition) == null;
-        if (isCityPositionAvailable) return cityPosition;
+        String unitToBeMade = getCityAt(cityPosition).getProduction();
+
+        if (legalPositionStrategy.isPositionLegal(this, cityPosition, unitToBeMade)) {
+            boolean isCityPositionAvailable = getUnitAt(cityPosition) == null;
+            if (isCityPositionAvailable) return cityPosition;
+        }
 
         for (Position candidatePosition : Utility.get8neighborhoodOf(cityPosition)) {
-            if (! isPassableTerrain(candidatePosition)) continue;
+            boolean isPositionLegal = legalPositionStrategy.isPositionLegal(this, candidatePosition, unitToBeMade);
+            if (! isPositionLegal) continue;
 
             boolean isAvailablePosition = getUnitAt(candidatePosition) == null;
             if (isAvailablePosition) return candidatePosition;

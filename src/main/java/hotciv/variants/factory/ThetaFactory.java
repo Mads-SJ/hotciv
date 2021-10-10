@@ -31,6 +31,16 @@ public class ThetaFactory implements GameFactory {
     }
 
     @Override
+    public PopulationStrategy createPopulationStrategy() {
+        return new AlphaPopulationStrategy();
+    }
+
+    @Override
+    public ResourceGainStrategy createResourceGainStrategy() {
+        return new AlphaResourceGainStrategy();
+    }
+
+    @Override
     public ValidMoveStrategy createValidMoveStrategy() {
         return new ThetaValidMoveStrategy();
     }

@@ -39,4 +39,14 @@ public class EtaFactory implements GameFactory {
     public ResourceGainStrategy createResourceGainStrategy() {
         return new EtaResourceGainStrategy();
     }
+
+    @Override
+    public ValidMoveStrategy createValidMoveStrategy() {
+        return new AlphaValidMoveStrategy();
+    }
+
+    @Override
+    public LegalPositionStrategy createLegalPositionStrategy() {
+        return new AlphaLegalPositionStrategy();
+    }
 }

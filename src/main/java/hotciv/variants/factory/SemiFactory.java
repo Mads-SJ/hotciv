@@ -31,6 +31,16 @@ public class SemiFactory implements GameFactory {
     }
 
     @Override
+    public PopulationStrategy createPopulationStrategy() {
+        return new EtaPopulationStrategy();
+    }
+
+    @Override
+    public ResourceGainStrategy createResourceGainStrategy() {
+        return new EtaResourceGainStrategy();
+    }
+
+    @Override
     public ValidMoveStrategy createValidMoveStrategy() {
         return new AlphaValidMoveStrategy();
     }
