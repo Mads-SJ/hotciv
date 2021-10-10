@@ -32,6 +32,6 @@ public class ThetaFactory implements GameFactory {
 
     @Override
     public ValidMoveStrategy createValidMoveStrategy() {
-        return new AlphaValidMoveStrategy();
+        return new ThetaValidMoveStrategy();
     }
 }

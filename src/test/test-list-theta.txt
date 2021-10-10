@@ -17,7 +17,9 @@ sandworm has action devour
 Movement:
     [OK] Move count of sandworm should be 2
     A sandworm should be able to move twice in one round
-    A sandworm can only move in desert tiles
+    [OK] A sandworm can only move in desert tiles
+        [OK] A sandworm can move to desert tile when placed on desert tile
+        [OK] A sandworm cannot move to other types of tiles when placed on desert tile
 
 Production:
     [OK] should be 0 resources for desert tile

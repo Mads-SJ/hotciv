@@ -83,4 +83,35 @@ public class TestThetaCiv {
     public void shouldBeDesertAt15_11() {
         assertThat(game.getTileAt(new Position(15,11)).getTypeString(), is(DESERT));
     }
+
+    @Test
+    public void shouldBeValidMoveForSandwormWhenMovingToDesertTileWhenPlacedOnDesertTile() {
+        GameImpl gameImpl = (GameImpl) game;
+        Position sandwormPos = new Position(15, 7);
+        Position candidatePos = new Position(15, 8);
+
+        assertThat(game.getTileAt(sandwormPos).getTypeString(), is(DESERT));
+        assertThat(game.getTileAt(candidatePos).getTypeString(), is(DESERT));
+
+        gameImpl.setUnitAt(sandwormPos, new UnitImpl(Player.RED, SANDWORM));
+        gameImpl.moveUnit(sandwormPos, candidatePos);
+
+        assertThat(game.getUnitAt(candidatePos).getTypeString(), is(SANDWORM));
+    }
+
+    @Test
+    public void shouldNotBeValidMoveForSandwormWhenMovingToPlainsTileWhenPlacedOnDesertTile() {
+        GameImpl gameImpl = (GameImpl) game;
+        Position sandwormPos = new Position(15, 6);
+        Position candidatePos = new Position(15, 5);
+
+        assertThat(game.getTileAt(sandwormPos).getTypeString(), is(DESERT));
+        assertThat(game.getTileAt(candidatePos).getTypeString(), is(PLAINS));
+
+        gameImpl.setUnitAt(sandwormPos, new UnitImpl(Player.RED, SANDWORM));
+        gameImpl.moveUnit(sandwormPos, candidatePos);
+
+        assertThat(game.getUnitAt(sandwormPos).getTypeString(), is(SANDWORM));
+        assertThat(game.getUnitAt(candidatePos), is(nullValue()));
+    }
 }
