@@ -1,14 +1,17 @@
 package hotciv.standard;
 
+import hotciv.common.strategy.TileStrategy;
 import hotciv.framework.Tile;
-
-import static hotciv.framework.GameConstants.*;
+import hotciv.variants.strategy.AlphaTileStrategy;
 
 public class TileImpl implements Tile {
 
     private final String typeString;
+    private TileStrategy tileStrategy;
 
-    public TileImpl(String typeString) {
+    public TileImpl(String typeString, TileStrategy tileStrategy) {
+        // init strategy der tjekker valid typestring
+        this.tileStrategy = tileStrategy;
         this.typeString = typeString;
     }
 
@@ -18,33 +21,14 @@ public class TileImpl implements Tile {
     }
 
     public String getResourceType() {
+        // add to strategy with below
         // resource type according to table 36.1
-        switch (typeString){
-            case PLAINS:
-            case OCEANS:
-                return FOOD;
-            case MOUNTAINS:
-            case HILLS:
-            case FOREST:
-                return PRODUCTION;
-        }
-        return "none"; // Could throw exception instead?
+        return tileStrategy.getResourceType(typeString);
     }
 
     public int getResources() {
+        // add to strategy with above
         // resource amounts according to table 36.1
-        switch (typeString){
-            case DESERT:
-                return 0;
-            case OCEANS:
-            case MOUNTAINS:
-                return 1;
-            case HILLS:
-                return 2;
-            case PLAINS:
-            case FOREST:
-                return 3;
-        }
-        return 0;
+        return tileStrategy.getResources(typeString);
     }
 }

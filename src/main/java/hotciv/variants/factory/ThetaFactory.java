@@ -49,4 +49,9 @@ public class ThetaFactory implements GameFactory {
     public LegalPositionStrategy createLegalPositionStrategy() {
         return new ThetaLegalPositionStrategy();
     }
+
+    @Override
+    public TileStrategy createTileStrategy() {
+        return new AlphaTileStrategy();
+    }
 }

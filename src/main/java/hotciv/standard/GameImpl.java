@@ -54,6 +54,7 @@ public class GameImpl implements Game {
     private ResourceGainStrategy resourceGainStrategy;
     private ValidMoveStrategy validMoveStrategy;
     private LegalPositionStrategy legalPositionStrategy;
+    private TileStrategy tileStrategy;
 
 
     public GameImpl(GameFactory gameFactory) {
@@ -70,6 +71,7 @@ public class GameImpl implements Game {
         this.resourceGainStrategy = gameFactory.createResourceGainStrategy();
         this.validMoveStrategy = gameFactory.createValidMoveStrategy();
         this.legalPositionStrategy = gameFactory.createLegalPositionStrategy();
+        this.tileStrategy = gameFactory.createTileStrategy();
 
         initializeCityMap();
         initializeWorldGrid();
@@ -97,7 +99,7 @@ public class GameImpl implements Game {
                 if ( tileChar == 'h' ) { type = HILLS; }
                 if ( tileChar == 'd' ) { type = DESERT; }
 
-                worldGrid[r][c] = new TileImpl(type);
+                worldGrid[r][c] = new TileImpl(type, tileStrategy);
             }
         }
     }

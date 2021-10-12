@@ -12,4 +12,5 @@ public interface GameFactory {
     ResourceGainStrategy createResourceGainStrategy();
     ValidMoveStrategy createValidMoveStrategy();
     LegalPositionStrategy createLegalPositionStrategy();
+    TileStrategy createTileStrategy();
 }

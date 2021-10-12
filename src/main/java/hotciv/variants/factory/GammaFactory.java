@@ -49,4 +49,9 @@ public class GammaFactory implements GameFactory {
     public LegalPositionStrategy createLegalPositionStrategy() {
         return new AlphaLegalPositionStrategy();
     }
+
+    @Override
+    public TileStrategy createTileStrategy() {
+        return new AlphaTileStrategy();
+    }
 }
