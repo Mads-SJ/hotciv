@@ -7,6 +7,7 @@ import hotciv.framework.City;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.standard.CityImpl;
+import hotciv.standard.UnitImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,5 +43,17 @@ public class ThetaWorldLayoutStrategy implements WorldLayoutStrategy {
         cityMap.put(DELTA_BLUE_CITY_POS, new CityImpl(Player.BLUE));
 
         return cityMap;
+    }
+
+    @Override
+    public UnitImpl[][] getUnitPositions() {
+        UnitImpl[][] unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE];
+
+        unitPositions[3][8] = new UnitImpl(Player.RED, ARCHER);
+        unitPositions[5][5] = new UnitImpl(Player.RED, SETTLER);
+        unitPositions[4][4] = new UnitImpl(Player.BLUE, LEGION);
+        unitPositions[8][6] = new UnitImpl(Player.BLUE, SANDWORM);
+
+        return unitPositions;
     }
 }

@@ -103,11 +103,7 @@ public class GameImpl implements Game {
     }
 
     private void initializeUnitPositions() {
-        unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE];
-
-        unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
-        unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
-        unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER);
+        unitPositions = worldLayoutStrategy.getUnitPositions();
     }
 
     public Tile getTileAt(Position p) {

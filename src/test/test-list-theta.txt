@@ -6,7 +6,7 @@
 [OK] attacking strength for sandworm should be 0
 
 sandworm has action devour
-    it kills all non-friendly units in the 8-neighbourhood
+    it kills a  ll non-friendly units in the 8-neighbourhood
 
 [OK] Specific world layout
     [OK] Plains at 0,3
