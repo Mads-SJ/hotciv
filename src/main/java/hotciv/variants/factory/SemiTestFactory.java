@@ -4,7 +4,7 @@ import hotciv.common.factory.GameFactory;
 import hotciv.common.strategy.*;
 import hotciv.variants.strategy.*;
 
-public class SemiFactory implements GameFactory {
+public class SemiTestFactory implements GameFactory {
     @Override
     public ActionStrategy createActionStrategy() {
         return new GammaActionStrategy();
@@ -17,7 +17,7 @@ public class SemiFactory implements GameFactory {
 
     @Override
     public AttackingStrategy createAttackingStrategy() {
-        return new EpsilonAttackingStrategy(new DieRollDecisionStrategy());
+        return new EpsilonAttackingStrategy(new FixedDecisionStrategy());
     }
 
     @Override
