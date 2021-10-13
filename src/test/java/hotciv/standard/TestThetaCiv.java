@@ -1,5 +1,7 @@
 package hotciv.standard;
 
+import hotciv.common.factory.GameFactory;
+import hotciv.common.strategy.TileStrategy;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
@@ -15,16 +17,20 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestThetaCiv {
     private Game game;
+    private GameFactory thetaGameFactory;
+    private TileStrategy tileStrategy;
 
     /** Fixture for thetaciv testing. */
     @BeforeEach
     public void setUp() {
+        thetaGameFactory = new ThetaFactory();
+        tileStrategy = thetaGameFactory.createTileStrategy();
         game = new GameImpl(new ThetaFactory());
     }
 
     @Test
     public void shouldBe0ResourcesForDesertTile() {
-        assertThat(new TileImpl(DESERT).getResources(), is(0));
+        assertThat(new TileImpl(DESERT, tileStrategy).getResources(), is(0));
     }
 
     @Test
