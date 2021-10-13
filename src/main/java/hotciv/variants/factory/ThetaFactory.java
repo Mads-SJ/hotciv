@@ -4,18 +4,10 @@ import hotciv.common.factory.GameFactory;
 import hotciv.common.strategy.*;
 import hotciv.variants.strategy.*;
 
-public class EpsilonTestFactory implements GameFactory {
-    private EpsilonAttackingStrategy attackingStrategy;
-    private EpsilonWinningStrategy winningStrategy;
-
-    public EpsilonTestFactory() {
-        this.attackingStrategy = new EpsilonAttackingStrategy(new FixedDecisionStrategy());
-        this.winningStrategy = new EpsilonWinningStrategy();
-    }
-
+public class ThetaFactory implements GameFactory {
     @Override
     public ActionStrategy createActionStrategy() {
-        return new AlphaActionStrategy();
+        return new GammaActionStrategy();
     }
 
     @Override
@@ -25,17 +17,17 @@ public class EpsilonTestFactory implements GameFactory {
 
     @Override
     public AttackingStrategy createAttackingStrategy() {
-        return attackingStrategy;
+        return new AlphaAttackingStrategy();
     }
 
     @Override
     public WinningStrategy createWinningStrategy() {
-        return winningStrategy;
+        return new AlphaWinningStrategy();
     }
 
     @Override
     public WorldLayoutStrategy createWorldLayoutStrategy() {
-        return new AlphaWorldLayoutStrategy();
+        return new ThetaWorldLayoutStrategy();
     }
 
     @Override
@@ -50,12 +42,12 @@ public class EpsilonTestFactory implements GameFactory {
 
     @Override
     public ValidMoveStrategy createValidMoveStrategy() {
-        return new AlphaValidMoveStrategy();
+        return new ThetaValidMoveStrategy();
     }
 
     @Override
     public LegalPositionStrategy createLegalPositionStrategy() {
-        return new AlphaLegalPositionStrategy();
+        return new ThetaLegalPositionStrategy();
     }
 
     @Override

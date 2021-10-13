@@ -4,48 +4,40 @@ import hotciv.common.factory.GameFactory;
 import hotciv.common.strategy.*;
 import hotciv.variants.strategy.*;
 
-public class EpsilonTestFactory implements GameFactory {
-    private EpsilonAttackingStrategy attackingStrategy;
-    private EpsilonWinningStrategy winningStrategy;
-
-    public EpsilonTestFactory() {
-        this.attackingStrategy = new EpsilonAttackingStrategy(new FixedDecisionStrategy());
-        this.winningStrategy = new EpsilonWinningStrategy();
-    }
-
+public class SemiTestFactory implements GameFactory {
     @Override
     public ActionStrategy createActionStrategy() {
-        return new AlphaActionStrategy();
+        return new GammaActionStrategy();
     }
 
     @Override
     public AgingStrategy createAgingStrategy() {
-        return new AlphaAgingStrategy();
+        return new BetaAgingStrategy();
     }
 
     @Override
     public AttackingStrategy createAttackingStrategy() {
-        return attackingStrategy;
+        return new EpsilonAttackingStrategy(new FixedDecisionStrategy());
     }
 
     @Override
     public WinningStrategy createWinningStrategy() {
-        return winningStrategy;
+        return new EpsilonWinningStrategy();
     }
 
     @Override
     public WorldLayoutStrategy createWorldLayoutStrategy() {
-        return new AlphaWorldLayoutStrategy();
+        return new DeltaWorldLayoutStrategy();
     }
 
     @Override
     public PopulationStrategy createPopulationStrategy() {
-        return new AlphaPopulationStrategy();
+        return new EtaPopulationStrategy();
     }
 
     @Override
     public ResourceGainStrategy createResourceGainStrategy() {
-        return new AlphaResourceGainStrategy();
+        return new EtaResourceGainStrategy();
     }
 
     @Override

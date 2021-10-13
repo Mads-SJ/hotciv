@@ -8,16 +8,20 @@ import static hotciv.framework.GameConstants.*;
 public class CityImpl implements City {
     private Player owner;
     private int treasury;
+    private int food;
     private String production;
     private int costOfNewUnit;
     private String workforceFocus;
+    private int population;
 
     public CityImpl(Player owner) {
         this.owner = owner;
         treasury = 0; // Treasury is empty when a new city is created.
+        food = 0;
         setProduction(ARCHER);
         costOfNewUnit = ARCHER_COST;
         workforceFocus = foodFocus;
+        population = 1;
     }
 
     @Override
@@ -27,7 +31,7 @@ public class CityImpl implements City {
 
     @Override
     public int getSize() {
-        return POPULATION_SIZE;
+        return population;
     }
 
     @Override
@@ -67,6 +71,9 @@ public class CityImpl implements City {
             case SETTLER:
                 costOfNewUnit = SETTLER_COST;
                 break;
+            case SANDWORM:
+                costOfNewUnit = SANDWORM_COST;
+                break;
         }
     }
 
@@ -80,5 +87,25 @@ public class CityImpl implements City {
 
     public void setOwner(Player p) {
         owner = p;
+    }
+
+    public void increasePopulation() {
+        population++;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public int getFood() {
+        return food;
+    }
+
+    public void addFood(int amount) {
+        food += amount;
+    }
+
+    public void resetFood() {
+        food = 0;
     }
 }

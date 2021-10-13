@@ -1,9 +1,12 @@
-Missing features (ETA CIV):
-City gathers production and food from surrounding tiles
-Each city produces selected type of production and food at end of round
-Food leads to increase in the population
-The higher population the more resources the city gathers
-    Population indicates the number of tiles in the immediate vicinity of the city that the workforce can work on
-The higher attack- and defensive strength, the higher chance of winning a battle
+Missing features/refactoring:
+Check for valid tiles in tileStrategy
+Make ThetaTileStrategy
+    Where desert is a valid tile. Currently desert is added to game constants and is valid in all variants..
+Make UnitStrategy as interface and refactor for all variants
+    Refactor for AlphaUnitStrategy
+    Make ThetaUnitStrategy
+        Where sandworm is a valid unit. Currently sandworm is added to game constants and is valid in all variants..
+    The layout generator in GameImpl should use TileStrategy to check for valid tile types
+Sandworm devour action
 
 

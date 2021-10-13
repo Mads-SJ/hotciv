@@ -1,0 +1,28 @@
+Attack:
+[OK] defensive strength for sandworm should be 10
+[OK] attacking strength for sandworm should be 0
+
+sandworm has action devour
+    it kills a  ll non-friendly units in the 8-neighbourhood
+
+[OK] Specific world layout
+    [OK] Plains at 0,3
+    [OK] Oceans at 0,0
+    [OK] Hills at 1,3
+    [OK] Forest at 12, 9
+    [OK] Mountain at 14, 10
+    [OK] Desert at 0,5
+    [OK] Desert at 15,11
+
+Movement:
+    [OK] Move count of sandworm should be 2
+    [OK] A sandworm should be able to move twice in one round
+    [OK] A sandworm can only move in desert tiles
+        [OK] A sandworm can move to desert tile when placed on desert tile
+        [OK] A sandworm cannot move to other types of tiles when placed on desert tile
+
+Production:
+    [OK] should be 0 resources for desert tile
+    [OK] Cost of sandworm should be 30 production
+    [OK] A sandworm can only be made if the city is adjacent or on a desert tile
+    [OK] city production can also be of sandworm type string

@@ -7,6 +7,7 @@ import hotciv.framework.City;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.standard.CityImpl;
+import hotciv.standard.UnitImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,5 +43,10 @@ public class DeltaWorldLayoutStrategy implements WorldLayoutStrategy {
         cityMap.put(DELTA_BLUE_CITY_POS, new CityImpl(Player.BLUE));
 
         return cityMap;
+    }
+
+    @Override
+    public UnitImpl[][] getUnitPositions() {
+        return new UnitImpl[WORLDSIZE][WORLDSIZE];
     }
 }

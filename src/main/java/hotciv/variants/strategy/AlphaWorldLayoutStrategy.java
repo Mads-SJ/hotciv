@@ -5,6 +5,7 @@ import hotciv.framework.City;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.standard.CityImpl;
+import hotciv.standard.UnitImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,5 +43,16 @@ public class AlphaWorldLayoutStrategy implements WorldLayoutStrategy {
         cityMap.put(ALPHA_BLUE_CITY_POS, new CityImpl(Player.BLUE));
 
         return cityMap;
+    }
+
+    @Override
+    public UnitImpl[][] getUnitPositions() {
+        UnitImpl[][] unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE];
+
+        unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
+        unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
+        unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER);
+
+        return unitPositions;
     }
 }

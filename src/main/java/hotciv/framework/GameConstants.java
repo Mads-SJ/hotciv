@@ -39,16 +39,19 @@ public class GameConstants {
     public static final String ARCHER = "archer";
     public static final String LEGION = "legion";
     public static final String SETTLER = "settler";
+    public static final String SANDWORM = "sandworm";
     // Cost of unit types
     public static final int ARCHER_COST = 10;
     public static final int LEGION_COST = 15;
     public static final int SETTLER_COST = 30;
+    public static final int SANDWORM_COST = 30;
     // Valid terrain types
     public static final String PLAINS = "plains";
     public static final String OCEANS = "ocean";
     public static final String FOREST = "forest";
     public static final String HILLS = "hills";
     public static final String MOUNTAINS = "mountain";
+    public static final String DESERT = "desert";
     // Valid production balance types
     public static final String productionFocus = "hammer";
     public static final String foodFocus = "apple";
@@ -61,6 +64,8 @@ public class GameConstants {
     public static final int END_AGE = -3000; // 3000BC
     // Movement related constants
     public static final int STANDARD_MOVE_COUNT = 1;
+    public static final int SANDWORM_MOVE_COUNT = 2;
+    public static final int MOVE_DISTANCE = 1;
     // Game variants
     public static final String ALPHA_CIV = "Alpha Civ";
     public static final String BETA_CIV = "Beta Civ";

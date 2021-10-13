@@ -1,5 +1,7 @@
 package hotciv.standard;
 
+import hotciv.common.factory.GameFactory;
+import hotciv.common.strategy.TileStrategy;
 import hotciv.framework.*;
 
 import hotciv.variants.factory.AlphaFactory;
@@ -41,11 +43,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 */
 public class TestAlphaCiv {
   private Game game;
+  private GameFactory alphaGameFactory;
+  private TileStrategy tileStrategy;
 
   /** Fixture for alphaciv testing. */
   @BeforeEach
   public void setUp() {
-    game = new GameImpl(new AlphaFactory());
+    alphaGameFactory = new AlphaFactory();
+    tileStrategy = alphaGameFactory.createTileStrategy();
+    game = new GameImpl(alphaGameFactory);
   }
 
   // FRS p. 455 states that 'Red is the first player to take a turn'.
@@ -141,52 +147,52 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldProduceResourceTypeFoodForPlains(){
-    assertThat(new TileImpl(PLAINS).getResourceType(), is(FOOD));
+    assertThat(new TileImpl(PLAINS, tileStrategy).getResourceType(), is(FOOD));
   }
 
   @Test
   public void shouldProduceResourceTypeFoodForOceans(){
-    assertThat(new TileImpl(OCEANS).getResourceType(), is(FOOD));
+    assertThat(new TileImpl(OCEANS, tileStrategy).getResourceType(), is(FOOD));
   }
 
   @Test
   public void shouldProduceResourceTypeProductionForMountains(){
-    assertThat(new TileImpl(MOUNTAINS).getResourceType(), is(PRODUCTION));
+    assertThat(new TileImpl(MOUNTAINS, tileStrategy).getResourceType(), is(PRODUCTION));
   }
 
   @Test
   public void shouldProduceResourceTypeProductionForHills(){
-    assertThat(new TileImpl(HILLS).getResourceType(), is(PRODUCTION));
+    assertThat(new TileImpl(HILLS, tileStrategy).getResourceType(), is(PRODUCTION));
   }
 
   @Test
   public void shouldProduceResourceTypeProductionForForest(){
-    assertThat(new TileImpl(FOREST).getResourceType(), is(PRODUCTION));
+    assertThat(new TileImpl(FOREST, tileStrategy).getResourceType(), is(PRODUCTION));
   }
 
   @Test
   public void shouldProduce3ResourceForPlains(){
-    assertThat(new TileImpl(PLAINS).getResources(), is(3));
+    assertThat(new TileImpl(PLAINS, tileStrategy).getResources(), is(3));
   }
 
   @Test
   public void shouldProduce1ResourceForOceans(){
-    assertThat(new TileImpl(OCEANS).getResources(), is(1));
+    assertThat(new TileImpl(OCEANS, tileStrategy).getResources(), is(1));
   }
 
   @Test
   public void shouldProduce1ResourceForMountains(){
-    assertThat(new TileImpl(MOUNTAINS).getResources(), is(1));
+    assertThat(new TileImpl(MOUNTAINS, tileStrategy).getResources(), is(1));
   }
 
   @Test
   public void shouldProduce2ResourceForHills(){
-    assertThat(new TileImpl(HILLS).getResources(), is(2));
+    assertThat(new TileImpl(HILLS, tileStrategy).getResources(), is(2));
   }
 
   @Test
   public void shouldProduce3ResourceForForest(){
-    assertThat(new TileImpl(FOREST).getResources(), is(3));
+    assertThat(new TileImpl(FOREST, tileStrategy).getResources(), is(3));
   }
 
   @Test
@@ -574,6 +580,22 @@ public class TestAlphaCiv {
     assertThat(game.getUnitAt(initialArcherPos).getTypeString(), is(ARCHER));
 
     // The archer has never moved, and the final position is still available
+    assertThat(game.getUnitAt(finalArcherPos), is(nullValue()));
+  }
+
+  @Test
+  public void shouldNotBeAbleToMoveTwiceInOneRoundForArcher() {
+    Position initialArcherPos = new Position(2,0);
+    Position intermediatePos = new Position(3,0);
+    Position finalArcherPos = new Position(4, 0);
+    assertThat(game.getUnitAt(initialArcherPos).getTypeString(), is(ARCHER));
+
+    boolean hasMoved = game.moveUnit(initialArcherPos, intermediatePos);
+    assertThat(hasMoved, is(true));
+
+    hasMoved = game.moveUnit(intermediatePos, finalArcherPos);
+    assertThat(hasMoved, is(false));
+
     assertThat(game.getUnitAt(finalArcherPos), is(nullValue()));
   }
 

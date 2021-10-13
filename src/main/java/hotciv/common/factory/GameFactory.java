@@ -8,4 +8,9 @@ public interface GameFactory {
     AttackingStrategy createAttackingStrategy();
     WinningStrategy createWinningStrategy();
     WorldLayoutStrategy createWorldLayoutStrategy();
+    PopulationStrategy createPopulationStrategy();
+    ResourceGainStrategy createResourceGainStrategy();
+    ValidMoveStrategy createValidMoveStrategy();
+    LegalPositionStrategy createLegalPositionStrategy();
+    TileStrategy createTileStrategy();
 }

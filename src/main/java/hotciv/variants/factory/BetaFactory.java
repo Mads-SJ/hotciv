@@ -29,4 +29,29 @@ public class BetaFactory implements GameFactory {
     public WorldLayoutStrategy createWorldLayoutStrategy() {
         return new AlphaWorldLayoutStrategy();
     }
+
+    @Override
+    public PopulationStrategy createPopulationStrategy() {
+        return new AlphaPopulationStrategy();
+    }
+
+    @Override
+    public ResourceGainStrategy createResourceGainStrategy() {
+        return new AlphaResourceGainStrategy();
+    }
+
+    @Override
+    public ValidMoveStrategy createValidMoveStrategy() {
+        return new AlphaValidMoveStrategy();
+    }
+
+    @Override
+    public LegalPositionStrategy createLegalPositionStrategy() {
+        return new AlphaLegalPositionStrategy();
+    }
+
+    @Override
+    public TileStrategy createTileStrategy() {
+        return new AlphaTileStrategy();
+    }
 }
