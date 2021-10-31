@@ -66,11 +66,6 @@ public class GameConstants {
     public static final int STANDARD_MOVE_COUNT = 1;
     public static final int SANDWORM_MOVE_COUNT = 2;
     public static final int MOVE_DISTANCE = 1;
-    // Game variants
-    public static final String ALPHA_CIV = "Alpha Civ";
-    public static final String BETA_CIV = "Beta Civ";
-    public static final String GAMMA_CIV = "Gamma Civ";
-    public static final String DELTA_CIV = "Delta Civ";
     // Standard city positions
     public static final Position ALPHA_RED_CITY_POS = new Position(1,1);
     public static final Position ALPHA_BLUE_CITY_POS = new Position(4,1);
