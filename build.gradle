@@ -36,7 +36,12 @@ plugins {
     id 'jacoco'
 }
 
+// The fractal library is not an official library, so I have put it
+// in a SNAPSHOT repository that needs the full URL to pull.
 repositories {
+    maven {
+        url "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+    }
     mavenCentral()
 }
     
@@ -50,6 +55,8 @@ dependencies {
     // Use the Hamcrest matcher library
     testImplementation group: 'org.hamcrest',
         name: 'hamcrest-library', version: '2.2'
+
+    implementation 'com.baerbak.maven:hotciv-fractal:1.0-SNAPSHOT'
 }
 
 // Tell to use JUnit as testing platform
