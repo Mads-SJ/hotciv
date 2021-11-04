@@ -20,7 +20,7 @@ public class FractalWorldLayoutStrategy implements WorldLayoutStrategy {
         for (int i = 0; i < WORLDSIZE; i++) {
             String line = "";
             for (int j = 0; j < WORLDSIZE; j++) {
-                line += generator.getLandscapeAt(i,j);
+                line += generator.getLandscapeAt(i, j);
             }
             worldLayout[i] = line;
         }

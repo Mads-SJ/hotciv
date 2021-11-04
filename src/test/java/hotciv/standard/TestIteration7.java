@@ -51,7 +51,7 @@ public class TestIteration7 {
         assertThat(flag, is(true));
     }
 
-    @Test
+  /*  @Test
     public void shouldPrintRED_ends_turn() {
         gameTranscriber.endOfTurn();
 
@@ -126,6 +126,6 @@ public class TestIteration7 {
 
         assertThat(output, is(expectedOutput));
 
-    }
+    }*/
 
 }
