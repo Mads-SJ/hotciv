@@ -308,21 +308,23 @@ public class CivDrawing implements Drawing, GameObserver {
     clearFigure(cityWorkforceIcon);
   }
 
-  private void clearFigure(Figure figure) {
-    ImageFigure imageFigure = (ImageFigure) figure;
-    imageFigure.set( NOTHING,
+  private void updateFigure(ImageFigure figure, String icon) {
+    figure.set( icon,
             new Point( figure.displayBox().x,
                     figure.displayBox().y) );
+  }
+
+  private void clearFigure(ImageFigure figure) {
+    updateFigure(figure, NOTHING);
   }
 
   private void updateUnitShield(Unit unit) {
     String playername = "red";
 
     Player owner = unit.getOwner();
-    if (owner == Player.BLUE ) { playername = "blue"; }
-    unitShieldIcon.set( playername+"shield",
-            new Point( UNIT_SHIELD_X,
-                    UNIT_SHIELD_Y ) );
+    if (owner == Player.BLUE) playername = "blue";
+
+    updateFigure(unitShieldIcon, playername + "shield");
   }
 
   private void updateUnitCount(Unit unit) {
@@ -335,25 +337,16 @@ public class CivDrawing implements Drawing, GameObserver {
 
     Player owner = c.getOwner();
     if (owner == Player.BLUE ) { playername = "blue"; }
-    cityShieldIcon.set( playername+"shield",
-            new Point( CITY_SHIELD_X,
-                    CITY_SHIELD_Y) );
+
+    updateFigure(cityShieldIcon, playername + "shield");
   }
 
   private void updateCityProduction(City c) {
-    String production = c.getProduction();
-
-    cityProductionIcon.set( production,
-            new Point( CITY_PRODUCTION_X,
-                    CITY_PRODUCTION_Y) );
+    updateFigure(cityProductionIcon, c.getProduction());
   }
 
   private void updateCityWorkforce(City c) {
-    String workforce = c.getWorkforceFocus();
-
-    cityWorkforceIcon.set( workforce,
-            new Point( WORKFORCEFOCUS_X,
-                    WORKFORCEFOCUS_Y) );
+    updateFigure(cityWorkforceIcon, c.getWorkforceFocus());
   }
 
 
