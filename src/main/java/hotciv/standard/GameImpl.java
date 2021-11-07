@@ -226,6 +226,8 @@ public class GameImpl implements Game {
     private void transferCityOwnerAt(Position to) {
         CityImpl c = (CityImpl) getCityAt(to);
         c.setOwner(playerInTurn);
+
+        notifyWorldChangedAt(to);
     }
 
     public void endOfTurn() {

@@ -1,6 +1,7 @@
 package hotciv.standard;
 
 import hotciv.framework.Game;
+import hotciv.framework.GameConstants;
 import hotciv.framework.GameObserver;
 import hotciv.framework.Position;
 import hotciv.stub.GameObserverSpy;
@@ -13,7 +14,8 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class TestIteration8 {
+public class
+ TestIteration8 {
     Game game;
     GameObserverSpy spy;
 
@@ -47,4 +49,23 @@ public class TestIteration8 {
 
         assertThat(spy.lastMethodCalled(), is("worldChangedAt"));
     }
+
+    @Test
+    public void shouldBeLastMethodCalledWorldChangedAtForSpyAfterCityChangesOwner() {
+        assertThat(spy.lastMethodCalled(), is("none"));
+
+        Position redSettlerPos = new Position(4,3);
+        Position intermediatePos = new Position(4,2);
+
+        game.moveUnit(redSettlerPos, intermediatePos);
+
+        game.endOfTurn();
+        game.endOfTurn();
+
+        game.moveUnit(intermediatePos, GameConstants.ALPHA_BLUE_CITY_POS);
+
+        assertThat(spy.lastMethodCalled(), is("worldChangedAt"));
+    }
+
+
 }
