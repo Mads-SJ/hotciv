@@ -84,4 +84,11 @@ public class GameTranscriber implements Game {
     public ByteArrayOutputStream getBaos() {
         return baos;
     }
+
+    public void addObserver(GameObserver observer) {
+        // do nothing
+    }
+    public void setTileFocus(Position position) {
+        // do nothing
+    }
 }

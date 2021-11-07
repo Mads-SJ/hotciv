@@ -322,4 +322,11 @@ public class GameImpl implements Game {
 
         return null;
     }
+
+    public void addObserver(GameObserver observer) {
+        // do nothing
+    }
+    public void setTileFocus(Position position) {
+        // do nothing
+    }
 }

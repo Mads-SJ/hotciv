@@ -159,4 +159,8 @@ public interface Game {
      *          Nothing happens in case the unit has no associated action.
      */
     void performUnitActionAt(Position p);
+
+    void addObserver(GameObserver observer);
+
+    void setTileFocus(Position position);
 }
