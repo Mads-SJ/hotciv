@@ -56,7 +56,7 @@ class UpdateTool extends NullTool {
     this.editor = editor;
     this.game = game;
   }
-  private int count = 0;
+  private int count = 4; //TODO set count til 0 igen
 
   public void mouseDown(MouseEvent e, int x, int y) {
     switch(count) {
@@ -89,6 +89,11 @@ class UpdateTool extends NullTool {
       // TODO: havde henrik lavet en fejl og skrevet 4,3 istedet for 4,2?
       editor.showStatus( "State change: Inspect Unit at (4,2)" );
       game.setTileFocus(new Position(4,2));
+      break;
+    }
+    case 6: {
+      editor.showStatus( "State change: Inspect City at (7,7)" );
+      game.setTileFocus(new Position(7,7));
       break;
     }
       // TODO: Add more state changes for other things to test

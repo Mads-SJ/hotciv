@@ -2,6 +2,7 @@ package hotciv.view;
 
 import hotciv.framework.*;
 import hotciv.view.figure.HotCivFigure;
+import hotciv.view.figure.TextFigure;
 import hotciv.view.figure.UnitFigure;
 import minidraw.framework.*;
 import minidraw.standard.ImageFigure;
@@ -157,6 +158,8 @@ public class CivDrawing implements Drawing, GameObserver {
   // Figures representing icons (showing status in status panel)
   protected ImageFigure turnShieldIcon;
   protected ImageFigure unitShieldIcon;
+  protected ImageFigure cityShieldIcon;
+  protected TextFigure moveCountIcon;
   // TODO husk city icon
   protected void synchronizeIconsWithGameState() {
     // Note - we have to guard creating figures and adding
@@ -176,13 +179,36 @@ public class CivDrawing implements Drawing, GameObserver {
 
     if (unitShieldIcon == null) {
       unitShieldIcon =
-              new HotCivFigure("black", // TODO: ændr til black
+              new HotCivFigure("black",
                       new Point(GfxConstants.UNIT_SHIELD_X,
                               GfxConstants.UNIT_SHIELD_Y),
                       GfxConstants.UNIT_SHIELD_TYPE_STRING);
       // insert in delegate figure list to ensure graphical
       // rendering.
       figureCollection.add(unitShieldIcon);
+    }
+
+
+    if (cityShieldIcon == null) {
+      cityShieldIcon =
+              new HotCivFigure("black",
+                      new Point(GfxConstants.CITY_SHIELD_X,
+                              GfxConstants.CITY_SHIELD_Y),
+                      GfxConstants.CITY_TYPE_STRING);
+      // insert in delegate figure list to ensure graphical
+      // rendering.
+      figureCollection.add(cityShieldIcon);
+    }
+
+
+    if (moveCountIcon == null) {
+      moveCountIcon =
+              new TextFigure("",
+                      new Point(GfxConstants.UNIT_COUNT_X,
+                              GfxConstants.UNIT_COUNT_Y));
+      // insert in delegate figure list to ensure graphical
+      // rendering.
+      figureCollection.add(moveCountIcon);
     }
 
     // TODO: Further development to include rest of figures needed
@@ -226,8 +252,19 @@ public class CivDrawing implements Drawing, GameObserver {
   public void tileFocusChangedAt(Position position) {
     // TODO: Implementation pending
     System.out.println( "Fake it: tileFocusChangedAt "+position );
+
+    // clear here
+
     Unit u = game.getUnitAt(position);
-    updateUnitShield(u);
+    if (u != null) {
+      updateUnitShield(u);
+      updateUnitCount(u);
+    }
+
+    City c = game.getCityAt(position);
+    if (c != null) {
+      updateCityShield(c);
+    }
 
   }
 
@@ -240,6 +277,22 @@ public class CivDrawing implements Drawing, GameObserver {
             new Point( GfxConstants.UNIT_SHIELD_X,
                     GfxConstants.UNIT_SHIELD_Y ) );
   }
+
+  private void updateUnitCount(Unit unit) {
+    String unitCount = "" + unit.getMoveCount();
+    moveCountIcon.setText(unitCount);
+  }
+
+  private void updateCityShield(City c) {
+    String playername = "red";
+
+    Player owner = c.getOwner();
+    if (owner == Player.BLUE ) { playername = "blue"; }
+    cityShieldIcon.set( playername+"shield",
+            new Point( GfxConstants.CITY_SHIELD_X,
+                    GfxConstants.CITY_SHIELD_Y) );
+  }
+
 
   @Override
   public void requestUpdate() {

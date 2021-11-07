@@ -1,6 +1,7 @@
 package hotciv.stub;
 
 import hotciv.framework.*;
+import hotciv.standard.CityImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,8 @@ import java.util.Map;
 public class FakeObjectGame implements Game {
 
   private Map<Position, Unit> unitMap;
+  private Map<Position, City> cityMap;
+
   public Unit getUnitAt(Position p) {
     return unitMap.get(p);
   }
@@ -86,6 +89,10 @@ public class FakeObjectGame implements Game {
     unitMap.put(new Position(3,2), new StubUnit( GameConstants.LEGION, Player.BLUE ));
     unitMap.put(new Position(4,2), new StubUnit( GameConstants.SETTLER, Player.RED ));
     unitMap.put(new Position(6,3), new StubUnit( ThetaConstants.SANDWORM, Player.RED ));
+
+    cityMap = new HashMap<>();
+    cityMap.put(new Position(7,7), new CityImpl(Player.RED));
+
     inTurn = Player.RED;
   }
 
@@ -115,7 +122,7 @@ public class FakeObjectGame implements Game {
   }
 
   // TODO: Add more fake object behaviour to test MiniDraw updating
-  public City getCityAt( Position p ) { return null; }
+  public City getCityAt( Position p ) { return cityMap.get(p); }
   public Player getWinner() { return null; }
   public int getAge() { return 0; }  
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
