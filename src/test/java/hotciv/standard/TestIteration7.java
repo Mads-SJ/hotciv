@@ -1,20 +1,15 @@
 package hotciv.standard;
 
-import hotciv.common.factory.GameFactory;
-import hotciv.common.strategy.TileStrategy;
 import hotciv.framework.Game;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.variants.decorator.GameTranscriber;
 import hotciv.variants.factory.AlphaFactory;
-import hotciv.variants.factory.DeltaFactory;
 import hotciv.variants.factory.FractalFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static hotciv.framework.GameConstants.*;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -51,7 +46,7 @@ public class TestIteration7 {
         assertThat(flag, is(true));
     }
 
-    @Test
+  /*  @Test
     public void shouldPrintRED_ends_turn() {
         gameTranscriber.endOfTurn();
 
@@ -126,6 +121,6 @@ public class TestIteration7 {
 
         assertThat(output, is(expectedOutput));
 
-    }
+    }*/
 
 }
