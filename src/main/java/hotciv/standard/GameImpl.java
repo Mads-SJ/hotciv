@@ -6,6 +6,8 @@ import hotciv.framework.*;
 import hotciv.utility.Utility;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static hotciv.framework.GameConstants.*;
@@ -56,11 +58,14 @@ public class GameImpl implements Game {
     private LegalPositionStrategy legalPositionStrategy;
     private TileStrategy tileStrategy;
 
+    private List<GameObserver> observers;
+
 
     public GameImpl(GameFactory gameFactory) {
         playerInTurn = Player.RED; // Red always starts
         currentRound = 1;
         age = START_AGE; // TODO: refaktorer age med roundsPassed?
+        observers = new ArrayList<>();
 
         this.winningStrategy = gameFactory.createWinningStrategy();
         this.agingStrategy = gameFactory.createAgingStrategy();
@@ -158,11 +163,14 @@ public class GameImpl implements Game {
         boolean isAttackSuccessful = true;
         if (isEnemyUnitAt(to)) isAttackSuccessful = resolveAttack(from, to);
 
-        if (! isAttackSuccessful) return false;
+        if (! isAttackSuccessful) return false; // TODO: special case only update from pos
 
         makeActualMove(from, to);
 
         if (isCityAt(to)) transferCityOwnerAt(to);
+
+        notifyWorldChangedAt(from);
+        notifyWorldChangedAt(to);
 
         return true;
     }
@@ -324,9 +332,16 @@ public class GameImpl implements Game {
     }
 
     public void addObserver(GameObserver observer) {
-        // do nothing
+        observers.add(observer);
     }
+
     public void setTileFocus(Position position) {
         // do nothing
+    }
+
+    public void notifyWorldChangedAt(Position pos) {
+        for (GameObserver observer : observers) {
+            observer.worldChangedAt(pos);
+        }
     }
 }
