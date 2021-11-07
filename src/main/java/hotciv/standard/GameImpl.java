@@ -56,6 +56,8 @@ public class GameImpl implements Game {
     private LegalPositionStrategy legalPositionStrategy;
     private TileStrategy tileStrategy;
 
+    private GameObserver observer; // TODO: list
+
 
     public GameImpl(GameFactory gameFactory) {
         playerInTurn = Player.RED; // Red always starts
@@ -158,11 +160,14 @@ public class GameImpl implements Game {
         boolean isAttackSuccessful = true;
         if (isEnemyUnitAt(to)) isAttackSuccessful = resolveAttack(from, to);
 
-        if (! isAttackSuccessful) return false;
+        if (! isAttackSuccessful) return false; // TODO: special case only update from pos
 
         makeActualMove(from, to);
 
         if (isCityAt(to)) transferCityOwnerAt(to);
+
+        observer.worldChangedAt(from);
+        observer.worldChangedAt(to);
 
         return true;
     }
@@ -324,7 +329,7 @@ public class GameImpl implements Game {
     }
 
     public void addObserver(GameObserver observer) {
-        // do nothing
+        this.observer = observer;
     }
     public void setTileFocus(Position position) {
         // do nothing
