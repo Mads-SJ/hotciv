@@ -12,7 +12,6 @@ import minidraw.standard.handlers.StandardDrawingChangeListenerHandler;
 import minidraw.standard.handlers.StandardSelectionHandler;
 
 import static hotciv.view.GfxConstants.*; // TODO: evt refaktor hvor vi skriver gfx direkte...
-import static hotciv.framework.GameConstants.*;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -282,7 +281,7 @@ public class CivDrawing implements Drawing, GameObserver {
     // TODO: Implementation pending
     System.out.println( "Fake it: tileFocusChangedAt "+position );
 
-    // clear here
+    clearStatusBar();
 
     Unit u = game.getUnitAt(position);
     if (u != null) {
@@ -296,7 +295,24 @@ public class CivDrawing implements Drawing, GameObserver {
       updateCityProduction(c);
       updateCityWorkforce(c);
     }
+  }
 
+  private void clearStatusBar() {
+    // Clear unit section
+    clearFigure(unitShieldIcon);
+    moveCountIcon.setText("");
+
+    // Clear city section
+    clearFigure(cityShieldIcon);
+    clearFigure(cityProductionIcon);
+    clearFigure(cityWorkforceIcon);
+  }
+
+  private void clearFigure(Figure figure) {
+    ImageFigure imageFigure = (ImageFigure) figure;
+    imageFigure.set( NOTHING,
+            new Point( figure.displayBox().x,
+                    figure.displayBox().y) );
   }
 
   private void updateUnitShield(Unit unit) {
