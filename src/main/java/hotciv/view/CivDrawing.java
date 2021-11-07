@@ -156,6 +156,8 @@ public class CivDrawing implements Drawing, GameObserver {
 
   // Figures representing icons (showing status in status panel)
   protected ImageFigure turnShieldIcon;
+  protected ImageFigure unitShieldIcon;
+  // TODO husk city icon
   protected void synchronizeIconsWithGameState() {
     // Note - we have to guard creating figures and adding
     // them to the collection, so we do not create multiple
@@ -171,6 +173,17 @@ public class CivDrawing implements Drawing, GameObserver {
       figureCollection.add(turnShieldIcon);
     }
     updateTurnShield(game.getPlayerInTurn());
+
+    if (unitShieldIcon == null) {
+      unitShieldIcon =
+              new HotCivFigure("black", // TODO: ændr til black
+                      new Point(GfxConstants.UNIT_SHIELD_X,
+                              GfxConstants.UNIT_SHIELD_Y),
+                      GfxConstants.UNIT_SHIELD_TYPE_STRING);
+      // insert in delegate figure list to ensure graphical
+      // rendering.
+      figureCollection.add(unitShieldIcon);
+    }
 
     // TODO: Further development to include rest of figures needed
     // for other status panel info, like age, etc.
@@ -213,6 +226,19 @@ public class CivDrawing implements Drawing, GameObserver {
   public void tileFocusChangedAt(Position position) {
     // TODO: Implementation pending
     System.out.println( "Fake it: tileFocusChangedAt "+position );
+    Unit u = game.getUnitAt(position);
+    updateUnitShield(u);
+
+  }
+
+  private void updateUnitShield(Unit unit) {
+    String playername = "red";
+
+    Player owner = unit.getOwner();
+    if (owner == Player.BLUE ) { playername = "blue"; }
+    unitShieldIcon.set( playername+"shield",
+            new Point( GfxConstants.UNIT_SHIELD_X,
+                    GfxConstants.UNIT_SHIELD_Y ) );
   }
 
   @Override

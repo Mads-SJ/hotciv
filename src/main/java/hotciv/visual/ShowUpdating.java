@@ -86,8 +86,9 @@ class UpdateTool extends NullTool {
       break;
     }
     case 5: {
-      editor.showStatus( "State change: Inspect Unit at (4,3)" );
-      game.setTileFocus(new Position(4,3));
+      // TODO: havde henrik lavet en fejl og skrevet 4,3 istedet for 4,2?
+      editor.showStatus( "State change: Inspect Unit at (4,2)" );
+      game.setTileFocus(new Position(4,2));
       break;
     }
       // TODO: Add more state changes for other things to test
