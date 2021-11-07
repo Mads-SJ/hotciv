@@ -123,10 +123,14 @@ public class GameImpl implements Game {
 
     public void setUnitAt(Position p, Unit u) {
         unitPositions[p.getRow()][p.getColumn()] = u;
+
+        notifyWorldChangedAt(p);
     }
 
     public void removeUnitAt(Position p) {
         unitPositions[p.getRow()][p.getColumn()] = null;
+
+        notifyWorldChangedAt(p);
     }
 
     public City getCityAt(Position p) {
@@ -135,6 +139,8 @@ public class GameImpl implements Game {
 
     public void createCityAt(Position p) {
         cityMap.put(p, new CityImpl(getPlayerInTurn()));
+
+        notifyWorldChangedAt(p);
     }
 
     public Map<Position, City> getCities() {
@@ -163,14 +169,11 @@ public class GameImpl implements Game {
         boolean isAttackSuccessful = true;
         if (isEnemyUnitAt(to)) isAttackSuccessful = resolveAttack(from, to);
 
-        if (! isAttackSuccessful) return false; // TODO: special case only update from pos
+        if (! isAttackSuccessful) return false;
 
         makeActualMove(from, to);
 
         if (isCityAt(to)) transferCityOwnerAt(to);
-
-        notifyWorldChangedAt(from);
-        notifyWorldChangedAt(to);
 
         return true;
     }
