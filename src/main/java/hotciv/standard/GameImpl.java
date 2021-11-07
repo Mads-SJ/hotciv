@@ -240,6 +240,7 @@ public class GameImpl implements Game {
                 endOfRound();
                 break;
         }
+        notifyTurnEnds();
     }
 
     private void endOfRound() {
@@ -340,13 +341,25 @@ public class GameImpl implements Game {
         observers.add(observer);
     }
 
-    public void setTileFocus(Position position) {
-        // do nothing
+    public void setTileFocus(Position pos) {
+        notifyTileFocusChangedAt(pos);
     }
 
-    public void notifyWorldChangedAt(Position pos) {
+    private void notifyWorldChangedAt(Position pos) {
         for (GameObserver observer : observers) {
             observer.worldChangedAt(pos);
+        }
+    }
+
+    private void notifyTurnEnds() {
+        for (GameObserver observer : observers) {
+            observer.turnEnds(playerInTurn, age);
+        }
+    }
+
+    private void notifyTileFocusChangedAt(Position pos) {
+        for (GameObserver observer : observers) {
+            observer.tileFocusChangedAt(pos);
         }
     }
 }

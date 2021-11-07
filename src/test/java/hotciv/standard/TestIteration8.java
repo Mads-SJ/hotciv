@@ -30,8 +30,6 @@ public class
 
     @Test
     public void shouldBeLastMethodCalledWorldChangedAtForSpyAfterSettlerMoves() {
-        assertThat(spy.lastMethodCalled(), is("none"));
-
         Position redSettlerPos = new Position(4,3);
         Position candidatePos = new Position(5,4);
         game.moveUnit(redSettlerPos, candidatePos);
@@ -41,8 +39,6 @@ public class
 
     @Test
     public void shouldBeLastMethodCalledWorldChangedAtForSpyAfterSettlerPerformsAction() {
-        assertThat(spy.lastMethodCalled(), is("none"));
-
         Position redSettlerPos = new Position(4,3);
 
         game.performUnitActionAt(redSettlerPos);
@@ -52,8 +48,6 @@ public class
 
     @Test
     public void shouldBeLastMethodCalledWorldChangedAtForSpyAfterCityChangesOwner() {
-        assertThat(spy.lastMethodCalled(), is("none"));
-
         Position redSettlerPos = new Position(4,3);
         Position intermediatePos = new Position(4,2);
 
@@ -67,5 +61,16 @@ public class
         assertThat(spy.lastMethodCalled(), is("worldChangedAt"));
     }
 
+    @Test
+    public void shouldBeLastMethodCalledTurnEndsAfterEndOfTurn() {
+        game.endOfTurn();
+        assertThat(spy.lastMethodCalled(), is("turnEnds"));
+    }
 
+    @Test
+    public void shouldBeLastMethodCalledTileFocusChangedAtAfterTileFocusChanged() {
+        game.setTileFocus(new Position(0,0));
+
+        assertThat(spy.lastMethodCalled(), is("tileFocusChangedAt"));
+    }
 }
