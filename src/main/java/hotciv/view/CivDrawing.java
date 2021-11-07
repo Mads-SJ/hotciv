@@ -11,6 +11,9 @@ import minidraw.standard.handlers.ForwardingFigureChangeHandler;
 import minidraw.standard.handlers.StandardDrawingChangeListenerHandler;
 import minidraw.standard.handlers.StandardSelectionHandler;
 
+import static hotciv.view.GfxConstants.*; // TODO: evt refaktor hvor vi skriver gfx direkte...
+import static hotciv.framework.GameConstants.*;
+
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -159,15 +162,19 @@ public class CivDrawing implements Drawing, GameObserver {
   protected ImageFigure turnShieldIcon;
   protected ImageFigure unitShieldIcon;
   protected ImageFigure cityShieldIcon;
+  protected ImageFigure cityProductionIcon;
+  protected ImageFigure cityWorkforceIcon;
   protected TextFigure moveCountIcon;
-  // TODO husk city icon
+
+  // TODO gennemgå type strings i nedenstående, da gfx constants har forvirret os.
+
   protected void synchronizeIconsWithGameState() {
     // Note - we have to guard creating figures and adding
     // them to the collection, so we do not create multiple
     // instances; this method is called on every 'requestRedraw'
     if (turnShieldIcon == null) {
       turnShieldIcon =
-              new HotCivFigure("redshield",
+              new HotCivFigure(RED_SHIELD,
                       new Point(GfxConstants.TURN_SHIELD_X,
                               GfxConstants.TURN_SHIELD_Y),
                       GfxConstants.TURN_SHIELD_TYPE_STRING);
@@ -179,7 +186,7 @@ public class CivDrawing implements Drawing, GameObserver {
 
     if (unitShieldIcon == null) {
       unitShieldIcon =
-              new HotCivFigure("black",
+              new HotCivFigure(NOTHING,
                       new Point(GfxConstants.UNIT_SHIELD_X,
                               GfxConstants.UNIT_SHIELD_Y),
                       GfxConstants.UNIT_SHIELD_TYPE_STRING);
@@ -191,13 +198,35 @@ public class CivDrawing implements Drawing, GameObserver {
 
     if (cityShieldIcon == null) {
       cityShieldIcon =
-              new HotCivFigure("black",
+              new HotCivFigure(NOTHING,
                       new Point(GfxConstants.CITY_SHIELD_X,
                               GfxConstants.CITY_SHIELD_Y),
                       GfxConstants.CITY_TYPE_STRING);
       // insert in delegate figure list to ensure graphical
       // rendering.
       figureCollection.add(cityShieldIcon);
+    }
+
+    if (cityProductionIcon == null) {
+      cityProductionIcon =
+              new HotCivFigure(NOTHING,
+                      new Point(CITY_PRODUCTION_X,
+                              CITY_PRODUCTION_Y),
+                      UNIT_TYPE_STRING);
+      // insert in delegate figure list to ensure graphical
+      // rendering.
+      figureCollection.add(cityProductionIcon);
+    }
+
+    if (cityWorkforceIcon == null) {
+      cityWorkforceIcon =
+              new HotCivFigure(NOTHING,
+                      new Point(WORKFORCEFOCUS_X,
+                              WORKFORCEFOCUS_Y),
+                      "FAKE IT STRING");
+      // insert in delegate figure list to ensure graphical
+      // rendering.
+      figureCollection.add(cityWorkforceIcon);
     }
 
 
@@ -264,6 +293,8 @@ public class CivDrawing implements Drawing, GameObserver {
     City c = game.getCityAt(position);
     if (c != null) {
       updateCityShield(c);
+      updateCityProduction(c);
+      updateCityWorkforce(c);
     }
 
   }
@@ -274,8 +305,8 @@ public class CivDrawing implements Drawing, GameObserver {
     Player owner = unit.getOwner();
     if (owner == Player.BLUE ) { playername = "blue"; }
     unitShieldIcon.set( playername+"shield",
-            new Point( GfxConstants.UNIT_SHIELD_X,
-                    GfxConstants.UNIT_SHIELD_Y ) );
+            new Point( UNIT_SHIELD_X,
+                    UNIT_SHIELD_Y ) );
   }
 
   private void updateUnitCount(Unit unit) {
@@ -289,8 +320,24 @@ public class CivDrawing implements Drawing, GameObserver {
     Player owner = c.getOwner();
     if (owner == Player.BLUE ) { playername = "blue"; }
     cityShieldIcon.set( playername+"shield",
-            new Point( GfxConstants.CITY_SHIELD_X,
-                    GfxConstants.CITY_SHIELD_Y) );
+            new Point( CITY_SHIELD_X,
+                    CITY_SHIELD_Y) );
+  }
+
+  private void updateCityProduction(City c) {
+    String production = c.getProduction();
+
+    cityProductionIcon.set( production,
+            new Point( CITY_PRODUCTION_X,
+                    CITY_PRODUCTION_Y) );
+  }
+
+  private void updateCityWorkforce(City c) {
+    String workforce = c.getWorkforceFocus();
+
+    cityWorkforceIcon.set( workforce,
+            new Point( WORKFORCEFOCUS_X,
+                    WORKFORCEFOCUS_Y) );
   }
 
 
