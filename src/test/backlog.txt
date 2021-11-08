@@ -9,4 +9,14 @@ Make UnitStrategy as interface and refactor for all variants
     The layout generator in GameImpl should use TileStrategy to check for valid tile types
 Sandworm devour action
 
+Questions regarding gui:
+    - red/green dot on archer (move count?, where to update?)
+    - units on cities. Should the city be hidden or what?
+    - type strings for workforce/production
+    - implementation af MoveUnitTool (ifht. compositional)
+    - (lille spørgsmål ifht. år 0)
+    - game constant til age figure
+    - fejl ved point i ShowUpdating?
+
+
 

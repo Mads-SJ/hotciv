@@ -302,13 +302,14 @@ public class CivDrawing implements Drawing, GameObserver {
 
   public void updateUnits(Position pos) {
     Unit u = game.getUnitAt(pos);
-    if (u == null) {
-      // Unit has been removed
-      UnitFigure uf = positionToUnitFigureMap.remove(pos);
-      figureCollection.remove(uf);
-    } else {
+
+    // Clear position
+    UnitFigure uf = positionToUnitFigureMap.remove(pos);
+    figureCollection.remove(uf);
+
+    if (u != null) {
       // Unit has appeared
-      UnitFigure uf = createUnitFigureFor(pos, u);
+      uf = createUnitFigureFor(pos, u);
       positionToUnitFigureMap.put(pos, uf);
       figureCollection.add(uf);
     }
