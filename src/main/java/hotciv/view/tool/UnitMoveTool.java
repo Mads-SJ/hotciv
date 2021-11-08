@@ -20,11 +20,16 @@ public class UnitMoveTool extends NullTool {
         this.game = game;
     }
 
+    public Position getFrom() {
+        return from;
+    }
+
     @Override
     public void mouseDown(MouseEvent e, int x, int y) {
         super.mouseDown(e, x, y);
 
         from = getPositionFromXY(x, y);
+        System.out.println("mouse down");
     }
 
     @Override
@@ -33,5 +38,6 @@ public class UnitMoveTool extends NullTool {
 
         Position to = getPositionFromXY(x, y);
         game.moveUnit(from, to);
+        System.out.println("mouse up");
     }
 }

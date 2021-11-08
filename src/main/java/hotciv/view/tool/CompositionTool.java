@@ -2,6 +2,7 @@ package hotciv.view.tool;
 
 import hotciv.framework.Game;
 import hotciv.framework.Position;
+import hotciv.framework.Unit;
 import hotciv.view.GfxConstants;
 import hotciv.view.figure.HotCivFigure;
 import minidraw.framework.DrawingEditor;
@@ -11,8 +12,7 @@ import minidraw.standard.NullTool;
 import java.awt.event.MouseEvent;
 
 import static hotciv.framework.GameConstants.WORLDSIZE;
-import static hotciv.view.GfxConstants.UNIT_TYPE_STRING;
-import static hotciv.view.GfxConstants.getPositionFromXY;
+import static hotciv.view.GfxConstants.*;
 
 /** Template for the CompositionTool exercise (FRS 36.44).
  * Composition tool is basically a State Pattern, similar
@@ -31,12 +31,23 @@ public class CompositionTool extends NullTool {
   private HotCivFigure figureBelowClickPoint;
 
   private Tool state;
+  private ActionTool actionTool;
+  private EndOfTurnTool endOfTurnTool;
+  private SetFocusTool setFocusTool;
+  private UnitMoveTool unitMoveTool;
+  private NullTool nullTool;
 
   public CompositionTool(DrawingEditor editor, Game game) {
-    state = new NullTool(); // TODO: en af de her 'state' linjer er unødvendige.
     this.editor = editor;
     this.game = game;
-    state = null;
+
+    actionTool = new ActionTool(editor, game);
+    endOfTurnTool = new EndOfTurnTool(editor, game);
+    setFocusTool = new SetFocusTool(editor, game);
+    unitMoveTool = new UnitMoveTool(editor, game);
+    nullTool = new NullTool();
+
+    state = nullTool;
   }
 
   @Override
@@ -51,25 +62,45 @@ public class CompositionTool extends NullTool {
 
       Position tilePos = getPositionFromXY(x, y);
       if (tilePos.getRow() <= WORLDSIZE - 1 && tilePos.getColumn() <= WORLDSIZE - 1) {
-        state = new SetFocusTool(editor, game);
+        state = setFocusTool;
       }
-      else state = new NullTool();
+      else state = nullTool;
     } else {
       String figureTypeString = figureBelowClickPoint.getTypeString();
-      if (figureTypeString.equals(GfxConstants.TURN_SHIELD_TYPE_STRING)) {
-        state = new EndOfTurnTool(editor, game);
+      if (figureTypeString.equals(TURN_SHIELD_TYPE_STRING)) {
+        state = endOfTurnTool;
       }
       else if (e.isShiftDown() && figureTypeString.equals(UNIT_TYPE_STRING)) {
-        state = new ActionTool(editor, game);
+        state = actionTool;
+      }
+      else if (figureTypeString.equals(UNIT_TYPE_STRING)) {
+        state = unitMoveTool; // TODO husk at restricte moves til ikke at gå udover kanten (i isMoveValid).
+        // dette vil fungere for setFocusTool hvis distancen der flyttes er 0.
+      }
+      else if (figureTypeString.equals(CITY_TYPE_STRING)) {
+        state = setFocusTool;
       }
       else {
         // TODO: handle all the cases - action tool, unit move tool, set focus tool, (etc).
         System.out.println("TODO: PENDING IMPLEMENTATION based upon hitting a figure with type: "
                 + figureTypeString);
-        state = new NullTool();
+        state = nullTool;
       }
     }
     // Finally, delegate to the selected state
     state.mouseDown(e, x, y);
   }
+
+  @Override
+  public void mouseUp(MouseEvent e, int x, int y) {
+    if (state != unitMoveTool) return;
+
+    Position to = getPositionFromXY(x, y);
+    if (unitMoveTool.getFrom().equals(to)) {
+      setFocusTool.mouseDown(e, x, y);
+    }
+    else state.mouseUp(e, x, y);
+  }
+
+
 }
