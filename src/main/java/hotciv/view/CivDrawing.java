@@ -296,6 +296,11 @@ public class CivDrawing implements Drawing, GameObserver {
   public void worldChangedAt(Position pos) {
     // TODO: Remove system.out debugging output, included here for learning purposes
     System.out.println( "CivDrawing: world changes at "+pos);
+    updateUnits(pos);
+    updateCities(pos);
+  }
+
+  public void updateUnits(Position pos) {
     Unit u = game.getUnitAt(pos);
     if (u == null) {
       // Unit has been removed
@@ -307,7 +312,9 @@ public class CivDrawing implements Drawing, GameObserver {
       positionToUnitFigureMap.put(pos, uf);
       figureCollection.add(uf);
     }
+  }
 
+  public void updateCities(Position pos) {
     City c = game.getCityAt(pos);
     if (c == null) {
       CityFigure cf = positionToCityFigureMap.remove(pos);
@@ -339,7 +346,6 @@ public class CivDrawing implements Drawing, GameObserver {
   }
 
   public void tileFocusChangedAt(Position position) {
-    // TODO: Implementation pending
     System.out.println( "Fake it: tileFocusChangedAt "+position );
 
     clearStatusBar();
