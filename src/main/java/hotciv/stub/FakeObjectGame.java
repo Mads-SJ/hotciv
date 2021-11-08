@@ -69,7 +69,7 @@ public class FakeObjectGame implements Game {
               Player.BLUE : 
               Player.RED );
     // no age increments implemented...
-    gameObserver.turnEnds(inTurn, -4000);
+    gameObserver.turnEnds(inTurn, 100);
   }
   public Player getPlayerInTurn() { return inTurn; }
 

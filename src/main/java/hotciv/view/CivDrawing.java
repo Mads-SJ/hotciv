@@ -158,6 +158,7 @@ public class CivDrawing implements Drawing, GameObserver {
   }
 
   // Figures representing icons (showing status in status panel)
+  protected TextFigure ageIcon;
   protected ImageFigure turnShieldIcon;
   protected ImageFigure unitShieldIcon;
   protected ImageFigure cityShieldIcon;
@@ -239,6 +240,16 @@ public class CivDrawing implements Drawing, GameObserver {
       figureCollection.add(moveCountIcon);
     }
 
+    if (ageIcon == null) {
+      ageIcon =
+              new TextFigure("4000 BC", // TODO: evt GameConstant
+                      new Point(AGE_TEXT_X,
+                              AGE_TEXT_Y));
+      // insert in delegate figure list to ensure graphical
+      // rendering.
+      figureCollection.add(ageIcon);
+    }
+
     // TODO: Further development to include rest of figures needed
     // for other status panel info, like age, etc.
   }
@@ -266,15 +277,18 @@ public class CivDrawing implements Drawing, GameObserver {
     System.out.println( "CivDrawing: turnEnds for "+
                         nextPlayer+" at "+age );
     updateTurnShield(nextPlayer);
-    // TODO: Age output pending
+    updateAge(age);
   }
 
   private void updateTurnShield(Player nextPlayer) {
     String playername = "red";
     if ( nextPlayer == Player.BLUE ) { playername = "blue"; }
-    turnShieldIcon.set( playername+"shield",
-                        new Point( GfxConstants.TURN_SHIELD_X,
-                                   GfxConstants.TURN_SHIELD_Y ) );
+
+    updateFigure(turnShieldIcon, playername + "shield");
+  }
+
+  private void updateAge(int age) {
+    ageIcon.setText("" + Math.abs(age) + (age < 0 ? " BC" : " AC")); // TODO: hvad med år 0?
   }
 
   public void tileFocusChangedAt(Position position) {
