@@ -54,6 +54,13 @@ public class FakeObjectGame implements Game {
 
     if (from.getRow() - to.getRow() > 1) return false;
 
+    // Disallow stacking
+    if (getUnitAt(to) != null) {
+      // depending upon your CivDrawing and UnitMoveTool code,
+      // maybe fire observer 'worldChangedAt()'
+      return false;
+    }
+
     CityImpl city = (CityImpl) getCityAt(to);
     if (city != null) city.setOwner(Player.BLUE);
 
@@ -125,6 +132,8 @@ public class FakeObjectGame implements Game {
     world.put(new Position(7,3), new StubTile(ThetaConstants.DESERT));
     world.put(new Position(7,4), new StubTile(ThetaConstants.DESERT));
     world.put(new Position(7,5), new StubTile(ThetaConstants.DESERT));
+
+    world.put(new Position(0,0), new StubTile(GameConstants.MOUNTAINS));
   }
 
   // TODO: Add more fake object behaviour to test MiniDraw updating
@@ -133,7 +142,11 @@ public class FakeObjectGame implements Game {
   public int getAge() { return 0; }  
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
-  public void performUnitActionAt( Position p ) {}  
+  public void performUnitActionAt( Position p ) {
+    Unit u = getUnitAt(p);
+    if (u == null) return;
+    System.out.println("Action performed");
+  }
 
   public void setTileFocus(Position position) {
     // TODO: setTileFocus implementation pending.

@@ -2,6 +2,7 @@ package hotciv.visual;
 
 import hotciv.framework.Game;
 import hotciv.stub.FakeObjectGame;
+import hotciv.view.tool.ActionTool;
 import minidraw.framework.DrawingEditor;
 import minidraw.standard.MiniDrawApplication;
 import minidraw.standard.NullTool;
@@ -33,7 +34,6 @@ public class ShowAction {
     editor.open();
     editor.showStatus("Shift-Click on unit to see Game's performAction method being called.");
 
-    // TODO: Replace the setting of the tool with your ActionTool implementation.
-    editor.setTool(new NullTool());
+    editor.setTool(new ActionTool(editor, game));
   }
 }
