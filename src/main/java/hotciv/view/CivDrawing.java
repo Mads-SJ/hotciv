@@ -1,6 +1,7 @@
 package hotciv.view;
 
 import hotciv.framework.*;
+import hotciv.view.figure.CityFigure;
 import hotciv.view.figure.HotCivFigure;
 import hotciv.view.figure.TextFigure;
 import hotciv.view.figure.UnitFigure;
@@ -64,6 +65,7 @@ public class CivDrawing implements Drawing, GameObserver {
   // A mapping between position to the Unit figure at that position
   // allowing us to track where units move
   private Map<Position, UnitFigure> positionToUnitFigureMap;
+  private Map<Position, CityFigure> positionToCityFigureMap;
 
   /** the Game instance that this CivDrawing is going to render units,
    * cities, ages, player-in-turn, from */
@@ -79,6 +81,7 @@ public class CivDrawing implements Drawing, GameObserver {
     figureCollection = new StandardFigureCollection(figureChangeListener);
 
     positionToUnitFigureMap = new HashMap<>();
+    positionToCityFigureMap = new HashMap<>();
 
     // associate with game
     this.game = game;
@@ -91,6 +94,7 @@ public class CivDrawing implements Drawing, GameObserver {
     synchronizeUnitFigureCollectionWithGameUnits();
     // and the set of 'icons' in status panel represents game state
     synchronizeIconsWithGameState();
+    synchronizeCityFigureCollectionWithGameCities();
   }
   
   /** The CivDrawing should not allow client side
@@ -151,11 +155,45 @@ public class CivDrawing implements Drawing, GameObserver {
     String type = unit.getTypeString();
     // convert the unit's Position to (x,y) coordinates
     Point point = new Point( GfxConstants.getXFromColumn(p.getColumn()),
-                             GfxConstants.getYFromRow(p.getRow()) );
+            GfxConstants.getYFromRow(p.getRow()) );
     UnitFigure unitFigure =
-      new UnitFigure(type, point, unit);
+            new UnitFigure(type, point, unit);
     return unitFigure;
   }
+
+  /** Ensure our collection of city figures match those of the
+   * game's cities.
+   */
+  protected void synchronizeCityFigureCollectionWithGameCities() {
+    Position p;
+    for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+      for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+        p = new Position(r, c);
+        City city = game.getCityAt(p);
+        CityFigure cityFigure = positionToCityFigureMap.get(p);
+
+        if (cityFigure != null) {
+          positionToCityFigureMap.remove(p);
+          figureCollection.remove(cityFigure);
+        }
+        if (city != null) {
+          cityFigure = createCityFigureFor(p, city);
+          positionToCityFigureMap.put(p, cityFigure);
+          figureCollection.add(cityFigure);
+        }
+      }
+    }
+  }
+
+  /** Create a figure representing a unit at given position */
+  private CityFigure createCityFigureFor(Position p, City city) {
+    // convert the unit's Position to (x,y) coordinates
+    Point point = new Point( GfxConstants.getXFromColumn(p.getColumn()),
+            GfxConstants.getYFromRow(p.getRow()) );
+    return new CityFigure(city, point);
+  }
+
+
 
   // Figures representing icons (showing status in status panel)
   protected TextFigure ageIcon;
@@ -269,7 +307,16 @@ public class CivDrawing implements Drawing, GameObserver {
       positionToUnitFigureMap.put(pos, uf);
       figureCollection.add(uf);
     }
-    // TODO: Cities may change on position as well
+
+    City c = game.getCityAt(pos);
+    if (c == null) {
+      CityFigure cf = positionToCityFigureMap.remove(pos);
+      figureCollection.remove(cf);
+    } else {
+      CityFigure cf = createCityFigureFor(pos, c);
+      positionToCityFigureMap.put(pos, cf);
+      figureCollection.add(cf);
+    }
   }
 
   public void turnEnds(Player nextPlayer, int age) {
@@ -369,8 +416,8 @@ public class CivDrawing implements Drawing, GameObserver {
     // A request to redraw from scratch, so we
     // synchronize with all game state
     synchronizeUnitFigureCollectionWithGameUnits();
+    synchronizeCityFigureCollectionWithGameCities();
     synchronizeIconsWithGameState();
-    // TODO: Cities pending
   }
 
   @Override

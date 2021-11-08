@@ -52,6 +52,9 @@ public class FakeObjectGame implements Game {
     Unit unit = getUnitAt(from);
     if (unit == null) return false;
 
+    CityImpl city = (CityImpl) getCityAt(to);
+    if (city != null) city.setOwner(Player.BLUE);
+
     System.out.println("-- moveUnit found unit at: " + from);
     // Remember to inform game observer on any change on the tiles
     unitMap.put(from, null);
@@ -91,7 +94,8 @@ public class FakeObjectGame implements Game {
     unitMap.put(new Position(6,3), new StubUnit( ThetaConstants.SANDWORM, Player.RED ));
 
     cityMap = new HashMap<>();
-    cityMap.put(new Position(7,7), new CityImpl(Player.RED));
+    cityMap.put(new Position(7,7), new CityImpl(Player.BLUE));
+    cityMap.put(new Position(3,3), new CityImpl(Player.RED));
 
     inTurn = Player.RED;
   }

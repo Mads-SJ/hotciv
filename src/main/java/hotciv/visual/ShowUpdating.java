@@ -96,6 +96,16 @@ class UpdateTool extends NullTool {
       game.setTileFocus(new Position(7,7));
       break;
     }
+    case 7: {
+      editor.showStatus( "State change: Moving legion to (3,3)" );
+      game.moveUnit( new Position(3,2), new Position(3,3) );
+      break;
+    }
+    case 8: {
+      editor.showStatus( "State change: Moving legion to (3,4)" );
+      game.moveUnit( new Position(3,3), new Position(3,4) );
+      break;
+    }
       // TODO: Add more state changes for other things to test
     default: {
       editor.showStatus("No more changes in my list...");
