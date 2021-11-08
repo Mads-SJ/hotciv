@@ -1,6 +1,7 @@
 package hotciv.view.tool;
 
 import hotciv.framework.Game;
+import hotciv.framework.Position;
 import hotciv.view.GfxConstants;
 import hotciv.view.figure.HotCivFigure;
 import minidraw.framework.DrawingEditor;
@@ -8,6 +9,10 @@ import minidraw.framework.Tool;
 import minidraw.standard.NullTool;
 
 import java.awt.event.MouseEvent;
+
+import static hotciv.framework.GameConstants.WORLDSIZE;
+import static hotciv.view.GfxConstants.UNIT_TYPE_STRING;
+import static hotciv.view.GfxConstants.getPositionFromXY;
 
 /** Template for the CompositionTool exercise (FRS 36.44).
  * Composition tool is basically a State Pattern, similar
@@ -28,7 +33,7 @@ public class CompositionTool extends NullTool {
   private Tool state;
 
   public CompositionTool(DrawingEditor editor, Game game) {
-    state = new NullTool();
+    state = new NullTool(); // TODO: en af de her 'state' linjer er unødvendige.
     this.editor = editor;
     this.game = game;
     state = null;
@@ -38,18 +43,29 @@ public class CompositionTool extends NullTool {
   public void mouseDown(MouseEvent e, int x, int y) {
     // Find the figure (if any) just below the mouse click position
     figureBelowClickPoint = (HotCivFigure) editor.drawing().findFigure(x, y);
+
     // Next determine the state of tool to use
     if (figureBelowClickPoint == null) {
       // TODO: no figure below - set state correctly (set focus tool or null tool)
       System.out.println("TODO: No figure below click point - PENDING IMPLEMENTATION");
-      state = new NullTool();
+
+      Position tilePos = getPositionFromXY(x, y);
+      if (tilePos.getRow() <= WORLDSIZE - 1 && tilePos.getColumn() <= WORLDSIZE - 1) {
+        state = new SetFocusTool(editor, game);
+      }
+      else state = new NullTool();
     } else {
-      if (figureBelowClickPoint.getTypeString().equals(GfxConstants.TURN_SHIELD_TYPE_STRING)) {
+      String figureTypeString = figureBelowClickPoint.getTypeString();
+      if (figureTypeString.equals(GfxConstants.TURN_SHIELD_TYPE_STRING)) {
         state = new EndOfTurnTool(editor, game);
-      } else {
-        // TODO: handle all the cases - action tool, unit move tool, etc
+      }
+      else if (e.isShiftDown() && figureTypeString.equals(UNIT_TYPE_STRING)) {
+        state = new ActionTool(editor, game);
+      }
+      else {
+        // TODO: handle all the cases - action tool, unit move tool, set focus tool, (etc).
         System.out.println("TODO: PENDING IMPLEMENTATION based upon hitting a figure with type: "
-                + figureBelowClickPoint.getTypeString());
+                + figureTypeString);
         state = new NullTool();
       }
     }

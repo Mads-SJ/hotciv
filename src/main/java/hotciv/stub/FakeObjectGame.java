@@ -140,7 +140,7 @@ public class FakeObjectGame implements Game {
   public City getCityAt( Position p ) { return cityMap.get(p); }
   public Player getWinner() { return null; }
   public int getAge() { return 0; }  
-  public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
+  public void changeWorkForceFocusInCityAt( Position p, String balance ) {} // TODO lav ekstra tool til disse?
   public void changeProductionInCityAt( Position p, String unitType ) {}
   public void performUnitActionAt( Position p ) {
     Unit u = getUnitAt(p);

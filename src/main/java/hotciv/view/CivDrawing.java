@@ -250,7 +250,7 @@ public class CivDrawing implements Drawing, GameObserver {
               new HotCivFigure(NOTHING,
                       new Point(CITY_PRODUCTION_X,
                               CITY_PRODUCTION_Y),
-                      UNIT_TYPE_STRING);
+                      "FAKE IT STRING"); // TODO for ETA CIV, tilføj selv type strings i constants.
       // insert in delegate figure list to ensure graphical
       // rendering.
       figureCollection.add(cityProductionIcon);
