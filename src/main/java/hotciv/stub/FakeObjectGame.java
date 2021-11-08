@@ -52,6 +52,8 @@ public class FakeObjectGame implements Game {
     Unit unit = getUnitAt(from);
     if (unit == null) return false;
 
+    if (from.getRow() - to.getRow() > 1) return false;
+
     CityImpl city = (CityImpl) getCityAt(to);
     if (city != null) city.setOwner(Player.BLUE);
 

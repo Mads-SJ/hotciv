@@ -56,7 +56,7 @@ class UpdateTool extends NullTool {
     this.editor = editor;
     this.game = game;
   }
-  private int count = 4; //TODO set count til 0 igen
+  private int count = 0;
 
   public void mouseDown(MouseEvent e, int x, int y) {
     switch(count) {
