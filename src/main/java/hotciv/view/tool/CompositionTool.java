@@ -74,7 +74,8 @@ public class CompositionTool extends NullTool {
         state = actionTool;
       }
       else if (figureTypeString.equals(UNIT_TYPE_STRING)) {
-        state = unitMoveTool; // TODO husk at restricte moves til ikke at gå udover kanten (i isMoveValid).
+        setFocusTool.mouseDown(e, x, y);
+        state = unitMoveTool;
         // dette vil fungere for setFocusTool hvis distancen der flyttes er 0.
       }
       else if (figureTypeString.equals(CITY_TYPE_STRING)) {
@@ -94,12 +95,7 @@ public class CompositionTool extends NullTool {
   @Override
   public void mouseUp(MouseEvent e, int x, int y) {
     if (state != unitMoveTool) return;
-
-    Position to = getPositionFromXY(x, y);
-    if (unitMoveTool.getFrom().equals(to)) {
-      setFocusTool.mouseDown(e, x, y);
-    }
-    else state.mouseUp(e, x, y);
+    state.mouseUp(e, x, y);
   }
 
 

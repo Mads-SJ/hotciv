@@ -29,7 +29,6 @@ public class UnitMoveTool extends NullTool {
         super.mouseDown(e, x, y);
 
         from = getPositionFromXY(x, y);
-        System.out.println("mouse down");
     }
 
     @Override
@@ -37,7 +36,9 @@ public class UnitMoveTool extends NullTool {
         super.mouseUp(e, x, y);
 
         Position to = getPositionFromXY(x, y);
-        game.moveUnit(from, to);
-        System.out.println("mouse up");
+        boolean hasMoved = game.moveUnit(from, to);
+
+        if (hasMoved) game.setTileFocus(to);
+        else game.setTileFocus(from);
     }
 }

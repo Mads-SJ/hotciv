@@ -180,6 +180,7 @@ public class CivDrawing implements Drawing, GameObserver {
           cityFigure = createCityFigureFor(p, city);
           positionToCityFigureMap.put(p, cityFigure);
           figureCollection.add(cityFigure);
+          zOrder(cityFigure, ZOrder.TO_BOTTOM);
         }
       }
     }
@@ -296,8 +297,9 @@ public class CivDrawing implements Drawing, GameObserver {
   public void worldChangedAt(Position pos) {
     // TODO: Remove system.out debugging output, included here for learning purposes
     System.out.println( "CivDrawing: world changes at "+pos);
-    updateUnits(pos);
     updateCities(pos);
+    updateUnits(pos);
+    requestUpdate();
   }
 
   public void updateUnits(Position pos) {
@@ -333,6 +335,8 @@ public class CivDrawing implements Drawing, GameObserver {
                         nextPlayer+" at "+age );
     updateTurnShield(nextPlayer);
     updateAge(age);
+    clearStatusBar();
+    requestUpdate();
   }
 
   private void updateTurnShield(Player nextPlayer) {
@@ -343,7 +347,7 @@ public class CivDrawing implements Drawing, GameObserver {
   }
 
   private void updateAge(int age) {
-    ageIcon.setText("" + Math.abs(age) + (age < 0 ? " BC" : " AC")); // TODO: hvad med år 0?
+    ageIcon.setText("" + Math.abs(age) + (age < 0 ? " BC" : " AC"));
   }
 
   public void tileFocusChangedAt(Position position) {
@@ -363,6 +367,8 @@ public class CivDrawing implements Drawing, GameObserver {
       updateCityProduction(c);
       updateCityWorkforce(c);
     }
+
+    requestUpdate();
   }
 
   private void clearStatusBar() {
