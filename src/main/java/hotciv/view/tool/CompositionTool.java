@@ -91,6 +91,4 @@ public class CompositionTool extends NullTool {
     if (state != unitMoveTool) return;
     state.mouseUp(e, x, y);
   }
-
-
 }
