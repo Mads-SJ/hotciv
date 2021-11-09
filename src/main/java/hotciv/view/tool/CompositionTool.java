@@ -57,9 +57,6 @@ public class CompositionTool extends NullTool {
 
     // Next determine the state of tool to use
     if (figureBelowClickPoint == null) {
-      // TODO: no figure below - set state correctly (set focus tool or null tool)
-      System.out.println("TODO: No figure below click point - PENDING IMPLEMENTATION");
-
       Position tilePos = getPositionFromXY(x, y);
       if (tilePos.getRow() <= WORLDSIZE - 1 && tilePos.getColumn() <= WORLDSIZE - 1) {
         state = setFocusTool;
@@ -82,9 +79,6 @@ public class CompositionTool extends NullTool {
         state = setFocusTool;
       }
       else {
-        // TODO: handle all the cases - action tool, unit move tool, set focus tool, (etc).
-        System.out.println("TODO: PENDING IMPLEMENTATION based upon hitting a figure with type: "
-                + figureTypeString);
         state = nullTool;
       }
     }

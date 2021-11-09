@@ -23,11 +23,7 @@ public class ActionTool extends NullTool {
     public void mouseDown(MouseEvent e, int x, int y) {
         super.mouseDown(e, x, y);
 
-        if (! e.isShiftDown()) return;
-
         Position tilePos = getPositionFromXY(x, y);
-        if(tilePos.getRow() > WORLDSIZE - 1) return;
-        if(tilePos.getColumn() > WORLDSIZE - 1) return;
 
         game.performUnitActionAt(tilePos);
     }

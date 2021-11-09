@@ -64,7 +64,7 @@ public class GameImpl implements Game {
     public GameImpl(GameFactory gameFactory) {
         playerInTurn = Player.RED; // Red always starts
         currentRound = 1;
-        age = START_AGE; // TODO: refaktorer age med roundsPassed?
+        age = START_AGE;
         observers = new ArrayList<>();
 
         this.winningStrategy = gameFactory.createWinningStrategy();
@@ -296,6 +296,7 @@ public class GameImpl implements Game {
     }
 
     public void performUnitActionAt(Position p) {
+        if (! isWithinWorldGrid(p)) return;
         actionStrategy.performUnitActionAt(this, p);
     }
 
@@ -337,11 +338,18 @@ public class GameImpl implements Game {
         return null;
     }
 
+    public boolean isWithinWorldGrid(Position p) {
+        boolean isWithinWorldGrid = p.getRow() < WORLDSIZE && p.getColumn() < WORLDSIZE &&
+                p.getRow() >= 0 && p.getColumn() >= 0;
+        return isWithinWorldGrid;
+    }
+
     public void addObserver(GameObserver observer) {
         observers.add(observer);
     }
 
     public void setTileFocus(Position pos) {
+        if (! isWithinWorldGrid(pos)) return;
         notifyTileFocusChangedAt(pos);
     }
 

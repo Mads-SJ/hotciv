@@ -12,7 +12,8 @@ import minidraw.standard.handlers.ForwardingFigureChangeHandler;
 import minidraw.standard.handlers.StandardDrawingChangeListenerHandler;
 import minidraw.standard.handlers.StandardSelectionHandler;
 
-import static hotciv.view.GfxConstants.*; // TODO: evt refaktor hvor vi skriver gfx direkte...
+import static hotciv.framework.GameConstants.START_AGE;
+import static hotciv.view.GfxConstants.*;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -205,8 +206,6 @@ public class CivDrawing implements Drawing, GameObserver {
   protected ImageFigure cityWorkforceIcon;
   protected TextFigure moveCountIcon;
 
-  // TODO gennemgå type strings i nedenstående, da gfx constants har forvirret os.
-
   protected void synchronizeIconsWithGameState() {
     // Note - we have to guard creating figures and adding
     // them to the collection, so we do not create multiple
@@ -217,8 +216,6 @@ public class CivDrawing implements Drawing, GameObserver {
                       new Point(GfxConstants.TURN_SHIELD_X,
                               GfxConstants.TURN_SHIELD_Y),
                       GfxConstants.TURN_SHIELD_TYPE_STRING);
-      // insert in delegate figure list to ensure graphical
-      // rendering.
       figureCollection.add(turnShieldIcon);
     }
     updateTurnShield(game.getPlayerInTurn());
@@ -229,8 +226,6 @@ public class CivDrawing implements Drawing, GameObserver {
                       new Point(GfxConstants.UNIT_SHIELD_X,
                               GfxConstants.UNIT_SHIELD_Y),
                       GfxConstants.UNIT_SHIELD_TYPE_STRING);
-      // insert in delegate figure list to ensure graphical
-      // rendering.
       figureCollection.add(unitShieldIcon);
     }
 
@@ -241,8 +236,6 @@ public class CivDrawing implements Drawing, GameObserver {
                       new Point(GfxConstants.CITY_SHIELD_X,
                               GfxConstants.CITY_SHIELD_Y),
                       GfxConstants.CITY_TYPE_STRING);
-      // insert in delegate figure list to ensure graphical
-      // rendering.
       figureCollection.add(cityShieldIcon);
     }
 
@@ -252,8 +245,6 @@ public class CivDrawing implements Drawing, GameObserver {
                       new Point(CITY_PRODUCTION_X,
                               CITY_PRODUCTION_Y),
                       "FAKE IT STRING"); // TODO for ETA CIV, tilføj selv type strings i constants.
-      // insert in delegate figure list to ensure graphical
-      // rendering.
       figureCollection.add(cityProductionIcon);
     }
 
@@ -263,8 +254,6 @@ public class CivDrawing implements Drawing, GameObserver {
                       new Point(WORKFORCEFOCUS_X,
                               WORKFORCEFOCUS_Y),
                       "FAKE IT STRING");
-      // insert in delegate figure list to ensure graphical
-      // rendering.
       figureCollection.add(cityWorkforceIcon);
     }
 
@@ -274,29 +263,20 @@ public class CivDrawing implements Drawing, GameObserver {
               new TextFigure("",
                       new Point(GfxConstants.UNIT_COUNT_X,
                               GfxConstants.UNIT_COUNT_Y));
-      // insert in delegate figure list to ensure graphical
-      // rendering.
       figureCollection.add(moveCountIcon);
     }
 
     if (ageIcon == null) {
       ageIcon =
-              new TextFigure("4000 BC", // TODO: evt GameConstant
+              new TextFigure(Math.abs(START_AGE) + " BC",
                       new Point(AGE_TEXT_X,
                               AGE_TEXT_Y));
-      // insert in delegate figure list to ensure graphical
-      // rendering.
       figureCollection.add(ageIcon);
     }
-
-    // TODO: Further development to include rest of figures needed
-    // for other status panel info, like age, etc.
   }
  
   // === Observer Methods ===
   public void worldChangedAt(Position pos) {
-    // TODO: Remove system.out debugging output, included here for learning purposes
-    System.out.println( "CivDrawing: world changes at "+pos);
     updateCities(pos);
     updateUnits(pos);
     requestUpdate();
@@ -330,9 +310,6 @@ public class CivDrawing implements Drawing, GameObserver {
   }
 
   public void turnEnds(Player nextPlayer, int age) {
-    // TODO: Remove system.out debugging output
-    System.out.println( "CivDrawing: turnEnds for "+
-                        nextPlayer+" at "+age );
     updateTurnShield(nextPlayer);
     updateAge(age);
     clearStatusBar();
@@ -351,7 +328,6 @@ public class CivDrawing implements Drawing, GameObserver {
   }
 
   public void tileFocusChangedAt(Position position) {
-    System.out.println( "Fake it: tileFocusChangedAt "+position );
 
     clearStatusBar();
 

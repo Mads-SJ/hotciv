@@ -23,11 +23,7 @@ public class SetFocusTool extends NullTool {
     @Override
     public void mouseDown(MouseEvent e, int x, int y) {
         super.mouseDown(e, x, y);
-        Position tilePos = getPositionFromXY(x, y); // TODO: Kan de her tjek slettes herfra?
-
-        if(tilePos.getRow() > WORLDSIZE - 1) return;
-        if(tilePos.getColumn() > WORLDSIZE - 1) return;
-
+        Position tilePos = getPositionFromXY(x, y);
         game.setTileFocus(tilePos);
     }
 

@@ -31,10 +31,6 @@ public class EndOfTurnTool extends NullTool {
   @Override
   public void mouseDown(MouseEvent e, int x, int y) {
     super.mouseDown(e, x, y);
-    // TODO evt behøves dette ikke at blive håndteret her (men kun i compositiontool)
-    if (x < TURN_SHIELD_X || TURN_SHIELD_X + width < x) return;
-    if (y < TURN_SHIELD_Y || TURN_SHIELD_Y + height < y) return;
-
     game.endOfTurn();
   }
 

@@ -136,7 +136,6 @@ public class FakeObjectGame implements Game {
     world.put(new Position(0,0), new StubTile(GameConstants.MOUNTAINS));
   }
 
-  // TODO: Add more fake object behaviour to test MiniDraw updating
   public City getCityAt( Position p ) { return cityMap.get(p); }
   public Player getWinner() { return null; }
   public int getAge() { return 0; }  
@@ -149,7 +148,6 @@ public class FakeObjectGame implements Game {
   }
 
   public void setTileFocus(Position position) {
-    // TODO: setTileFocus implementation pending.
     System.out.println("-- FakeObjectGame / setTileFocus called.");
     gameObserver.tileFocusChangedAt(position);
   }
