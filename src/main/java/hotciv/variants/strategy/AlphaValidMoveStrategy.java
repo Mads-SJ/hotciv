@@ -10,6 +10,8 @@ import static hotciv.framework.GameConstants.*;
 public class AlphaValidMoveStrategy implements ValidMoveStrategy {
     @Override
     public boolean isMoveValid(GameImpl game, Position from, Position to) {
+        if (! game.isWithinWorldGrid(to)) return false;
+
         UnitImpl unitToMove = (UnitImpl) game.getUnitAt(from);
         UnitImpl potentialUnitAtToPosition = (UnitImpl) game.getUnitAt(to);
 

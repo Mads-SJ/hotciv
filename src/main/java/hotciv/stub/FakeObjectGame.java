@@ -1,6 +1,7 @@
 package hotciv.stub;
 
 import hotciv.framework.*;
+import hotciv.standard.CityImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,8 @@ import java.util.Map;
 public class FakeObjectGame implements Game {
 
   private Map<Position, Unit> unitMap;
+  private Map<Position, City> cityMap;
+
   public Unit getUnitAt(Position p) {
     return unitMap.get(p);
   }
@@ -48,6 +51,18 @@ public class FakeObjectGame implements Game {
     System.out.println("-- FakeObjectGame / moveUnit called: " + from + "->" + to);
     Unit unit = getUnitAt(from);
     if (unit == null) return false;
+
+    if (from.getRow() - to.getRow() > 1) return false;
+
+    // Disallow stacking
+    if (getUnitAt(to) != null) {
+      // depending upon your CivDrawing and UnitMoveTool code,
+      // maybe fire observer 'worldChangedAt()'
+      return false;
+    }
+
+    CityImpl city = (CityImpl) getCityAt(to);
+    if (city != null) city.setOwner(Player.BLUE);
 
     System.out.println("-- moveUnit found unit at: " + from);
     // Remember to inform game observer on any change on the tiles
@@ -66,7 +81,7 @@ public class FakeObjectGame implements Game {
               Player.BLUE : 
               Player.RED );
     // no age increments implemented...
-    gameObserver.turnEnds(inTurn, -4000);
+    gameObserver.turnEnds(inTurn, 100);
   }
   public Player getPlayerInTurn() { return inTurn; }
 
@@ -86,6 +101,11 @@ public class FakeObjectGame implements Game {
     unitMap.put(new Position(3,2), new StubUnit( GameConstants.LEGION, Player.BLUE ));
     unitMap.put(new Position(4,2), new StubUnit( GameConstants.SETTLER, Player.RED ));
     unitMap.put(new Position(6,3), new StubUnit( ThetaConstants.SANDWORM, Player.RED ));
+
+    cityMap = new HashMap<>();
+    cityMap.put(new Position(7,7), new CityImpl(Player.BLUE));
+    cityMap.put(new Position(3,3), new CityImpl(Player.RED));
+
     inTurn = Player.RED;
   }
 
@@ -112,20 +132,24 @@ public class FakeObjectGame implements Game {
     world.put(new Position(7,3), new StubTile(ThetaConstants.DESERT));
     world.put(new Position(7,4), new StubTile(ThetaConstants.DESERT));
     world.put(new Position(7,5), new StubTile(ThetaConstants.DESERT));
+
+    world.put(new Position(0,0), new StubTile(GameConstants.MOUNTAINS));
   }
 
-  // TODO: Add more fake object behaviour to test MiniDraw updating
-  public City getCityAt( Position p ) { return null; }
+  public City getCityAt( Position p ) { return cityMap.get(p); }
   public Player getWinner() { return null; }
   public int getAge() { return 0; }  
-  public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
+  public void changeWorkForceFocusInCityAt( Position p, String balance ) {} // TODO lav ekstra tool til disse?
   public void changeProductionInCityAt( Position p, String unitType ) {}
-  public void performUnitActionAt( Position p ) {}  
+  public void performUnitActionAt( Position p ) {
+    Unit u = getUnitAt(p);
+    if (u == null) return;
+    System.out.println("Action performed");
+  }
 
   public void setTileFocus(Position position) {
-    // TODO: setTileFocus implementation pending.
     System.out.println("-- FakeObjectGame / setTileFocus called.");
-    System.out.println(" *** IMPLEMENTATION PENDING ***");
+    gameObserver.tileFocusChangedAt(position);
   }
 }
 

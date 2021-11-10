@@ -14,7 +14,7 @@ public class GameObserverSpy implements GameObserver {
 
     @Override
     public void turnEnds(Player nextPlayer, int age) {
-        lastCalledMethod = "TurnEnds";
+        lastCalledMethod = "turnEnds";
     }
 
     @Override

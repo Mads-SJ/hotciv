@@ -5,6 +5,7 @@ import hotciv.stub.FakeObjectGame;
 import hotciv.view.tool.CompositionTool;
 import minidraw.framework.DrawingEditor;
 import minidraw.standard.MiniDrawApplication;
+import minidraw.standard.SelectionTool;
 
 /** Template code for exercise.
 

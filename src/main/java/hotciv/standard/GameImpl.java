@@ -64,7 +64,7 @@ public class GameImpl implements Game {
     public GameImpl(GameFactory gameFactory) {
         playerInTurn = Player.RED; // Red always starts
         currentRound = 1;
-        age = START_AGE; // TODO: refaktorer age med roundsPassed?
+        age = START_AGE;
         observers = new ArrayList<>();
 
         this.winningStrategy = gameFactory.createWinningStrategy();
@@ -123,10 +123,14 @@ public class GameImpl implements Game {
 
     public void setUnitAt(Position p, Unit u) {
         unitPositions[p.getRow()][p.getColumn()] = u;
+
+        notifyWorldChangedAt(p);
     }
 
     public void removeUnitAt(Position p) {
         unitPositions[p.getRow()][p.getColumn()] = null;
+
+        notifyWorldChangedAt(p);
     }
 
     public City getCityAt(Position p) {
@@ -135,6 +139,8 @@ public class GameImpl implements Game {
 
     public void createCityAt(Position p) {
         cityMap.put(p, new CityImpl(getPlayerInTurn()));
+
+        notifyWorldChangedAt(p);
     }
 
     public Map<Position, City> getCities() {
@@ -163,14 +169,11 @@ public class GameImpl implements Game {
         boolean isAttackSuccessful = true;
         if (isEnemyUnitAt(to)) isAttackSuccessful = resolveAttack(from, to);
 
-        if (! isAttackSuccessful) return false; // TODO: special case only update from pos
+        if (! isAttackSuccessful) return false;
 
         makeActualMove(from, to);
 
         if (isCityAt(to)) transferCityOwnerAt(to);
-
-        notifyWorldChangedAt(from);
-        notifyWorldChangedAt(to);
 
         return true;
     }
@@ -223,6 +226,8 @@ public class GameImpl implements Game {
     private void transferCityOwnerAt(Position to) {
         CityImpl c = (CityImpl) getCityAt(to);
         c.setOwner(playerInTurn);
+
+        notifyWorldChangedAt(to);
     }
 
     public void endOfTurn() {
@@ -235,6 +240,7 @@ public class GameImpl implements Game {
                 endOfRound();
                 break;
         }
+        notifyTurnEnds();
     }
 
     private void endOfRound() {
@@ -290,6 +296,7 @@ public class GameImpl implements Game {
     }
 
     public void performUnitActionAt(Position p) {
+        if (! isWithinWorldGrid(p)) return;
         actionStrategy.performUnitActionAt(this, p);
     }
 
@@ -331,17 +338,36 @@ public class GameImpl implements Game {
         return null;
     }
 
+    public boolean isWithinWorldGrid(Position p) {
+        boolean isWithinWorldGrid = p.getRow() < WORLDSIZE && p.getColumn() < WORLDSIZE &&
+                p.getRow() >= 0 && p.getColumn() >= 0;
+        return isWithinWorldGrid;
+    }
+
     public void addObserver(GameObserver observer) {
         observers.add(observer);
     }
 
-    public void setTileFocus(Position position) {
-        // do nothing
+    public void setTileFocus(Position pos) {
+        if (! isWithinWorldGrid(pos)) return;
+        notifyTileFocusChangedAt(pos);
     }
 
-    public void notifyWorldChangedAt(Position pos) {
+    private void notifyWorldChangedAt(Position pos) {
         for (GameObserver observer : observers) {
             observer.worldChangedAt(pos);
+        }
+    }
+
+    private void notifyTurnEnds() {
+        for (GameObserver observer : observers) {
+            observer.turnEnds(playerInTurn, age);
+        }
+    }
+
+    private void notifyTileFocusChangedAt(Position pos) {
+        for (GameObserver observer : observers) {
+            observer.tileFocusChangedAt(pos);
         }
     }
 }

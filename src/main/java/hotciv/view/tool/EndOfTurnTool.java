@@ -2,7 +2,10 @@ package hotciv.view.tool;
 
 import hotciv.framework.Game;
 import minidraw.framework.DrawingEditor;
+import minidraw.framework.Figure;
 import minidraw.standard.NullTool;
+
+import static hotciv.view.GfxConstants.*;
 
 import java.awt.event.MouseEvent;
 
@@ -13,17 +16,22 @@ import java.awt.event.MouseEvent;
 public class EndOfTurnTool extends NullTool {
   private final DrawingEditor editor;
   private final Game game;
+  private int width;
+  private int height;
 
   public EndOfTurnTool(DrawingEditor editor, Game game) {
     this.editor = editor;
     this.game = game;
+
+    Figure f = editor.drawing().findFigure(TURN_SHIELD_X, TURN_SHIELD_Y);
+    width = f.displayBox().width;
+    height = f.displayBox().height;
   }
 
   @Override
   public void mouseDown(MouseEvent e, int x, int y) {
     super.mouseDown(e, x, y);
-    // TODO: Remove print statement, and implement end-of-turn behaviour
-    System.out.println("TODO: EndOfTurn tool received 'mouse down' event");
+    game.endOfTurn();
   }
 
 }

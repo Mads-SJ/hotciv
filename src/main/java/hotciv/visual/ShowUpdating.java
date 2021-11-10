@@ -86,11 +86,25 @@ class UpdateTool extends NullTool {
       break;
     }
     case 5: {
-      editor.showStatus( "State change: Inspect Unit at (4,3)" );
-      game.setTileFocus(new Position(4,3));
+      editor.showStatus( "State change: Inspect Unit at (4,2)" );
+      game.setTileFocus(new Position(4,2));
       break;
     }
-      // TODO: Add more state changes for other things to test
+    case 6: {
+      editor.showStatus( "State change: Inspect City at (7,7)" );
+      game.setTileFocus(new Position(7,7));
+      break;
+    }
+    case 7: {
+      editor.showStatus( "State change: Moving legion to (3,3)" );
+      game.moveUnit( new Position(3,2), new Position(3,3) );
+      break;
+    }
+    case 8: {
+      editor.showStatus( "State change: Moving legion to (3,4)" );
+      game.moveUnit( new Position(3,3), new Position(3,4) );
+      break;
+    }
     default: {
       editor.showStatus("No more changes in my list...");
     }
@@ -98,4 +112,5 @@ class UpdateTool extends NullTool {
     count ++;
   }
 }
+
 
