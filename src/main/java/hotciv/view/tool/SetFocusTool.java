@@ -26,5 +26,4 @@ public class SetFocusTool extends NullTool {
         Position tilePos = getPositionFromXY(x, y);
         game.setTileFocus(tilePos);
     }
-
 }

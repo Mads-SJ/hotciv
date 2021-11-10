@@ -73,7 +73,6 @@ public class CompositionTool extends NullTool {
       else if (figureTypeString.equals(UNIT_TYPE_STRING)) {
         setFocusTool.mouseDown(e, x, y);
         state = unitMoveTool;
-        // dette vil fungere for setFocusTool hvis distancen der flyttes er 0.
       }
       else if (figureTypeString.equals(CITY_TYPE_STRING)) {
         state = setFocusTool;
