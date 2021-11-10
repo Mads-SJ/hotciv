@@ -12,6 +12,7 @@ import minidraw.standard.handlers.ForwardingFigureChangeHandler;
 import minidraw.standard.handlers.StandardDrawingChangeListenerHandler;
 import minidraw.standard.handlers.StandardSelectionHandler;
 
+import static hotciv.framework.GameConstants.ARCHER;
 import static hotciv.framework.GameConstants.START_AGE;
 import static hotciv.view.GfxConstants.*;
 
@@ -201,6 +202,7 @@ public class CivDrawing implements Drawing, GameObserver {
   protected TextFigure ageIcon;
   protected ImageFigure turnShieldIcon;
   protected ImageFigure unitShieldIcon;
+  protected ImageFigure unitTypeIcon;
   protected ImageFigure cityShieldIcon;
   protected ImageFigure cityProductionIcon;
   protected ImageFigure cityWorkforceIcon;
@@ -229,6 +231,14 @@ public class CivDrawing implements Drawing, GameObserver {
       figureCollection.add(unitShieldIcon);
     }
 
+    if (unitTypeIcon == null) {
+      unitTypeIcon =
+              new HotCivFigure(NOTHING,
+                      new Point(UNIT_TYPE_X,
+                              UNIT_TYPE_Y),
+                      ARCHER);
+      figureCollection.add(unitTypeIcon);
+    }
 
     if (cityShieldIcon == null) {
       cityShieldIcon =
@@ -335,6 +345,7 @@ public class CivDrawing implements Drawing, GameObserver {
     if (u != null) {
       updateUnitShield(u);
       updateUnitCount(u);
+      updateUnitType(u);
     }
 
     City c = game.getCityAt(position);
@@ -350,6 +361,7 @@ public class CivDrawing implements Drawing, GameObserver {
   private void clearStatusBar() {
     // Clear unit section
     clearFigure(unitShieldIcon);
+    clearFigure(unitTypeIcon);
     moveCountIcon.setText("");
 
     // Clear city section
@@ -380,6 +392,10 @@ public class CivDrawing implements Drawing, GameObserver {
   private void updateUnitCount(Unit unit) {
     String unitCount = "" + unit.getMoveCount();
     moveCountIcon.setText(unitCount);
+  }
+
+  private void updateUnitType(Unit unit) {
+    updateFigure(unitTypeIcon, unit.getTypeString());
   }
 
   private void updateCityShield(City c) {
