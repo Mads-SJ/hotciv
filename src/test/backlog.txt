@@ -17,12 +17,5 @@ The layout generator in GameImpl should use TileStrategy to check for valid tile
 [OK] Action:
 [OK] Sandworm devour action
 
-Questions regarding gui:
-    - [OK] red/green dot on archer (move count?, where to update?)
-    - [OK] units on cities. Should the city be hidden or what?
-    - [NOPE] type strings for workforce/production
-    - implementation af MoveUnitTool (ifht. compositional) - i ismovevalid
-    - game constant til age figure
-
 
 
