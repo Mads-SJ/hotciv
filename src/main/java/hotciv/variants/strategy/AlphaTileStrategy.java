@@ -22,8 +22,6 @@ public class AlphaTileStrategy implements TileStrategy {
     @Override
     public int getResources(String typeString) {
         switch (typeString){
-            case DESERT:
-                return 0;
             case OCEANS:
             case MOUNTAINS:
                 return 1;
