@@ -187,4 +187,36 @@ public class TestThetaCiv {
         assertThat(game.getUnitAt(enemyPos), is(nullValue()));
     }
 
+    @Test
+    public void shouldRemoveEnemyUnitAt8_7And7_5() {
+        Position sandwormPos = new Position(8,6);
+        Position enemyPos1 = new Position(8, 7);
+        Position enemyPos2 = new Position(7, 5);
+
+        GameImpl gameImpl = (GameImpl) game;
+        gameImpl.setUnitAt(enemyPos1, new UnitImpl(Player.RED, ARCHER, unitStrategy));
+        gameImpl.setUnitAt(enemyPos2, new UnitImpl(Player.RED, ARCHER, unitStrategy));
+
+        game.performUnitActionAt(sandwormPos);
+
+        assertThat(game.getUnitAt(enemyPos1), is(nullValue()));
+        assertThat(game.getUnitAt(enemyPos2), is(nullValue()));
+    }
+
+    @Test
+    public void shouldRemoveEnemyUnitAt8_7ButKeepFriendlyUnitAt7_5() {
+        Position sandwormPos = new Position(8,6);
+        Position enemyPos = new Position(8, 7);
+        Position friendPos = new Position(7, 5);
+
+        GameImpl gameImpl = (GameImpl) game;
+        gameImpl.setUnitAt(enemyPos, new UnitImpl(Player.RED, ARCHER, unitStrategy));
+        gameImpl.setUnitAt(friendPos, new UnitImpl(Player.BLUE, ARCHER, unitStrategy));
+
+        game.performUnitActionAt(sandwormPos);
+
+        assertThat(game.getUnitAt(enemyPos), is(nullValue()));
+        assertThat(game.getUnitAt(friendPos).getTypeString(), is(ARCHER));
+    }
+
 }

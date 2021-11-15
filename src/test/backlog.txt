@@ -14,8 +14,8 @@ The layout generator in GameImpl should use TileStrategy to check for valid tile
 // TODO det samme kan gøres for units
 // TODO set production i city, bør vi lave en strategy eller bruge unitstrategy?
 
-Action:
-Sandworm devour action
+[OK] Action:
+[OK] Sandworm devour action
 
 Questions regarding gui:
     - [OK] red/green dot on archer (move count?, where to update?)
