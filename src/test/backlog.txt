@@ -4,12 +4,14 @@ Missing features/refactoring:
 [OK] Make ThetaTileStrategy
     [OK] Where desert is a valid tile.
 
-Unit:
-Make UnitStrategy as interface and refactor for all variants
+[OK] Unit:
+[OK] Make UnitStrategy as interface and refactor for all variants
     [OK] Refactor for AlphaUnitStrategy
-    Make ThetaUnitStrategy
-        Where sandworm is a valid unit. Currently sandworm is added to game constants and is valid in all variants..
-    The layout generator in GameImpl should use TileStrategy to check for valid tile types
+    [OK] Make ThetaUnitStrategy
+        [OK] Where sandworm is a valid unit.
+
+The layout generator in GameImpl should use TileStrategy to check for valid tile types // TODO ide til at fixe vores fake it typestring ved tiles
+// TODO det samme kan gøres for units
 
 Action:
 Sandworm devour action

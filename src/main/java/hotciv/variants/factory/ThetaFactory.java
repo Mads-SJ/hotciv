@@ -57,6 +57,6 @@ public class ThetaFactory implements GameFactory {
 
     @Override
     public UnitStrategy createUnitStrategy() {
-        return new AlphaUnitStrategy();
+        return new ThetaUnitStrategy();
     }
 }

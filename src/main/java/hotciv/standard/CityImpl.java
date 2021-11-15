@@ -60,7 +60,7 @@ public class CityImpl implements City {
 
     public void setProduction(String unitType) {
         production = unitType;
-
+        // TODO overvej at brug unitStrategy.isUnitValid for at sætte production.
         switch (unitType) {
             case ARCHER:
                 costOfNewUnit = ARCHER_COST;
