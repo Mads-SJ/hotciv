@@ -50,7 +50,7 @@ public class ThetaWorldLayoutStrategy implements WorldLayoutStrategy {
     public UnitImpl[][] getUnitPositions() {
         UnitImpl[][] unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE];
 
-        UnitStrategy unitStrategy = new AlphaUnitStrategy(); // TODO højere kobling ligesom ved alpha
+        UnitStrategy unitStrategy = new ThetaUnitStrategy(); // TODO højere kobling ligesom ved alpha
         unitPositions[3][8] = new UnitImpl(Player.RED, ARCHER, unitStrategy);
         unitPositions[5][5] = new UnitImpl(Player.RED, SETTLER, unitStrategy);
         unitPositions[4][4] = new UnitImpl(Player.BLUE, LEGION, unitStrategy);

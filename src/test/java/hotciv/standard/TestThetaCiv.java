@@ -175,8 +175,16 @@ public class TestThetaCiv {
     }
 
     @Test
-    public void shouldBeHillAsTypeStringWhenCreatingNewHillTile() {
-        Tile tile = new TileImpl(HILLS, new AlphaTileStrategy());
-        assertThat(tile.getTypeString(), is(HILLS));
+    public void shouldRemoveEnemyUnitAt8_7() {
+        Position sandwormPos = new Position(8,6);
+        Position enemyPos = new Position(8, 7);
+
+        GameImpl gameImpl = (GameImpl) game;
+        gameImpl.setUnitAt(enemyPos, new UnitImpl(Player.RED, ARCHER, unitStrategy));
+
+        game.performUnitActionAt(sandwormPos);
+
+        assertThat(game.getUnitAt(enemyPos), is(nullValue()));
     }
+
 }
