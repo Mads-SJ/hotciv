@@ -14,7 +14,7 @@ public class TileImpl implements Tile {
         // TODO: hvad gør vi ved ikke valid tiles? returnerer "tilfældig" valid tile? returnerer null?
         this.tileStrategy = tileStrategy;
         if (tileStrategy.isTileValid(typeString)) this.typeString = typeString;
-        else this.typeString = "fake it";
+        else this.typeString = "fake it tile";
     }
 
     @Override

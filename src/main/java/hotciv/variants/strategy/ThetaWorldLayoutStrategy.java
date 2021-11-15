@@ -1,5 +1,6 @@
 package hotciv.variants.strategy;
 
+import hotciv.common.strategy.UnitStrategy;
 import hotciv.common.strategy.WorldLayoutStrategy;
 import static hotciv.framework.GameConstants.*;
 
@@ -49,10 +50,11 @@ public class ThetaWorldLayoutStrategy implements WorldLayoutStrategy {
     public UnitImpl[][] getUnitPositions() {
         UnitImpl[][] unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE];
 
-        unitPositions[3][8] = new UnitImpl(Player.RED, ARCHER);
-        unitPositions[5][5] = new UnitImpl(Player.RED, SETTLER);
-        unitPositions[4][4] = new UnitImpl(Player.BLUE, LEGION);
-        unitPositions[8][6] = new UnitImpl(Player.BLUE, SANDWORM);
+        UnitStrategy unitStrategy = new AlphaUnitStrategy(); // TODO højere kobling ligesom ved alpha
+        unitPositions[3][8] = new UnitImpl(Player.RED, ARCHER, unitStrategy);
+        unitPositions[5][5] = new UnitImpl(Player.RED, SETTLER, unitStrategy);
+        unitPositions[4][4] = new UnitImpl(Player.BLUE, LEGION, unitStrategy);
+        unitPositions[8][6] = new UnitImpl(Player.BLUE, SANDWORM, unitStrategy);
 
         return unitPositions;
     }

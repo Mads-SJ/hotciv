@@ -1,5 +1,6 @@
 package hotciv.standard;
 
+import hotciv.common.strategy.UnitStrategy;
 import hotciv.framework.*;
 
 import hotciv.variants.factory.ZetaTestFactory;
@@ -55,9 +56,10 @@ public class TestZetaCiv {
         Position thirdRedSettlerPos = new Position(6,2);
 
         GameImpl gameImpl = (GameImpl) game;
-        gameImpl.setUnitAt(firstRedSettlerPos, new UnitImpl(Player.RED, SETTLER));
-        gameImpl.setUnitAt(secondRedSettlerPos, new UnitImpl(Player.RED, SETTLER));
-        gameImpl.setUnitAt(thirdRedSettlerPos, new UnitImpl(Player.RED, SETTLER));
+        UnitStrategy unitStrategy = new AlphaUnitStrategy();
+        gameImpl.setUnitAt(firstRedSettlerPos, new UnitImpl(Player.RED, SETTLER, unitStrategy));
+        gameImpl.setUnitAt(secondRedSettlerPos, new UnitImpl(Player.RED, SETTLER, unitStrategy));
+        gameImpl.setUnitAt(thirdRedSettlerPos, new UnitImpl(Player.RED, SETTLER, unitStrategy));
 
         game.endOfTurn();
 

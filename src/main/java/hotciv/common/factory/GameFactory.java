@@ -13,4 +13,5 @@ public interface GameFactory {
     ValidMoveStrategy createValidMoveStrategy();
     LegalPositionStrategy createLegalPositionStrategy();
     TileStrategy createTileStrategy();
+    UnitStrategy createUnitStrategy();
 }

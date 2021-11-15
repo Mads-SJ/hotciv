@@ -54,4 +54,11 @@ public class AlphaFactory implements GameFactory {
     public TileStrategy createTileStrategy() {
         return new AlphaTileStrategy();
     }
+
+    @Override
+    public UnitStrategy createUnitStrategy() {
+        return new AlphaUnitStrategy();
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package hotciv.standard;
 
 import hotciv.common.factory.GameFactory;
+import hotciv.common.strategy.UnitStrategy;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
@@ -17,6 +18,7 @@ public class TestEpsilonCiv {
     private Game game;
     private FixedDecisionStrategy decisionStrategy;
     private EpsilonWinningStrategy epsilonWinningStrategy;
+    private UnitStrategy unitStrategy;
 
     /** Fixture for epislonciv testing. */
     @BeforeEach
@@ -26,6 +28,7 @@ public class TestEpsilonCiv {
         epsilonWinningStrategy = (EpsilonWinningStrategy) epsilonTestFactory.createWinningStrategy();
         EpsilonAttackingStrategy attackingStrategy = (EpsilonAttackingStrategy) epsilonTestFactory.createAttackingStrategy();
         decisionStrategy = (FixedDecisionStrategy) attackingStrategy.getDecisionStrategy();
+        unitStrategy = epsilonTestFactory.createUnitStrategy();
     }
 
     @Test
@@ -59,9 +62,9 @@ public class TestEpsilonCiv {
         Position redSettlerPos = new Position(4,3);
 
         // Add red units around red settler
-        gameImpl.setUnitAt(new Position(4,4), new UnitImpl(Player.RED, ARCHER));
-        gameImpl.setUnitAt(new Position(4,2), new UnitImpl(Player.RED, ARCHER));
-        gameImpl.setUnitAt(new Position(3,3), new UnitImpl(Player.RED, ARCHER));
+        gameImpl.setUnitAt(new Position(4,4), new UnitImpl(Player.RED, ARCHER, unitStrategy));
+        gameImpl.setUnitAt(new Position(4,2), new UnitImpl(Player.RED, ARCHER, unitStrategy));
+        gameImpl.setUnitAt(new Position(3,3), new UnitImpl(Player.RED, ARCHER, unitStrategy));
 
         game.moveUnit(redSettlerPos, blueLegionPos);
 
@@ -74,10 +77,10 @@ public class TestEpsilonCiv {
         assertThat(epsilonWinningStrategy.getBlueAttackingWins(), is(0));
 
         Position blueLegionPos = new Position(0, 2);
-        gameImpl.setUnitAt(blueLegionPos, new UnitImpl(Player.BLUE, LEGION));
+        gameImpl.setUnitAt(blueLegionPos, new UnitImpl(Player.BLUE, LEGION, unitStrategy));
 
         Position hillPosition = new Position(0, 1);
-        gameImpl.setUnitAt(hillPosition, new UnitImpl(Player.RED, SETTLER));
+        gameImpl.setUnitAt(hillPosition, new UnitImpl(Player.RED, SETTLER, unitStrategy));
 
         game.endOfTurn(); // blue's turn to move
         game.moveUnit(blueLegionPos, hillPosition);
@@ -91,10 +94,10 @@ public class TestEpsilonCiv {
         assertThat(epsilonWinningStrategy.getBlueAttackingWins(), is(0));
 
         Position blueLegionPos = new Position(0, 2);
-        gameImpl.setUnitAt(blueLegionPos, new UnitImpl(Player.BLUE, LEGION));
+        gameImpl.setUnitAt(blueLegionPos, new UnitImpl(Player.BLUE, LEGION, unitStrategy));
 
         Position hillPosition = new Position(0, 1);
-        gameImpl.setUnitAt(hillPosition, new UnitImpl(Player.RED, SETTLER));
+        gameImpl.setUnitAt(hillPosition, new UnitImpl(Player.RED, SETTLER, unitStrategy));
 
         decisionStrategy.setAttackingEyes(2);
 
@@ -126,9 +129,9 @@ public class TestEpsilonCiv {
         Position thirdBlueSettlerPos = new Position(5,0);
 
         GameImpl gameImpl = (GameImpl) game;
-        gameImpl.setUnitAt(firstBlueSettlerPos, new UnitImpl(Player.BLUE, SETTLER));
-        gameImpl.setUnitAt(secondBlueSettlerPos, new UnitImpl(Player.BLUE, SETTLER));
-        gameImpl.setUnitAt(thirdBlueSettlerPos, new UnitImpl(Player.BLUE, SETTLER));
+        gameImpl.setUnitAt(firstBlueSettlerPos, new UnitImpl(Player.BLUE, SETTLER, unitStrategy));
+        gameImpl.setUnitAt(secondBlueSettlerPos, new UnitImpl(Player.BLUE, SETTLER, unitStrategy));
+        gameImpl.setUnitAt(thirdBlueSettlerPos, new UnitImpl(Player.BLUE, SETTLER, unitStrategy));
 
         decisionStrategy.setAttackingEyes(6);
 
@@ -155,9 +158,9 @@ public class TestEpsilonCiv {
         Position thirdRedSettlerPos = new Position(6,2);
 
         GameImpl gameImpl = (GameImpl) game;
-        gameImpl.setUnitAt(firstRedSettlerPos, new UnitImpl(Player.RED, SETTLER));
-        gameImpl.setUnitAt(secondRedSettlerPos, new UnitImpl(Player.RED, SETTLER));
-        gameImpl.setUnitAt(thirdRedSettlerPos, new UnitImpl(Player.RED, SETTLER));
+        gameImpl.setUnitAt(firstRedSettlerPos, new UnitImpl(Player.RED, SETTLER, unitStrategy));
+        gameImpl.setUnitAt(secondRedSettlerPos, new UnitImpl(Player.RED, SETTLER, unitStrategy));
+        gameImpl.setUnitAt(thirdRedSettlerPos, new UnitImpl(Player.RED, SETTLER, unitStrategy));
 
         decisionStrategy.setAttackingEyes(6);
 
@@ -188,9 +191,9 @@ public class TestEpsilonCiv {
         Position thirdBlueSettlerPos = new Position(5,0);
 
         GameImpl gameImpl = (GameImpl) game;
-        gameImpl.setUnitAt(firstBlueSettlerPos, new UnitImpl(Player.BLUE, SETTLER));
-        gameImpl.setUnitAt(secondBlueSettlerPos, new UnitImpl(Player.BLUE, SETTLER));
-        gameImpl.setUnitAt(thirdBlueSettlerPos, new UnitImpl(Player.BLUE, SETTLER));
+        gameImpl.setUnitAt(firstBlueSettlerPos, new UnitImpl(Player.BLUE, SETTLER, unitStrategy));
+        gameImpl.setUnitAt(secondBlueSettlerPos, new UnitImpl(Player.BLUE, SETTLER, unitStrategy));
+        gameImpl.setUnitAt(thirdBlueSettlerPos, new UnitImpl(Player.BLUE, SETTLER, unitStrategy));
 
         decisionStrategy.setAttackingEyes(6);
 

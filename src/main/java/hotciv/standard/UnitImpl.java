@@ -1,5 +1,6 @@
 package hotciv.standard;
 
+import hotciv.common.strategy.UnitStrategy;
 import hotciv.framework.Player;
 import hotciv.framework.Unit;
 
@@ -9,44 +10,37 @@ public class UnitImpl implements Unit {
 
     private final Player owner;
     private final String typeString;
+    private UnitStrategy unitStrategy;
+    private final int initialMoveCount;
     private int moveCount;
     private int defensiveStrength;
     private int attackingStrength;
     private Boolean movable;
 
-    public UnitImpl(Player owner, String typeString) {
+    public UnitImpl(Player owner, String typeString, UnitStrategy unitStrategy) {
+        this.unitStrategy = unitStrategy;
+
+        if (unitStrategy.isUnitValid(typeString)) this.typeString = typeString;
+        else this.typeString = "fake it unit";
+
         this.owner = owner;
-        this.typeString = typeString;
+
+
         movable = true;
+
         initializeStrengths(typeString);
         initializeMoveCount(typeString);
+        initialMoveCount = moveCount;
     }
 
     private void initializeMoveCount(String typeString) {
-        if (typeString.equals(SANDWORM)) moveCount = SANDWORM_MOVE_COUNT;
-        else moveCount = STANDARD_MOVE_COUNT;
+        // if (typeString.equals(SANDWORM)) moveCount = SANDWORM_MOVE_COUNT;
+        moveCount = unitStrategy.initializeMoveCount(typeString);
     }
 
     private void initializeStrengths(String typeString) {
-        // Attacking- and defensive constants according to specifications in table 36.2
-        switch (typeString) {
-            case SETTLER:
-                attackingStrength = 0;
-                defensiveStrength = 3;
-                break;
-            case ARCHER:
-                attackingStrength = 2;
-                defensiveStrength = 3;
-                break;
-            case LEGION:
-                attackingStrength = 4;
-                defensiveStrength = 2;
-                break;
-            case SANDWORM:
-                attackingStrength = 0;
-                defensiveStrength = 10;
-                break;
-        }
+        attackingStrength = unitStrategy.initializeAttackingStrength(typeString);
+        defensiveStrength = unitStrategy.initializeDefensiveStrength(typeString);
     }
 
     @Override
@@ -85,7 +79,7 @@ public class UnitImpl implements Unit {
         moveCount--;
     }
     public void resetMoveCount() {
-        moveCount = STANDARD_MOVE_COUNT;
+        moveCount = initialMoveCount;
     }
     public Boolean isMovable() {
         return movable;

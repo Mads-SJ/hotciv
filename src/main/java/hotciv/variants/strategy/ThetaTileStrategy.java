@@ -14,7 +14,7 @@ public class ThetaTileStrategy implements TileStrategy {
 
     @Override
     public String getResourceType(String typeString) {
-        if (typeString.equals(DESERT)) return FOOD; // TODO: ligemeget om food eller production?
+        if (typeString.equals(DESERT)) return FOOD; // TODO: ligemeget om food eller production? evt husk test
         return alphaTileStrategy.getResourceType(typeString);
     }
 

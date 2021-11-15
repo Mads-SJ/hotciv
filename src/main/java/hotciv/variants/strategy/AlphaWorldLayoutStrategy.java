@@ -1,5 +1,6 @@
 package hotciv.variants.strategy;
 
+import hotciv.common.strategy.UnitStrategy;
 import hotciv.common.strategy.WorldLayoutStrategy;
 import hotciv.framework.City;
 import hotciv.framework.Player;
@@ -49,9 +50,10 @@ public class AlphaWorldLayoutStrategy implements WorldLayoutStrategy {
     public UnitImpl[][] getUnitPositions() {
         UnitImpl[][] unitPositions = new UnitImpl[WORLDSIZE][WORLDSIZE];
 
-        unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER);
-        unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION);
-        unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER);
+        UnitStrategy unitStrategy = new AlphaUnitStrategy(); // TODO højere kobling, kan man gøre noget?
+        unitPositions[2][0] = new UnitImpl(Player.RED, ARCHER, unitStrategy);
+        unitPositions[3][2] = new UnitImpl(Player.BLUE, LEGION, unitStrategy);
+        unitPositions[4][3] = new UnitImpl(Player.RED, SETTLER, unitStrategy);
 
         return unitPositions;
     }

@@ -54,4 +54,9 @@ public class ThetaFactory implements GameFactory {
     public TileStrategy createTileStrategy() {
         return new ThetaTileStrategy();
     }
+
+    @Override
+    public UnitStrategy createUnitStrategy() {
+        return new AlphaUnitStrategy();
+    }
 }
