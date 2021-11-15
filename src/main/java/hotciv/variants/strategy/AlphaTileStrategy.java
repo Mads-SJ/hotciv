@@ -35,4 +35,17 @@ public class AlphaTileStrategy implements TileStrategy {
         }
         return 0;
     }
+
+    @Override
+    public boolean isTileValid(String typeString) {
+        switch(typeString) {
+            case PLAINS:
+            case OCEANS:
+            case MOUNTAINS:
+            case HILLS:
+            case FOREST:
+                return true;
+        }
+        return false;
+    }
 }

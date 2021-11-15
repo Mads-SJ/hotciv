@@ -5,9 +5,11 @@ import hotciv.common.strategy.TileStrategy;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.framework.Tile;
 import hotciv.variants.factory.AlphaFactory;
 import hotciv.variants.factory.GammaFactory;
 import hotciv.variants.factory.ThetaFactory;
+import hotciv.variants.strategy.AlphaTileStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -168,5 +170,9 @@ public class TestThetaCiv {
         assertThat(game.getUnitAt(finalPosition).getTypeString(), is(SANDWORM));
     }
 
-    // push
+    @Test
+    public void shouldBeHillAsTypeStringWhenCreatingNewHillTile() {
+        Tile tile = new TileImpl(HILLS, new AlphaTileStrategy());
+        assertThat(tile.getTypeString(), is(HILLS));
+    }
 }

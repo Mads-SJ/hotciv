@@ -11,8 +11,10 @@ public class TileImpl implements Tile {
 
     public TileImpl(String typeString, TileStrategy tileStrategy) {
         // init strategy der tjekker valid typestring
+        // TODO: hvad gør vi ved ikke valid tiles? returnerer "tilfældig" valid tile? returnerer null?
         this.tileStrategy = tileStrategy;
-        this.typeString = typeString;
+        if (tileStrategy.isTileValid(typeString)) this.typeString = typeString;
+        else this.typeString = "fake it";
     }
 
     @Override

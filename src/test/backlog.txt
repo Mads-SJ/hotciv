@@ -1,12 +1,17 @@
 Missing features/refactoring:
-Check for valid tiles in tileStrategy
+Tile:
+[OK] Check for valid tiles in tileStrategy
 Make ThetaTileStrategy
     Where desert is a valid tile. Currently desert is added to game constants and is valid in all variants..
+
+Unit:
 Make UnitStrategy as interface and refactor for all variants
     Refactor for AlphaUnitStrategy
     Make ThetaUnitStrategy
         Where sandworm is a valid unit. Currently sandworm is added to game constants and is valid in all variants..
     The layout generator in GameImpl should use TileStrategy to check for valid tile types
+
+Action:
 Sandworm devour action
 
 Questions regarding gui:
