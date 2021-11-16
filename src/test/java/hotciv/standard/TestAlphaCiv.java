@@ -2,6 +2,7 @@ package hotciv.standard;
 
 import hotciv.common.factory.GameFactory;
 import hotciv.common.strategy.TileStrategy;
+import hotciv.common.strategy.UnitStrategy;
 import hotciv.framework.*;
 
 import hotciv.variants.factory.AlphaFactory;
@@ -45,12 +46,14 @@ public class TestAlphaCiv {
   private Game game;
   private GameFactory alphaGameFactory;
   private TileStrategy tileStrategy;
+  private UnitStrategy unitStrategy;
 
   /** Fixture for alphaciv testing. */
   @BeforeEach
   public void setUp() {
     alphaGameFactory = new AlphaFactory();
     tileStrategy = alphaGameFactory.createTileStrategy();
+    unitStrategy = alphaGameFactory.createUnitStrategy();
     game = new GameImpl(alphaGameFactory);
   }
 
@@ -197,25 +200,25 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldBeArcher(){
-    UnitImpl archer = new UnitImpl(Player.RED, ARCHER);
+    UnitImpl archer = new UnitImpl(Player.RED, ARCHER, unitStrategy);
     assertThat(archer.getTypeString(), is(ARCHER));
   }
 
   @Test
   public void shouldBeLegion(){
-    UnitImpl legion = new UnitImpl(Player.BLUE, LEGION);
+    UnitImpl legion = new UnitImpl(Player.BLUE, LEGION, unitStrategy);
     assertThat(legion.getTypeString(), is(LEGION));
   }
 
   @Test
   public void shouldBeRedOwnerForArcher(){
-    UnitImpl redArcher = new UnitImpl(Player.RED, ARCHER);
+    UnitImpl redArcher = new UnitImpl(Player.RED, ARCHER, unitStrategy);
     assertThat(redArcher.getOwner(), is(Player.RED));
   }
 
   @Test
   public void shouldBeBlueOwnerForLegion(){
-    UnitImpl blueLegion = new UnitImpl(Player.BLUE, LEGION);
+    UnitImpl blueLegion = new UnitImpl(Player.BLUE, LEGION, unitStrategy);
     assertThat(blueLegion.getOwner(), is(Player.BLUE));
   }
 
@@ -404,37 +407,37 @@ public class TestAlphaCiv {
 
   @Test
   public void shouldBe3DefenceForArcher(){
-    Unit archer = new UnitImpl(Player.RED, ARCHER);
+    Unit archer = new UnitImpl(Player.RED, ARCHER, unitStrategy);
     assertThat(archer.getDefensiveStrength(), is(3));
   }
 
   @Test
   public void shouldBe2DefenceForLegion(){
-    Unit legion = new UnitImpl(Player.RED, LEGION);
+    Unit legion = new UnitImpl(Player.RED, LEGION, unitStrategy);
     assertThat(legion.getDefensiveStrength(), is(2));
   }
 
   @Test
   public void shouldBe3DefenceForSettler(){
-    Unit settler = new UnitImpl(Player.RED, SETTLER);
+    Unit settler = new UnitImpl(Player.RED, SETTLER, unitStrategy);
     assertThat(settler.getDefensiveStrength(), is(3));
   }
 
   @Test
   public void shouldBe2AttackForArcher(){
-    Unit archer = new UnitImpl(Player.RED, ARCHER);
+    Unit archer = new UnitImpl(Player.RED, ARCHER, unitStrategy);
     assertThat(archer.getAttackingStrength(), is(2));
   }
 
   @Test
   public void shouldBe4AttackForLegion(){
-    Unit legion = new UnitImpl(Player.RED, LEGION);
+    Unit legion = new UnitImpl(Player.RED, LEGION, unitStrategy);
     assertThat(legion.getAttackingStrength(), is(4));
   }
 
   @Test
   public void shouldBe0AttackForSettler(){
-    Unit settler = new UnitImpl(Player.RED, SETTLER);
+    Unit settler = new UnitImpl(Player.RED, SETTLER, unitStrategy);
     assertThat(settler.getAttackingStrength(), is(0));
   }
 

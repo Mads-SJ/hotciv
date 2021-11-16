@@ -7,7 +7,7 @@ import hotciv.variants.strategy.*;
 public class ThetaFactory implements GameFactory {
     @Override
     public ActionStrategy createActionStrategy() {
-        return new GammaActionStrategy();
+        return new ThetaActionStrategy();
     }
 
     @Override
@@ -52,6 +52,11 @@ public class ThetaFactory implements GameFactory {
 
     @Override
     public TileStrategy createTileStrategy() {
-        return new AlphaTileStrategy();
+        return new ThetaTileStrategy();
+    }
+
+    @Override
+    public UnitStrategy createUnitStrategy() {
+        return new ThetaUnitStrategy();
     }
 }

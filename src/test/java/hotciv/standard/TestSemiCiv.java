@@ -1,7 +1,9 @@
 package hotciv.standard;
 
+import hotciv.common.strategy.UnitStrategy;
 import hotciv.framework.*;
 import hotciv.variants.factory.SemiTestFactory;
+import hotciv.variants.strategy.AlphaUnitStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,8 +26,9 @@ public class TestSemiCiv {
         Position blueLegionPos = new Position(0,4);
         GameImpl gameImpl = (GameImpl) game;
 
-        UnitImpl redArcher = new UnitImpl(Player.RED, ARCHER);
-        UnitImpl blueLegion = new UnitImpl(Player.BLUE, LEGION);
+        UnitStrategy unitStrategy = new AlphaUnitStrategy();
+        UnitImpl redArcher = new UnitImpl(Player.RED, ARCHER, unitStrategy);
+        UnitImpl blueLegion = new UnitImpl(Player.BLUE, LEGION, unitStrategy);
 
         gameImpl.setUnitAt(redArcherPos, redArcher);
         gameImpl.setUnitAt(blueLegionPos, blueLegion);

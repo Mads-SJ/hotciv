@@ -2,12 +2,15 @@ package hotciv.standard;
 
 import hotciv.common.factory.GameFactory;
 import hotciv.common.strategy.TileStrategy;
+import hotciv.common.strategy.UnitStrategy;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.framework.Tile;
 import hotciv.variants.factory.AlphaFactory;
 import hotciv.variants.factory.GammaFactory;
 import hotciv.variants.factory.ThetaFactory;
+import hotciv.variants.strategy.AlphaTileStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,13 +22,16 @@ public class TestThetaCiv {
     private Game game;
     private GameFactory thetaGameFactory;
     private TileStrategy tileStrategy;
+    private UnitStrategy unitStrategy;
 
     /** Fixture for thetaciv testing. */
     @BeforeEach
     public void setUp() {
         thetaGameFactory = new ThetaFactory();
         tileStrategy = thetaGameFactory.createTileStrategy();
+        unitStrategy = thetaGameFactory.createUnitStrategy();
         game = new GameImpl(new ThetaFactory());
+
     }
 
     @Test
@@ -35,24 +41,24 @@ public class TestThetaCiv {
 
     @Test
     public void shouldBeCostOf30ForSandworm() {
-        CityImpl city = new CityImpl(Player.RED);
+        CityImpl city = new CityImpl(Player.RED, unitStrategy);
         city.setProduction(SANDWORM);
         assertThat(city.getCostOfNewUnit(), is(30));
     }
 
     @Test
     public void shouldBeMoveCountOf2ForSandworm() {
-        assertThat(new UnitImpl(Player.RED, SANDWORM).getMoveCount(), is(2));
+        assertThat(new UnitImpl(Player.RED, SANDWORM, unitStrategy).getMoveCount(), is(2));
     }
 
     @Test
     public void shouldBe10DefensiveStrengthForSandworm() {
-        assertThat(new UnitImpl(Player.RED, SANDWORM).getDefensiveStrength(), is(10));
+        assertThat(new UnitImpl(Player.RED, SANDWORM, unitStrategy).getDefensiveStrength(), is(10));
     }
 
     @Test
     public void shouldBe0AttackingStrengthForSandworm() {
-        assertThat(new UnitImpl(Player.RED, SANDWORM).getAttackingStrength(), is(0));
+        assertThat(new UnitImpl(Player.RED, SANDWORM, unitStrategy).getAttackingStrength(), is(0));
     }
 
     @Test
@@ -99,7 +105,7 @@ public class TestThetaCiv {
         assertThat(game.getTileAt(sandwormPos).getTypeString(), is(DESERT));
         assertThat(game.getTileAt(candidatePos).getTypeString(), is(DESERT));
 
-        gameImpl.setUnitAt(sandwormPos, new UnitImpl(Player.RED, SANDWORM));
+        gameImpl.setUnitAt(sandwormPos, new UnitImpl(Player.RED, SANDWORM, unitStrategy));
         gameImpl.moveUnit(sandwormPos, candidatePos);
 
         assertThat(game.getUnitAt(candidatePos).getTypeString(), is(SANDWORM));
@@ -114,7 +120,7 @@ public class TestThetaCiv {
         assertThat(game.getTileAt(sandwormPos).getTypeString(), is(DESERT));
         assertThat(game.getTileAt(candidatePos).getTypeString(), is(PLAINS));
 
-        gameImpl.setUnitAt(sandwormPos, new UnitImpl(Player.RED, SANDWORM));
+        gameImpl.setUnitAt(sandwormPos, new UnitImpl(Player.RED, SANDWORM, unitStrategy));
         gameImpl.moveUnit(sandwormPos, candidatePos);
 
         assertThat(game.getUnitAt(sandwormPos).getTypeString(), is(SANDWORM));
@@ -131,7 +137,7 @@ public class TestThetaCiv {
         assertThat(game.getTileAt(intermediatePos).getTypeString(), is(DESERT));
         assertThat(game.getTileAt(finalPos).getTypeString(), is(DESERT));
 
-        gameImpl.setUnitAt(sandwormPos, new UnitImpl(Player.RED, SANDWORM));
+        gameImpl.setUnitAt(sandwormPos, new UnitImpl(Player.RED, SANDWORM, unitStrategy));
         gameImpl.moveUnit(sandwormPos, intermediatePos);
         gameImpl.moveUnit(intermediatePos, finalPos);
 
@@ -167,4 +173,50 @@ public class TestThetaCiv {
 
         assertThat(game.getUnitAt(finalPosition).getTypeString(), is(SANDWORM));
     }
+
+    @Test
+    public void shouldRemoveEnemyUnitAt8_7() {
+        Position sandwormPos = new Position(8,6);
+        Position enemyPos = new Position(8, 7);
+
+        GameImpl gameImpl = (GameImpl) game;
+        gameImpl.setUnitAt(enemyPos, new UnitImpl(Player.RED, ARCHER, unitStrategy));
+
+        game.performUnitActionAt(sandwormPos);
+
+        assertThat(game.getUnitAt(enemyPos), is(nullValue()));
+    }
+
+    @Test
+    public void shouldRemoveEnemyUnitAt8_7And7_5() {
+        Position sandwormPos = new Position(8,6);
+        Position enemyPos1 = new Position(8, 7);
+        Position enemyPos2 = new Position(7, 5);
+
+        GameImpl gameImpl = (GameImpl) game;
+        gameImpl.setUnitAt(enemyPos1, new UnitImpl(Player.RED, ARCHER, unitStrategy));
+        gameImpl.setUnitAt(enemyPos2, new UnitImpl(Player.RED, ARCHER, unitStrategy));
+
+        game.performUnitActionAt(sandwormPos);
+
+        assertThat(game.getUnitAt(enemyPos1), is(nullValue()));
+        assertThat(game.getUnitAt(enemyPos2), is(nullValue()));
+    }
+
+    @Test
+    public void shouldRemoveEnemyUnitAt8_7ButKeepFriendlyUnitAt7_5() {
+        Position sandwormPos = new Position(8,6);
+        Position enemyPos = new Position(8, 7);
+        Position friendPos = new Position(7, 5);
+
+        GameImpl gameImpl = (GameImpl) game;
+        gameImpl.setUnitAt(enemyPos, new UnitImpl(Player.RED, ARCHER, unitStrategy));
+        gameImpl.setUnitAt(friendPos, new UnitImpl(Player.BLUE, ARCHER, unitStrategy));
+
+        game.performUnitActionAt(sandwormPos);
+
+        assertThat(game.getUnitAt(enemyPos), is(nullValue()));
+        assertThat(game.getUnitAt(friendPos).getTypeString(), is(ARCHER));
+    }
+
 }

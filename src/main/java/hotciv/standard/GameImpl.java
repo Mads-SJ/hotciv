@@ -57,6 +57,7 @@ public class GameImpl implements Game {
     private ValidMoveStrategy validMoveStrategy;
     private LegalPositionStrategy legalPositionStrategy;
     private TileStrategy tileStrategy;
+    private UnitStrategy unitStrategy;
 
     private List<GameObserver> observers;
 
@@ -77,6 +78,7 @@ public class GameImpl implements Game {
         this.validMoveStrategy = gameFactory.createValidMoveStrategy();
         this.legalPositionStrategy = gameFactory.createLegalPositionStrategy();
         this.tileStrategy = gameFactory.createTileStrategy();
+        this.unitStrategy = gameFactory.createUnitStrategy();
 
         initializeCityMap();
         initializeWorldGrid();
@@ -138,7 +140,7 @@ public class GameImpl implements Game {
     }
 
     public void createCityAt(Position p) {
-        cityMap.put(p, new CityImpl(getPlayerInTurn()));
+        cityMap.put(p, new CityImpl(getPlayerInTurn(), unitStrategy));
 
         notifyWorldChangedAt(p);
     }
@@ -301,7 +303,7 @@ public class GameImpl implements Game {
     }
 
     private void placeNewUnitAt(CityImpl c, Position p) {
-        Unit u = new UnitImpl(c.getOwner(), c.getProduction());
+        Unit u = new UnitImpl(c.getOwner(), c.getProduction(), unitStrategy);
         setUnitAt(p, u);
     }
 

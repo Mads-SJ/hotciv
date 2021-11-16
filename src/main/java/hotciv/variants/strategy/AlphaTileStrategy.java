@@ -22,8 +22,6 @@ public class AlphaTileStrategy implements TileStrategy {
     @Override
     public int getResources(String typeString) {
         switch (typeString){
-            case DESERT:
-                return 0;
             case OCEANS:
             case MOUNTAINS:
                 return 1;
@@ -34,5 +32,18 @@ public class AlphaTileStrategy implements TileStrategy {
                 return 3;
         }
         return 0;
+    }
+
+    @Override
+    public boolean isTileValid(String typeString) {
+        switch(typeString) {
+            case PLAINS:
+            case OCEANS:
+            case MOUNTAINS:
+            case HILLS:
+            case FOREST:
+                return true;
+        }
+        return false;
     }
 }

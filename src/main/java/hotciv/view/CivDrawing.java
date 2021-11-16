@@ -27,7 +27,6 @@ import java.util.Map;
  * to render the Unit and other information objects that are visible
  * in the Game instance.
  *
- * TODO: This is a TEMPLATE for the SWEA Exercise! This means
  * that it is INCOMPLETE and that there are several options
  * for CLEANING UP THE CODE when you add features to it!
 
@@ -254,7 +253,7 @@ public class CivDrawing implements Drawing, GameObserver {
               new HotCivFigure(NOTHING,
                       new Point(CITY_PRODUCTION_X,
                               CITY_PRODUCTION_Y),
-                      "FAKE IT STRING"); // TODO for ETA CIV, tilføj selv type strings i constants.
+                      "FAKE IT STRING");
       figureCollection.add(cityProductionIcon);
     }
 

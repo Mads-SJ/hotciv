@@ -4,15 +4,17 @@ import hotciv.common.strategy.TileStrategy;
 import hotciv.framework.Tile;
 import hotciv.variants.strategy.AlphaTileStrategy;
 
+import static hotciv.framework.GameConstants.PLAINS;
+
 public class TileImpl implements Tile {
 
     private final String typeString;
     private TileStrategy tileStrategy;
 
     public TileImpl(String typeString, TileStrategy tileStrategy) {
-        // init strategy der tjekker valid typestring
         this.tileStrategy = tileStrategy;
-        this.typeString = typeString;
+        if (tileStrategy.isTileValid(typeString)) this.typeString = typeString;
+        else this.typeString = PLAINS; // if tile is not valid the tile type is set to PLAINS
     }
 
     @Override
