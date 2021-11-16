@@ -3,6 +3,7 @@ package hotciv.standard;
 import hotciv.common.strategy.UnitStrategy;
 import hotciv.framework.*;
 import hotciv.variants.factory.SemiTestFactory;
+import hotciv.variants.strategy.AlphaUnitStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,7 @@ public class TestSemiCiv {
         Position blueLegionPos = new Position(0,4);
         GameImpl gameImpl = (GameImpl) game;
 
-        UnitStrategy unitStrategy = new SemiTestFactory().createUnitStrategy(); // TODO overkill at lave factory?
+        UnitStrategy unitStrategy = new AlphaUnitStrategy();
         UnitImpl redArcher = new UnitImpl(Player.RED, ARCHER, unitStrategy);
         UnitImpl blueLegion = new UnitImpl(Player.BLUE, LEGION, unitStrategy);
 

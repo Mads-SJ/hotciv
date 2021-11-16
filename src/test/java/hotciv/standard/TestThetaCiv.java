@@ -41,7 +41,7 @@ public class TestThetaCiv {
 
     @Test
     public void shouldBeCostOf30ForSandworm() {
-        CityImpl city = new CityImpl(Player.RED);
+        CityImpl city = new CityImpl(Player.RED, unitStrategy);
         city.setProduction(SANDWORM);
         assertThat(city.getCostOfNewUnit(), is(30));
     }

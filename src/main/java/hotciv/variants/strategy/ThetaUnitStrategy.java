@@ -30,6 +30,12 @@ public class ThetaUnitStrategy implements UnitStrategy {
     }
 
     @Override
+    public int getCostOfUnit(String typeString) {
+        if (typeString.equals(SANDWORM)) return 30;
+        return alphaUnitStrategy.getCostOfUnit(typeString);
+    }
+
+    @Override
     public boolean isUnitValid(String typeString) {
         if (typeString.equals(SANDWORM)) return true;
         return alphaUnitStrategy.isUnitValid(typeString);

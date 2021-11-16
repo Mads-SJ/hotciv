@@ -10,9 +10,6 @@ Missing features/refactoring:
     [OK] Make ThetaUnitStrategy
         [OK] Where sandworm is a valid unit.
 
-The layout generator in GameImpl should use TileStrategy to check for valid tile types // TODO ide til at fixe vores fake it typestring ved tiles
-// TODO det samme kan gøres for units
-// TODO set production i city, bør vi lave en strategy eller bruge unitstrategy?
 
 [OK] Action:
 [OK] Sandworm devour action

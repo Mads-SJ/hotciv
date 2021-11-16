@@ -140,7 +140,7 @@ public class GameImpl implements Game {
     }
 
     public void createCityAt(Position p) {
-        cityMap.put(p, new CityImpl(getPlayerInTurn()));
+        cityMap.put(p, new CityImpl(getPlayerInTurn(), unitStrategy));
 
         notifyWorldChangedAt(p);
     }
@@ -303,7 +303,6 @@ public class GameImpl implements Game {
     }
 
     private void placeNewUnitAt(CityImpl c, Position p) {
-        // TODO overvej om tjekket for om unit er valid skal være her eller i c.setproduction
         Unit u = new UnitImpl(c.getOwner(), c.getProduction(), unitStrategy);
         setUnitAt(p, u);
     }

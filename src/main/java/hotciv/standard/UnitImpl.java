@@ -19,28 +19,17 @@ public class UnitImpl implements Unit {
 
     public UnitImpl(Player owner, String typeString, UnitStrategy unitStrategy) {
         this.unitStrategy = unitStrategy;
-
         if (unitStrategy.isUnitValid(typeString)) this.typeString = typeString;
-        else this.typeString = "fake it unit";
+        else this.typeString = ARCHER; // if unit is not valid the unit type is set to ARCHER
 
         this.owner = owner;
-
-
         movable = true;
 
-        initializeStrengths(typeString);
-        initializeMoveCount(typeString);
-        initialMoveCount = moveCount;
-    }
-
-    private void initializeMoveCount(String typeString) {
-        // if (typeString.equals(SANDWORM)) moveCount = SANDWORM_MOVE_COUNT;
-        moveCount = unitStrategy.initializeMoveCount(typeString);
-    }
-
-    private void initializeStrengths(String typeString) {
         attackingStrength = unitStrategy.initializeAttackingStrength(typeString);
         defensiveStrength = unitStrategy.initializeDefensiveStrength(typeString);
+
+        moveCount = unitStrategy.initializeMoveCount(typeString);
+        initialMoveCount = moveCount;
     }
 
     @Override

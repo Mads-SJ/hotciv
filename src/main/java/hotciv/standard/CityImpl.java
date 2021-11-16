@@ -1,5 +1,6 @@
 package hotciv.standard;
 
+import hotciv.common.strategy.UnitStrategy;
 import hotciv.framework.City;
 import hotciv.framework.Player;
 
@@ -13,9 +14,11 @@ public class CityImpl implements City {
     private int costOfNewUnit;
     private String workforceFocus;
     private int population;
+    private UnitStrategy unitStrategy;
 
-    public CityImpl(Player owner) {
+    public CityImpl(Player owner, UnitStrategy unitStrategy) {
         this.owner = owner;
+        this.unitStrategy = unitStrategy;
         treasury = 0; // Treasury is empty when a new city is created.
         food = 0;
         setProduction(ARCHER);
@@ -59,21 +62,10 @@ public class CityImpl implements City {
     }
 
     public void setProduction(String unitType) {
-        production = unitType;
-        // TODO overvej at brug unitStrategy.isUnitValid for at sætte production.
-        switch (unitType) {
-            case ARCHER:
-                costOfNewUnit = ARCHER_COST;
-                break;
-            case LEGION:
-                costOfNewUnit = LEGION_COST;
-                break;
-            case SETTLER:
-                costOfNewUnit = SETTLER_COST;
-                break;
-            case SANDWORM:
-                costOfNewUnit = SANDWORM_COST;
-                break;
+        int cost = unitStrategy.getCostOfUnit(unitType);
+        if (cost > 0) {
+            production = unitType;
+            costOfNewUnit = cost;
         }
     }
 

@@ -12,37 +12,38 @@ public class AlphaUnitStrategy implements UnitStrategy {
 
     @Override
     public int initializeAttackingStrength(String typeString) {
-        switch (typeString) {
-            case SETTLER:
-                return 0;
-            case ARCHER:
-                return 2;
-            case LEGION:
-                return 4;
-        }
-        return -1;
+        return switch (typeString) {
+            case SETTLER -> 0;
+            case ARCHER -> 2;
+            case LEGION -> 4;
+            default -> -1;
+        };
     }
 
     @Override
     public int initializeDefensiveStrength(String typeString) {
-        switch (typeString) {
-            case SETTLER:
-            case ARCHER:
-                return 3;
-            case LEGION:
-                return 2;
-        }
-        return -1;
+        return switch (typeString) {
+            case SETTLER, ARCHER -> 3;
+            case LEGION -> 2;
+            default -> -1;
+        };
+    }
+
+    @Override
+    public int getCostOfUnit(String typeString) {
+        return switch (typeString) {
+            case ARCHER -> ARCHER_COST;
+            case LEGION -> LEGION_COST;
+            case SETTLER -> SETTLER_COST;
+            default -> 0;
+        };
     }
 
     @Override
     public boolean isUnitValid(String typeString) {
-        switch(typeString) {
-            case SETTLER:
-            case ARCHER:
-            case LEGION:
-                return true;
-        }
-        return false;
+        return switch (typeString) {
+            case SETTLER, ARCHER, LEGION -> true;
+            default -> false;
+        };
     }
 }
