@@ -11,21 +11,21 @@ public class StubBrokerCity implements City, Servant {
 
     @Override
     public int getSize() {
-        return 0;
+        return 4;
     }
 
     @Override
     public int getTreasury() {
-        return 0;
+        return 69;
     }
 
     @Override
     public String getProduction() {
-        return null;
+        return "F16";
     }
 
     @Override
     public String getWorkforceFocus() {
-        return null;
+        return "gold";
     }
 }

@@ -5,8 +5,7 @@ import frds.broker.Requestor;
 import hotciv.framework.City;
 import hotciv.framework.Player;
 
-import static hotciv.framework.OperationNames.GET_OWNER_OPERATION;
-import static hotciv.framework.OperationNames.GET_PLAYER_IN_TURN_OPERATION;
+import static hotciv.framework.OperationNames.*;
 
 public class CityProxy implements City, ClientProxy {
     private static final String CITY_OBJECTID = "singleton";
@@ -24,21 +23,25 @@ public class CityProxy implements City, ClientProxy {
 
     @Override
     public int getSize() {
-        return 0;
+        int size = requestor.sendRequestAndAwaitReply(CITY_OBJECTID, GET_SIZE_OPERATION, int.class);
+        return size;
     }
 
     @Override
     public int getTreasury() {
-        return 0;
+        int amount = requestor.sendRequestAndAwaitReply(CITY_OBJECTID, GET_TREASURY_OPERATION, int.class);
+        return amount;
     }
 
     @Override
     public String getProduction() {
-        return null;
+        String production = requestor.sendRequestAndAwaitReply(CITY_OBJECTID, GET_PRODUCTION_OPERATION, String.class);
+        return production;
     }
 
     @Override
     public String getWorkforceFocus() {
-        return null;
+        String workforce = requestor.sendRequestAndAwaitReply(CITY_OBJECTID, GET_WORKFORCE_FOCUS_OPERATION, String.class);
+        return workforce;
     }
 }

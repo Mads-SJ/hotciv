@@ -11,4 +11,8 @@ public class OperationNames {
 
     // City operations
     public static final String GET_OWNER_OPERATION = "city-get-owner";
+    public static final String GET_SIZE_OPERATION = "city-get-size";
+    public static final String GET_TREASURY_OPERATION = "city-get-treasury";
+    public static final String GET_PRODUCTION_OPERATION = "city-get-production";
+    public static final String GET_WORKFORCE_FOCUS_OPERATION = "city-get-workforce-focus";
 }
