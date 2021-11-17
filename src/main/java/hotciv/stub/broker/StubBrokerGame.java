@@ -1,4 +1,4 @@
-package hotciv.stub;
+package hotciv.stub.broker;
 
 import frds.broker.Servant;
 import hotciv.framework.*;

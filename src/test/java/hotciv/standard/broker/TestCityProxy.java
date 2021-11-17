@@ -5,15 +5,15 @@ import frds.broker.Invoker;
 import frds.broker.Requestor;
 import frds.broker.marshall.json.StandardJSONRequestor;
 import hotciv.framework.*;
-import hotciv.stub.LocalMethodClientRequestHandler;
-import hotciv.stub.StubBrokerCity;
+import hotciv.stub.broker.LocalMethodClientRequestHandler;
+import hotciv.stub.broker.StubBrokerCity;
 import org.junit.jupiter.api.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestCityProxy {
-    City city;
+    private City city;
 
     @BeforeEach
     public void setup() {

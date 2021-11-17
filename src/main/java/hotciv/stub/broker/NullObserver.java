@@ -1,4 +1,4 @@
-package hotciv.stub;
+package hotciv.stub.broker;
 
 import hotciv.framework.GameObserver;
 import hotciv.framework.Player;

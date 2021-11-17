@@ -6,24 +6,20 @@ import com.google.gson.JsonParser;
 import frds.broker.Invoker;
 import frds.broker.ReplyObject;
 import frds.broker.RequestObject;
-import hotciv.framework.City;
-import hotciv.framework.Game;
-import hotciv.framework.Player;
-import hotciv.framework.Position;
+import hotciv.framework.*;
 
 import javax.servlet.http.HttpServletResponse;
 
 import static hotciv.framework.OperationNames.*;
 
-public class CityInvoker implements Invoker {
-    private final City servant;
+public class UnitInvoker implements Invoker {
+    private final Unit servant;
     private final Gson gson;
 
-    public CityInvoker(City servant) {
+    public UnitInvoker(Unit servant) {
         this.servant = servant;
         gson = new Gson();
     }
-
     @Override
     public String handleRequest(String request) {
         // Do the demarshalling
@@ -43,26 +39,18 @@ public class CityInvoker implements Invoker {
         // b) invoke servant method
         // c) populate a reply object with return values
 
-        if (requestObject.getOperationName().equals(CITY_GET_OWNER_OPERATION)) {
+        if (requestObject.getOperationName().equals(UNIT_GET_TYPE_STRING_OPERATION)) {
+            String typeString = servant.getTypeString();
+            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                    gson.toJson(typeString));
+        } else if (requestObject.getOperationName().equals(UNIT_GET_OWNER_OPERATION)) {
             Player owner = servant.getOwner();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(owner));
-        } else if (requestObject.getOperationName().equals(GET_SIZE_OPERATION)) {
-            int size = servant.getSize();
+        } else if (requestObject.getOperationName().equals(GET_MOVE_COUNT_OPERATION)) {
+            int moveCount = servant.getMoveCount();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
-                    gson.toJson(size));
-        } else if (requestObject.getOperationName().equals(GET_TREASURY_OPERATION)) {
-            int amount = servant.getTreasury();
-            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
-                    gson.toJson(amount));
-        } else if (requestObject.getOperationName().equals(GET_PRODUCTION_OPERATION)) {
-            String production = servant.getProduction();
-            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
-                    gson.toJson(production));
-        } else if (requestObject.getOperationName().equals(GET_WORKFORCE_FOCUS_OPERATION)) {
-            String workforce = servant.getWorkforceFocus();
-            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
-                    gson.toJson(workforce));
+                    gson.toJson(moveCount));
         }
         else {
             // Unknown operation

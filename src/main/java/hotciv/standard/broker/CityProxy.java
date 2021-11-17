@@ -17,7 +17,7 @@ public class CityProxy implements City, ClientProxy {
 
     @Override
     public Player getOwner() {
-        Player owner = requestor.sendRequestAndAwaitReply(CITY_OBJECTID, GET_OWNER_OPERATION, Player.class);
+        Player owner = requestor.sendRequestAndAwaitReply(CITY_OBJECTID, CITY_GET_OWNER_OPERATION, Player.class);
         return owner;
     }
 

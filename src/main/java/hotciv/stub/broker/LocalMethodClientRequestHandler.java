@@ -1,4 +1,4 @@
-package hotciv.stub;
+package hotciv.stub.broker;
 
 import frds.broker.ClientRequestHandler;
 import frds.broker.Invoker;

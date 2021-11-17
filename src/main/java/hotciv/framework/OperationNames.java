@@ -10,9 +10,14 @@ public class OperationNames {
     public static final String END_TURN_OPERATION = "game-end-turn";
 
     // City operations
-    public static final String GET_OWNER_OPERATION = "city-get-owner";
+    public static final String CITY_GET_OWNER_OPERATION = "city-get-owner";
     public static final String GET_SIZE_OPERATION = "city-get-size";
     public static final String GET_TREASURY_OPERATION = "city-get-treasury";
     public static final String GET_PRODUCTION_OPERATION = "city-get-production";
     public static final String GET_WORKFORCE_FOCUS_OPERATION = "city-get-workforce-focus";
+
+    // Unit operations
+    public static final String UNIT_GET_TYPE_STRING_OPERATION = "unit-get-type-string";
+    public static final String UNIT_GET_OWNER_OPERATION = "unit-get-owner";
+    public static final String GET_MOVE_COUNT_OPERATION = "unit-get-move-count";
 }
