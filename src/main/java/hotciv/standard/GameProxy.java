@@ -29,7 +29,8 @@ public class GameProxy implements Game, ClientProxy {
 
     @Override
     public Player getPlayerInTurn() {
-        return null;
+        Player playerInTurn = requestor.sendRequestAndAwaitReply(GAME_OBJECTID, GET_PLAYER_IN_TURN_OPERATION, Player.class);
+        return playerInTurn;
     }
 
     @Override
@@ -40,7 +41,8 @@ public class GameProxy implements Game, ClientProxy {
 
     @Override
     public int getAge() {
-        return 0;
+        int age = requestor.sendRequestAndAwaitReply(GAME_OBJECTID, GET_AGE_OPERATION, int.class);
+        return age;
     }
 
     @Override

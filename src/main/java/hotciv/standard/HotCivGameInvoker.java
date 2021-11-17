@@ -45,7 +45,16 @@ public class HotCivGameInvoker implements Invoker {
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(winner));
 
-        }  else {
+        } else if (requestObject.getOperationName().equals(GET_AGE_OPERATION)) {
+            int age = servant.getAge();
+            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                    gson.toJson(age));
+        } else if (requestObject.getOperationName().equals(GET_PLAYER_IN_TURN_OPERATION)) {
+            Player playerInTurn = servant.getPlayerInTurn();
+            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                    gson.toJson(playerInTurn));
+        }
+        else {
             // Unknown operation
             reply = new ReplyObject(HttpServletResponse.
                     SC_NOT_IMPLEMENTED,

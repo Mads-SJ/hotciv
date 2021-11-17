@@ -39,4 +39,16 @@ public class TestBroker {
         Player winner = game.getWinner();
         assertThat(winner, is(Player.YELLOW));
     }
+
+    @Test
+    public void shouldHaveAge() {
+        int age = game.getAge();
+        assertThat(age, is(42));
+    }
+
+    @Test
+    public void shouldHavePlayerInTurn() {
+        Player player = game.getPlayerInTurn();
+        assertThat(player, is(Player.GREEN));
+    }
 }

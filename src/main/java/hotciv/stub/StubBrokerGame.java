@@ -21,7 +21,7 @@ public class StubBrokerGame implements Game, Servant {
 
     @Override
     public Player getPlayerInTurn() {
-        return null;
+        return Player.GREEN;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class StubBrokerGame implements Game, Servant {
 
     @Override
     public int getAge() {
-        return 0;
+        return 42;
     }
 
     @Override
