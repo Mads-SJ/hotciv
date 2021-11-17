@@ -6,8 +6,10 @@ import com.google.gson.JsonParser;
 import frds.broker.Invoker;
 import frds.broker.ReplyObject;
 import frds.broker.RequestObject;
+import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
+import hotciv.framework.Position;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -53,6 +55,22 @@ public class HotCivGameInvoker implements Invoker {
             Player playerInTurn = servant.getPlayerInTurn();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(playerInTurn));
+        } /* else if (requestObject.getOperationName().equals(GET_CITY_OPERATION)) {
+            Position p = gson.fromJson(array.get(0), Position.class);
+            City city = servant.getCityAt(p);
+            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                    gson.toJson(city));
+        } */
+        else if (requestObject.getOperationName().equals(MOVE_UNIT_OPERATION)) {
+            Position from = gson.fromJson(array.get(0), Position.class);
+            Position to = gson.fromJson(array.get(1), Position.class);
+            boolean hasMoved = servant.moveUnit(from, to);
+            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                    gson.toJson(hasMoved));
+        } else if (requestObject.getOperationName().equals(END_TURN_OPERATION)) {
+            servant.endOfTurn();
+            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                    gson.toJson("turn ended")); // TODO er dette ok ved void
         }
         else {
             // Unknown operation

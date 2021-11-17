@@ -24,7 +24,8 @@ public class GameProxy implements Game, ClientProxy {
 
     @Override
     public City getCityAt(Position p) {
-        return null;
+        City city = requestor.sendRequestAndAwaitReply(GAME_OBJECTID, GET_CITY_OPERATION, City.class, p);
+        return city;
     }
 
     @Override
@@ -47,12 +48,14 @@ public class GameProxy implements Game, ClientProxy {
 
     @Override
     public boolean moveUnit(Position from, Position to) {
-        return false;
+        boolean hasMoved = requestor.sendRequestAndAwaitReply(GAME_OBJECTID, MOVE_UNIT_OPERATION,
+                boolean.class, from, to);
+        return hasMoved;
     }
 
     @Override
     public void endOfTurn() {
-
+        requestor.sendRequestAndAwaitReply(GAME_OBJECTID, END_TURN_OPERATION, String.class); // TODO: er string class ok
     }
 
     @Override

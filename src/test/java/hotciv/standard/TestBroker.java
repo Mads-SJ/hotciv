@@ -4,9 +4,7 @@ import frds.broker.ClientRequestHandler;
 import frds.broker.Invoker;
 import frds.broker.Requestor;
 import frds.broker.marshall.json.StandardJSONRequestor;
-import hotciv.framework.Game;
-import hotciv.framework.GameObserver;
-import hotciv.framework.Player;
+import hotciv.framework.*;
 import hotciv.stub.LocalMethodClientRequestHandler;
 import hotciv.stub.NullObserver;
 import hotciv.stub.StubBrokerGame;
@@ -50,5 +48,25 @@ public class TestBroker {
     public void shouldHavePlayerInTurn() {
         Player player = game.getPlayerInTurn();
         assertThat(player, is(Player.GREEN));
+    }
+
+    /*
+    @Test
+    public void shouldHaveCity() {
+        City city = game.getCityAt(new Position(1,1));
+        assertThat(city.getOwner(), is(Player.GREEN));
+    }
+     */
+
+    @Test
+    public void shouldMove() {
+        boolean hasMoved = game.moveUnit(new Position(2,2), new Position(2,3));
+        assertThat(hasMoved, is(true));
+    }
+
+    @Test
+    public void manualTesting() {
+        game.endOfTurn(); // TODO: empty todo
+        assert(true);
     }
 }

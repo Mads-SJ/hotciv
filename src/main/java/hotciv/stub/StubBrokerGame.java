@@ -4,6 +4,8 @@ import frds.broker.Servant;
 import hotciv.framework.*;
 
 public class StubBrokerGame implements Game, Servant {
+    private Position position_of_green_city = new Position(1,1);
+
     @Override
     public Tile getTileAt(Position p) {
         return null;
@@ -16,6 +18,9 @@ public class StubBrokerGame implements Game, Servant {
 
     @Override
     public City getCityAt(Position p) {
+        if (p.equals(position_of_green_city)) {
+            return new StubCity();
+        }
         return null;
     }
 
@@ -36,12 +41,12 @@ public class StubBrokerGame implements Game, Servant {
 
     @Override
     public boolean moveUnit(Position from, Position to) {
-        return false;
+        return true;
     }
 
     @Override
     public void endOfTurn() {
-
+        System.out.println("TURN ENDS"); // TODO virker ikke
     }
 
     @Override
