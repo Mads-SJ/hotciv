@@ -4,10 +4,13 @@ import frds.broker.ClientRequestHandler;
 import frds.broker.Invoker;
 import frds.broker.Requestor;
 import frds.broker.marshall.json.StandardJSONRequestor;
-import hotciv.framework.City;
+import hotciv.framework.*;
 import hotciv.stub.LocalMethodClientRequestHandler;
 import hotciv.stub.StubBrokerCity;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestCityProxy {
     City city;
@@ -23,5 +26,11 @@ public class TestCityProxy {
         Requestor requestor = new StandardJSONRequestor(crh);
 
         city = new CityProxy(requestor);
+    }
+
+    @Test
+    public void shouldHaveOwner() {
+        Player owner = city.getOwner();
+        assertThat(owner, is(Player.GREEN));
     }
 }

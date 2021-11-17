@@ -43,10 +43,11 @@ public class CityInvoker implements Invoker {
         // b) invoke servant method
         // c) populate a reply object with return values
 
-        if (false) {
-            //
-        }
-        else {
+        if (requestObject.getOperationName().equals(GET_OWNER_OPERATION)) {
+            Player owner = servant.getOwner();
+            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                    gson.toJson(owner));
+        } else {
             // Unknown operation
             reply = new ReplyObject(HttpServletResponse.
                     SC_NOT_IMPLEMENTED,

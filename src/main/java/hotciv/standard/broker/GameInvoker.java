@@ -46,7 +46,6 @@ public class GameInvoker implements Invoker {
             Player winner = servant.getWinner();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(winner));
-
         } else if (requestObject.getOperationName().equals(GET_AGE_OPERATION)) {
             int age = servant.getAge();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,

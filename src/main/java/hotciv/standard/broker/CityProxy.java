@@ -5,6 +5,9 @@ import frds.broker.Requestor;
 import hotciv.framework.City;
 import hotciv.framework.Player;
 
+import static hotciv.framework.OperationNames.GET_OWNER_OPERATION;
+import static hotciv.framework.OperationNames.GET_PLAYER_IN_TURN_OPERATION;
+
 public class CityProxy implements City, ClientProxy {
     private static final String CITY_OBJECTID = "singleton";
     private final Requestor requestor;
@@ -15,7 +18,8 @@ public class CityProxy implements City, ClientProxy {
 
     @Override
     public Player getOwner() {
-        return null;
+        Player owner = requestor.sendRequestAndAwaitReply(CITY_OBJECTID, GET_OWNER_OPERATION, Player.class);
+        return owner;
     }
 
     @Override
