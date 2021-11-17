@@ -1,4 +1,4 @@
-package hotciv.standard;
+package hotciv.standard.broker;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -15,11 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import static hotciv.framework.OperationNames.*;
 
-public class HotCivGameInvoker implements Invoker {
+public class GameInvoker implements Invoker {
     private final Game servant;
     private final Gson gson;
 
-    public HotCivGameInvoker(Game servant) {
+    public GameInvoker(Game servant) {
         this.servant = servant;
         gson = new Gson();
     }

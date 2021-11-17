@@ -1,4 +1,4 @@
-package hotciv.standard;
+package hotciv.standard.broker;
 
 import hotciv.framework.*;
 import frds.broker.*;

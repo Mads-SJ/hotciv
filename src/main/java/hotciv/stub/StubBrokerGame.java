@@ -19,7 +19,7 @@ public class StubBrokerGame implements Game, Servant {
     @Override
     public City getCityAt(Position p) {
         if (p.equals(position_of_green_city)) {
-            return new StubCity();
+            return new StubBrokerCity();
         }
         return null;
     }

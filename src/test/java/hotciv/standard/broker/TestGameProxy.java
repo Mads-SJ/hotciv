@@ -1,4 +1,4 @@
-package hotciv.standard;
+package hotciv.standard.broker;
 
 import frds.broker.ClientRequestHandler;
 import frds.broker.Invoker;
@@ -13,16 +13,16 @@ import org.junit.jupiter.api.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class TestBroker {
+public class TestGameProxy {
     Game game;
 
     @BeforeEach
     public void setup() {
-        Game servant = new StubBrokerGame();
+        Game gameServant = new StubBrokerGame();
         GameObserver nullObserver = new NullObserver();
-        servant.addObserver(nullObserver);
+        gameServant.addObserver(nullObserver);
 
-        Invoker invoker = new HotCivGameInvoker(servant);
+        Invoker invoker = new GameInvoker(gameServant);
 
         ClientRequestHandler crh = new LocalMethodClientRequestHandler(invoker);
 

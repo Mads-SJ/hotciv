@@ -1,8 +1,9 @@
 package hotciv.stub;
+import frds.broker.Servant;
 import hotciv.framework.City;
 import hotciv.framework.Player;
 
-public class StubCity implements City {
+public class StubBrokerCity implements City, Servant {
     @Override
     public Player getOwner() {
         return Player.GREEN;
