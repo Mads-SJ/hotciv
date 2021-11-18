@@ -25,4 +25,7 @@ public class OperationNames {
     public static final String GET_MOVE_COUNT_OPERATION = "unit-get-move-count";
     public static final String GET_DEFENSIVE_STRENGTH_OPERATION = "unit-get-defensive-strength";
     public static final String GET_ATTACKING_STRENGTH_OPERATION = "unit-get-attacking-strength";
+
+    // Tile operations
+    public static final String TILE_GET_TYPE_STRING_OPERATION = "tile-get-type-string";
 }
