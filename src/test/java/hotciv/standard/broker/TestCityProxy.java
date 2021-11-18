@@ -17,9 +17,7 @@ public class TestCityProxy {
 
     @BeforeEach
     public void setup() {
-        City cityServant = new StubBrokerCity();
-
-        Invoker invoker = new CityInvoker(cityServant);
+        Invoker invoker = new CityInvoker();
 
         ClientRequestHandler crh = new LocalMethodClientRequestHandler(invoker);
 

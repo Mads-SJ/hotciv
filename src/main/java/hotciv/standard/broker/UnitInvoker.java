@@ -7,17 +7,16 @@ import frds.broker.Invoker;
 import frds.broker.ReplyObject;
 import frds.broker.RequestObject;
 import hotciv.framework.*;
+import hotciv.stub.broker.StubBrokerUnit;
 
 import javax.servlet.http.HttpServletResponse;
 
 import static hotciv.framework.OperationNames.*;
 
 public class UnitInvoker implements Invoker {
-    private final Unit servant;
     private final Gson gson;
 
-    public UnitInvoker(Unit servant) {
-        this.servant = servant;
+    public UnitInvoker() {
         gson = new Gson();
     }
     @Override
@@ -28,11 +27,12 @@ public class UnitInvoker implements Invoker {
         JsonArray array =
                 JsonParser.parseString(requestObject.getPayload()).getAsJsonArray();
 
+        String objectId = requestObject.getObjectId();
+
         ReplyObject reply;
 
-    /* As there is only one TeleMed instance (a singleton)
-       the objectId is not used for anything in our case.
-     */
+        Unit unit = lookupUnit(objectId);
+
         // Dispatching on all known operations
         // Each dispatch follows the same algorithm
         // a) retrieve parameters from json array (if any)
@@ -40,23 +40,23 @@ public class UnitInvoker implements Invoker {
         // c) populate a reply object with return values
 
         if (requestObject.getOperationName().equals(UNIT_GET_TYPE_STRING_OPERATION)) {
-            String typeString = servant.getTypeString();
+            String typeString = unit.getTypeString();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(typeString));
         } else if (requestObject.getOperationName().equals(UNIT_GET_OWNER_OPERATION)) {
-            Player owner = servant.getOwner();
+            Player owner = unit.getOwner();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(owner));
         } else if (requestObject.getOperationName().equals(GET_MOVE_COUNT_OPERATION)) {
-            int moveCount = servant.getMoveCount();
+            int moveCount = unit.getMoveCount();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(moveCount));
         } else if (requestObject.getOperationName().equals(GET_DEFENSIVE_STRENGTH_OPERATION)) {
-            int defensiveStrength = servant.getDefensiveStrength();
+            int defensiveStrength = unit.getDefensiveStrength();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(defensiveStrength));
         } else if (requestObject.getOperationName().equals(GET_ATTACKING_STRENGTH_OPERATION)) {
-            int attackingStrength = servant.getAttackingStrength();
+            int attackingStrength = unit.getAttackingStrength();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(attackingStrength));
         }
@@ -70,5 +70,10 @@ public class UnitInvoker implements Invoker {
 
         // And marshall the reply
         return gson.toJson(reply);
+    }
+
+    private Unit lookupUnit(String objectId) {
+        Unit unit = new StubBrokerUnit();
+        return unit;
     }
 }

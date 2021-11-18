@@ -7,17 +7,16 @@ import frds.broker.Invoker;
 import frds.broker.ReplyObject;
 import frds.broker.RequestObject;
 import hotciv.framework.*;
+import hotciv.stub.broker.StubBrokerTile;
 
 import javax.servlet.http.HttpServletResponse;
 
 import static hotciv.framework.OperationNames.*;
 
 public class TileInvoker implements Invoker {
-    private final Tile servant;
     private final Gson gson;
 
-    public TileInvoker(Tile servant) {
-        this.servant = servant;
+    public TileInvoker() {
         gson = new Gson();
     }
     @Override
@@ -25,14 +24,13 @@ public class TileInvoker implements Invoker {
         // Do the demarshalling
         RequestObject requestObject =
                 gson.fromJson(request, RequestObject.class);
-        JsonArray array =
-                JsonParser.parseString(requestObject.getPayload()).getAsJsonArray();
+
+        String objectId = requestObject.getObjectId();
 
         ReplyObject reply;
 
-    /* As there is only one TeleMed instance (a singleton)
-       the objectId is not used for anything in our case.
-     */
+        Tile tile = lookupTile(objectId);
+
         // Dispatching on all known operations
         // Each dispatch follows the same algorithm
         // a) retrieve parameters from json array (if any)
@@ -40,7 +38,7 @@ public class TileInvoker implements Invoker {
         // c) populate a reply object with return values
 
         if (requestObject.getOperationName().equals(TILE_GET_TYPE_STRING_OPERATION)) {
-            String typeString = servant.getTypeString();
+            String typeString = tile.getTypeString();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(typeString));
         }
@@ -54,5 +52,10 @@ public class TileInvoker implements Invoker {
 
         // And marshall the reply
         return gson.toJson(reply);
+    }
+
+    private Tile lookupTile(String objectId) {
+        Tile tile = new StubBrokerTile();
+        return tile;
     }
 }

@@ -7,20 +7,17 @@ import frds.broker.Invoker;
 import frds.broker.ReplyObject;
 import frds.broker.RequestObject;
 import hotciv.framework.City;
-import hotciv.framework.Game;
 import hotciv.framework.Player;
-import hotciv.framework.Position;
+import hotciv.stub.broker.StubBrokerCity;
 
 import javax.servlet.http.HttpServletResponse;
 
 import static hotciv.framework.OperationNames.*;
 
 public class CityInvoker implements Invoker {
-    private final City servant;
     private final Gson gson;
 
-    public CityInvoker(City servant) {
-        this.servant = servant;
+    public CityInvoker() {
         gson = new Gson();
     }
 
@@ -32,11 +29,12 @@ public class CityInvoker implements Invoker {
         JsonArray array =
                 JsonParser.parseString(requestObject.getPayload()).getAsJsonArray();
 
+        String objectId = requestObject.getObjectId();
+
         ReplyObject reply;
 
-    /* As there is only one TeleMed instance (a singleton)
-       the objectId is not used for anything in our case.
-     */
+        City city = lookupCity(objectId);
+
         // Dispatching on all known operations
         // Each dispatch follows the same algorithm
         // a) retrieve parameters from json array (if any)
@@ -44,23 +42,23 @@ public class CityInvoker implements Invoker {
         // c) populate a reply object with return values
 
         if (requestObject.getOperationName().equals(CITY_GET_OWNER_OPERATION)) {
-            Player owner = servant.getOwner();
+            Player owner = city.getOwner();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(owner));
         } else if (requestObject.getOperationName().equals(GET_SIZE_OPERATION)) {
-            int size = servant.getSize();
+            int size = city.getSize();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(size));
         } else if (requestObject.getOperationName().equals(GET_TREASURY_OPERATION)) {
-            int amount = servant.getTreasury();
+            int amount = city.getTreasury();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(amount));
         } else if (requestObject.getOperationName().equals(GET_PRODUCTION_OPERATION)) {
-            String production = servant.getProduction();
+            String production = city.getProduction();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(production));
         } else if (requestObject.getOperationName().equals(GET_WORKFORCE_FOCUS_OPERATION)) {
-            String workforce = servant.getWorkforceFocus();
+            String workforce = city.getWorkforceFocus();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(workforce));
         }
@@ -74,5 +72,10 @@ public class CityInvoker implements Invoker {
 
         // And marshall the reply
         return gson.toJson(reply);
+    }
+
+    private City lookupCity(String objectId) {
+        City city = new StubBrokerCity();
+        return city;
     }
 }

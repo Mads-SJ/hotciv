@@ -33,9 +33,6 @@ public class GameInvoker implements Invoker {
 
         ReplyObject reply;
 
-    /* As there is only one TeleMed instance (a singleton)
-       the objectId is not used for anything in our case.
-     */
         // Dispatching on all known operations
         // Each dispatch follows the same algorithm
         // a) retrieve parameters from json array (if any)
@@ -71,7 +68,7 @@ public class GameInvoker implements Invoker {
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(requestObject.getOperationName())); // TODO er dette ok ved void
         } else if (requestObject.getOperationName().equals(CHANGE_WORKFORCE_FOCUS_IN_CITY_AT_OPERATION)) {
-            Position p = gson.fromJson(array.get(0), Position.class);
+            Position p = gson.fromJson(array.get(0), Position.class); //TODO samme for resten af cases
             String balance = gson.fromJson(array.get(1), String.class);
             servant.changeWorkForceFocusInCityAt(p, balance);
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
