@@ -20,4 +20,6 @@ public class OperationNames {
     public static final String UNIT_GET_TYPE_STRING_OPERATION = "unit-get-type-string";
     public static final String UNIT_GET_OWNER_OPERATION = "unit-get-owner";
     public static final String GET_MOVE_COUNT_OPERATION = "unit-get-move-count";
+    public static final String GET_DEFENSIVE_STRENGTH_OPERATION = "unit-get-defensive-strength";
+    public static final String GET_ATTACKING_STRENGTH_OPERATION = "unit-get-attacking-strength";
 }

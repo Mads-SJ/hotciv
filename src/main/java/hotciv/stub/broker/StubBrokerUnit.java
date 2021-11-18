@@ -21,11 +21,11 @@ public class StubBrokerUnit implements Unit {
 
     @Override
     public int getDefensiveStrength() {
-        return 0;
+        return 50;
     }
 
     @Override
     public int getAttackingStrength() {
-        return 0;
+        return 100;
     }
 }

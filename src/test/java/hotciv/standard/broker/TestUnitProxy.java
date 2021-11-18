@@ -45,4 +45,16 @@ public class TestUnitProxy {
         int moveCount = unit.getMoveCount();
         assertThat(moveCount, is(420));
     }
+
+    @Test
+    public void shouldHaveDefensiveStrength() {
+        int defensiveStrength = unit.getDefensiveStrength();
+        assertThat(defensiveStrength, is(50));
+    }
+
+    @Test
+    public void shouldHaveAttackingStrength() {
+        int attackingStrength = unit.getAttackingStrength();
+        assertThat(attackingStrength, is(100));
+    }
 }

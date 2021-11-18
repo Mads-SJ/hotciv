@@ -8,7 +8,7 @@ import hotciv.framework.Unit;
 import static hotciv.framework.OperationNames.*;
 
 public class UnitProxy implements Unit, ClientProxy {
-    private static final String UNIT_OBJECTID = "singleton";
+    private static final String UNIT_OBJECT_ID = "singleton";
     private final Requestor requestor;
 
     public UnitProxy(Requestor requestor) {
@@ -17,29 +17,31 @@ public class UnitProxy implements Unit, ClientProxy {
 
     @Override
     public String getTypeString() {
-        String typeString = requestor.sendRequestAndAwaitReply(UNIT_OBJECTID, UNIT_GET_TYPE_STRING_OPERATION, String.class);
+        String typeString = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, UNIT_GET_TYPE_STRING_OPERATION, String.class);
         return typeString;
     }
 
     @Override
     public Player getOwner() {
-        Player owner = requestor.sendRequestAndAwaitReply(UNIT_OBJECTID, UNIT_GET_OWNER_OPERATION, Player.class);
+        Player owner = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, UNIT_GET_OWNER_OPERATION, Player.class);
         return owner;
     }
 
     @Override
     public int getMoveCount() {
-        int moveCount = requestor.sendRequestAndAwaitReply(UNIT_OBJECTID, GET_MOVE_COUNT_OPERATION, int.class);
+        int moveCount = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, GET_MOVE_COUNT_OPERATION, int.class);
         return moveCount;
     }
 
     @Override
     public int getDefensiveStrength() {
-        return 0;
+        int defensiveStrength = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, GET_DEFENSIVE_STRENGTH_OPERATION, int.class);
+        return defensiveStrength;
     }
 
     @Override
     public int getAttackingStrength() {
-        return 0;
+        int attackingStrength = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, GET_ATTACKING_STRENGTH_OPERATION, int.class);
+        return attackingStrength;
     }
 }

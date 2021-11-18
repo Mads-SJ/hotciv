@@ -51,6 +51,14 @@ public class UnitInvoker implements Invoker {
             int moveCount = servant.getMoveCount();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(moveCount));
+        } else if (requestObject.getOperationName().equals(GET_DEFENSIVE_STRENGTH_OPERATION)) {
+            int defensiveStrength = servant.getDefensiveStrength();
+            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                    gson.toJson(defensiveStrength));
+        } else if (requestObject.getOperationName().equals(GET_ATTACKING_STRENGTH_OPERATION)) {
+            int attackingStrength = servant.getAttackingStrength();
+            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                    gson.toJson(attackingStrength));
         }
         else {
             // Unknown operation
