@@ -60,26 +60,29 @@ public class GameProxy implements Game, ClientProxy {
 
     @Override
     public void changeWorkForceFocusInCityAt(Position p, String balance) {
-
+        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, CHANGE_WORKFORCE_FOCUS_IN_CITY_AT_OPERATION,
+                String.class, p, balance);
     }
 
     @Override
     public void changeProductionInCityAt(Position p, String unitType) {
-
+        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, CHANGE_PRODUCTION_IN_CITY_AT_OPERATION,
+                String.class, p, unitType);
     }
 
     @Override
     public void performUnitActionAt(Position p) {
-
+        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, PERFORM_UNIT_ACTION_AT_OPERATION,
+                String.class, p);
     }
 
     @Override
     public void addObserver(GameObserver observer) {
-
+        // TODO: implement?
     }
 
     @Override
     public void setTileFocus(Position position) {
-
+        // TODO: implement?
     }
 }

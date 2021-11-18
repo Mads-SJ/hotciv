@@ -67,6 +67,10 @@ public class TestGameProxy {
     @Test
     public void manualTesting() {
         game.endOfTurn(); // TODO: empty todo
+        Position fakePosition = new Position(100, 100);
+        game.changeWorkForceFocusInCityAt(fakePosition, "gold");
+        game.changeProductionInCityAt(fakePosition, "F16");
+        game.performUnitActionAt(fakePosition);
         assert(true);
     }
 }

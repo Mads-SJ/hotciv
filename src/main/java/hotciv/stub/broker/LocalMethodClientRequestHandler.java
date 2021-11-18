@@ -15,7 +15,9 @@ public class LocalMethodClientRequestHandler implements ClientRequestHandler {
     @Override
     public String sendToServerAndAwaitReply(String request) {
         lastRequest = request;
+        // System.out.println("--> " + request);
         String reply = invoker.handleRequest(request);
+        // System.out.println("<-- " + reply);
         lastReply = reply;
         return reply;
     }

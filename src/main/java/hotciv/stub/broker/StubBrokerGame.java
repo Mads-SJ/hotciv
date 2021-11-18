@@ -51,17 +51,17 @@ public class StubBrokerGame implements Game, Servant {
 
     @Override
     public void changeWorkForceFocusInCityAt(Position p, String balance) {
-
+        System.out.println("WORKFORCE CHANGED TO " + balance + " IN CITY AT: " + p);
     }
 
     @Override
     public void changeProductionInCityAt(Position p, String unitType) {
-
+        System.out.println("PRODUCTION CHANGED TO " + unitType + " IN CITY AT: " + p);
     }
 
     @Override
     public void performUnitActionAt(Position p) {
-
+        System.out.println("PERFORMED UNIT ACTION AT " + p);
     }
 
     @Override

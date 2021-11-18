@@ -8,6 +8,9 @@ public class OperationNames {
     public static final String GET_CITY_OPERATION = "game-get-city";
     public static final String MOVE_UNIT_OPERATION = "game-move-unit";
     public static final String END_TURN_OPERATION = "game-end-turn";
+    public static final String CHANGE_WORKFORCE_FOCUS_IN_CITY_AT_OPERATION = "game-change-workforce-focus-in-city-at";
+    public static final String CHANGE_PRODUCTION_IN_CITY_AT_OPERATION = "game-change-production-in-city-at";
+    public static final String PERFORM_UNIT_ACTION_AT_OPERATION = "game-perform-unit-action-at";
 
     // City operations
     public static final String CITY_GET_OWNER_OPERATION = "city-get-owner";
