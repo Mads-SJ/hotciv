@@ -5,6 +5,7 @@ import hotciv.framework.*;
 
 public class StubBrokerGame implements Game, Servant {
     private Position position_of_green_city = new Position(1,1);
+    private String lastVoidMethodCalled = "none";
 
     @Override
     public Tile getTileAt(Position p) {
@@ -46,22 +47,22 @@ public class StubBrokerGame implements Game, Servant {
 
     @Override
     public void endOfTurn() {
-        System.out.println("TURN ENDS"); // TODO virker ikke
+        lastVoidMethodCalled = "endOfTurn";
     }
 
     @Override
     public void changeWorkForceFocusInCityAt(Position p, String balance) {
-        System.out.println("WORKFORCE CHANGED TO " + balance + " IN CITY AT: " + p);
+        lastVoidMethodCalled = "changeWorkForceFocusInCityAt";
     }
 
     @Override
     public void changeProductionInCityAt(Position p, String unitType) {
-        System.out.println("PRODUCTION CHANGED TO " + unitType + " IN CITY AT: " + p);
+        lastVoidMethodCalled = "changeProductionInCityAt";
     }
 
     @Override
     public void performUnitActionAt(Position p) {
-        System.out.println("PERFORMED UNIT ACTION AT " + p);
+        lastVoidMethodCalled = "performUnitActionAt";
     }
 
     @Override
@@ -72,5 +73,9 @@ public class StubBrokerGame implements Game, Servant {
     @Override
     public void setTileFocus(Position position) {
 
+    }
+
+    public String getLastVoidMethodCalled() {
+        return lastVoidMethodCalled;
     }
 }

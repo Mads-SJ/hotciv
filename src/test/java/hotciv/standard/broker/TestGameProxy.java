@@ -15,10 +15,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestGameProxy {
     private Game game;
+    private StubBrokerGame gameServant;
+    private Position fakePosition;
 
     @BeforeEach
     public void setup() {
-        Game gameServant = new StubBrokerGame();
+        gameServant = new StubBrokerGame();
         GameObserver nullObserver = new NullObserver();
         gameServant.addObserver(nullObserver);
 
@@ -30,6 +32,8 @@ public class TestGameProxy {
 
         game = new GameProxy(requestor);
         game.addObserver(nullObserver);
+
+        fakePosition = new Position(100, 100);
     }
 
     @Test
@@ -65,12 +69,26 @@ public class TestGameProxy {
     }
 
     @Test
-    public void manualTesting() {
-        game.endOfTurn(); // TODO: empty todo
-        Position fakePosition = new Position(100, 100);
+    public void shouldHaveEndOfTurn() {
+        game.endOfTurn();
+        assertThat(gameServant.getLastVoidMethodCalled(), is("endOfTurn"));
+    }
+
+    @Test
+    public void shouldHaveChangeWorkForceFocusInCityAt() {
         game.changeWorkForceFocusInCityAt(fakePosition, "gold");
+        assertThat(gameServant.getLastVoidMethodCalled(), is("changeWorkForceFocusInCityAt"));
+    }
+
+    @Test
+    public void shouldHaveChangeProductionInCityAt() {
         game.changeProductionInCityAt(fakePosition, "F16");
+        assertThat(gameServant.getLastVoidMethodCalled(), is("changeProductionInCityAt"));
+    }
+
+    @Test
+    public void shouldHavePerformUnitActionAt() {
         game.performUnitActionAt(fakePosition);
-        assert(true);
+        assertThat(gameServant.getLastVoidMethodCalled(), is("performUnitActionAt"));
     }
 }
