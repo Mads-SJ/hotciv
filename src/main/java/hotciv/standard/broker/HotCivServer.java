@@ -6,7 +6,6 @@ import hotciv.framework.Game;
 import hotciv.stub.broker.StubBrokerGame;
 
 public class HotCivServer {
-    private static Thread daemon;
 
     public static void main(String[] args) throws Exception {
         new HotCivServer(); // No error handling!
@@ -26,11 +25,9 @@ public class HotCivServer {
         ssrh.setPortAndInvoker(port, invoker);
 
         // Welcome
-        // Welcome
-        System.out.println("=== TeleMed Socket based Server Request Handler (port:"
+        System.out.println("=== HotCiv Socket based Server Request Handler (port:"
                 + port + ") ===");
         System.out.println(" Use ctrl-c to terminate!");
         ssrh.start();
-
     }
 }
