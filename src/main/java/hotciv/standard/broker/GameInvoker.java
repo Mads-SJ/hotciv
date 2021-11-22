@@ -66,24 +66,24 @@ public class GameInvoker implements Invoker {
         } else if (requestObject.getOperationName().equals(END_TURN_OPERATION)) {
             servant.endOfTurn();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
-                    gson.toJson(requestObject.getOperationName())); // TODO er dette ok ved void
+                    null);
         } else if (requestObject.getOperationName().equals(CHANGE_WORKFORCE_FOCUS_IN_CITY_AT_OPERATION)) {
             Position p = gson.fromJson(array.get(0), Position.class); //TODO samme for resten af cases
             String balance = gson.fromJson(array.get(1), String.class);
             servant.changeWorkForceFocusInCityAt(p, balance);
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
-                    gson.toJson(requestObject.getOperationName()));
+                    null);
         } else if (requestObject.getOperationName().equals(CHANGE_PRODUCTION_IN_CITY_AT_OPERATION)) {
             Position p = gson.fromJson(array.get(0), Position.class);
             String unitType = gson.fromJson(array.get(1), String.class);
             servant.changeProductionInCityAt(p, unitType);
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
-                    gson.toJson(requestObject.getOperationName()));
+                    null);
         } else if (requestObject.getOperationName().equals(PERFORM_UNIT_ACTION_AT_OPERATION)) {
             Position p = gson.fromJson(array.get(0), Position.class);
             servant.performUnitActionAt(p);
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
-                    gson.toJson(requestObject.getOperationName()));
+                    null);
         }
         else {
             // Unknown operation

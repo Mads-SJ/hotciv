@@ -55,25 +55,25 @@ public class GameProxy implements Game, ClientProxy {
 
     @Override
     public void endOfTurn() {
-        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, END_TURN_OPERATION, String.class); // TODO: er string class ok
+        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, END_TURN_OPERATION, void.class);
     }
 
     @Override
     public void changeWorkForceFocusInCityAt(Position p, String balance) {
         requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, CHANGE_WORKFORCE_FOCUS_IN_CITY_AT_OPERATION,
-                String.class, p, balance);
+                void.class, p, balance);
     }
 
     @Override
     public void changeProductionInCityAt(Position p, String unitType) {
         requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, CHANGE_PRODUCTION_IN_CITY_AT_OPERATION,
-                String.class, p, unitType);
+                void.class, p, unitType);
     }
 
     @Override
     public void performUnitActionAt(Position p) {
         requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, PERFORM_UNIT_ACTION_AT_OPERATION,
-                String.class, p);
+                void.class, p);
     }
 
     @Override
