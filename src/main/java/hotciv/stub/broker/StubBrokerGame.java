@@ -4,8 +4,9 @@ import frds.broker.Servant;
 import hotciv.framework.*;
 
 public class StubBrokerGame implements Game, Servant {
-    private Position position_of_green_city = new Position(1,1);
     private String lastVoidMethodCalled = "none";
+    private Player playerInTurn = Player.GREEN;
+
 
     @Override
     public Tile getTileAt(Position p) {
@@ -24,7 +25,7 @@ public class StubBrokerGame implements Game, Servant {
 
     @Override
     public Player getPlayerInTurn() {
-        return Player.GREEN;
+        return playerInTurn;
     }
 
     @Override
@@ -44,6 +45,7 @@ public class StubBrokerGame implements Game, Servant {
 
     @Override
     public void endOfTurn() {
+        playerInTurn = Player.BLUE;
         lastVoidMethodCalled = "endOfTurn";
     }
 

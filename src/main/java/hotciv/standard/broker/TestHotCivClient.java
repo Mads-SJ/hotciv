@@ -17,7 +17,10 @@ public class TestHotCivClient {
         ClientRequestHandler crh = new SocketClientRequestHandler();
         crh.setServer(hostname, 37321);
 
-        testSimpleMethods(new GameProxy(new StandardJSONRequestor(crh)));
+        StandardJSONRequestor requestor = new StandardJSONRequestor(crh);
+        GameProxy gameProxy = new GameProxy(requestor);
+
+        testSimpleMethods(gameProxy);
     }
 
     private void testSimpleMethods(Game game) {
