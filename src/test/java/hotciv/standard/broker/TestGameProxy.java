@@ -54,14 +54,6 @@ public class TestGameProxy {
         assertThat(player, is(Player.GREEN));
     }
 
-    /*
-    @Test
-    public void shouldHaveCity() {
-        City city = game.getCityAt(new Position(1,1));
-        assertThat(city.getOwner(), is(Player.GREEN));
-    }
-     */
-
     @Test
     public void shouldMove() {
         boolean hasMoved = game.moveUnit(new Position(2,2), new Position(2,3));

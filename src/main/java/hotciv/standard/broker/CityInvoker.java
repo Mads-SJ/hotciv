@@ -45,19 +45,19 @@ public class CityInvoker implements Invoker {
             Player owner = city.getOwner();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(owner));
-        } else if (requestObject.getOperationName().equals(GET_SIZE_OPERATION)) {
+        } else if (requestObject.getOperationName().equals(CITY_GET_SIZE_OPERATION)) {
             int size = city.getSize();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(size));
-        } else if (requestObject.getOperationName().equals(GET_TREASURY_OPERATION)) {
+        } else if (requestObject.getOperationName().equals(CITY_GET_TREASURY_OPERATION)) {
             int amount = city.getTreasury();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(amount));
-        } else if (requestObject.getOperationName().equals(GET_PRODUCTION_OPERATION)) {
+        } else if (requestObject.getOperationName().equals(CITY_GET_PRODUCTION_OPERATION)) {
             String production = city.getProduction();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(production));
-        } else if (requestObject.getOperationName().equals(GET_WORKFORCE_FOCUS_OPERATION)) {
+        } else if (requestObject.getOperationName().equals(CITY_GET_WORKFORCE_FOCUS_OPERATION)) {
             String workforce = city.getWorkforceFocus();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(workforce));

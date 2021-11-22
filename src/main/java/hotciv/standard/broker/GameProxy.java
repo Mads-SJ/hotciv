@@ -24,55 +24,54 @@ public class GameProxy implements Game, ClientProxy {
 
     @Override
     public City getCityAt(Position p) {
-        City city = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GET_CITY_OPERATION, City.class, p);
-        return city;
+        return null;
     }
 
     @Override
     public Player getPlayerInTurn() {
-        Player playerInTurn = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GET_PLAYER_IN_TURN_OPERATION, Player.class);
+        Player playerInTurn = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_GET_PLAYER_IN_TURN_OPERATION, Player.class);
         return playerInTurn;
     }
 
     @Override
     public Player getWinner() {
-        Player winner = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GET_WINNER_OPERATION, Player.class);
+        Player winner = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_GET_WINNER_OPERATION, Player.class);
         return winner;
     }
 
     @Override
     public int getAge() {
-        int age = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GET_AGE_OPERATION, int.class);
+        int age = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_GET_AGE_OPERATION, int.class);
         return age;
     }
 
     @Override
     public boolean moveUnit(Position from, Position to) {
-        boolean hasMoved = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, MOVE_UNIT_OPERATION,
+        boolean hasMoved = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_MOVE_UNIT_OPERATION,
                 boolean.class, from, to);
         return hasMoved;
     }
 
     @Override
     public void endOfTurn() {
-        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, END_TURN_OPERATION, void.class);
+        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_END_TURN_OPERATION, void.class);
     }
 
     @Override
     public void changeWorkForceFocusInCityAt(Position p, String balance) {
-        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, CHANGE_WORKFORCE_FOCUS_IN_CITY_AT_OPERATION,
+        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_CHANGE_WORKFORCE_FOCUS_IN_CITY_AT_OPERATION,
                 void.class, p, balance);
     }
 
     @Override
     public void changeProductionInCityAt(Position p, String unitType) {
-        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, CHANGE_PRODUCTION_IN_CITY_AT_OPERATION,
+        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_CHANGE_PRODUCTION_IN_CITY_AT_OPERATION,
                 void.class, p, unitType);
     }
 
     @Override
     public void performUnitActionAt(Position p) {
-        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, PERFORM_UNIT_ACTION_AT_OPERATION,
+        requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_PERFORM_UNIT_ACTION_AT_OPERATION,
                 void.class, p);
     }
 

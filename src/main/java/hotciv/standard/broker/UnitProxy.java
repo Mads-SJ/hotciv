@@ -29,19 +29,19 @@ public class UnitProxy implements Unit, ClientProxy {
 
     @Override
     public int getMoveCount() {
-        int moveCount = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, GET_MOVE_COUNT_OPERATION, int.class);
+        int moveCount = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, UNIT_GET_MOVE_COUNT_OPERATION, int.class);
         return moveCount;
     }
 
     @Override
     public int getDefensiveStrength() {
-        int defensiveStrength = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, GET_DEFENSIVE_STRENGTH_OPERATION, int.class);
+        int defensiveStrength = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, UNIT_GET_DEFENSIVE_STRENGTH_OPERATION, int.class);
         return defensiveStrength;
     }
 
     @Override
     public int getAttackingStrength() {
-        int attackingStrength = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, GET_ATTACKING_STRENGTH_OPERATION, int.class);
+        int attackingStrength = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, UNIT_GET_ATTACKING_STRENGTH_OPERATION, int.class);
         return attackingStrength;
     }
 }

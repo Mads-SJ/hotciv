@@ -47,15 +47,15 @@ public class UnitInvoker implements Invoker {
             Player owner = unit.getOwner();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(owner));
-        } else if (requestObject.getOperationName().equals(GET_MOVE_COUNT_OPERATION)) {
+        } else if (requestObject.getOperationName().equals(UNIT_GET_MOVE_COUNT_OPERATION)) {
             int moveCount = unit.getMoveCount();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(moveCount));
-        } else if (requestObject.getOperationName().equals(GET_DEFENSIVE_STRENGTH_OPERATION)) {
+        } else if (requestObject.getOperationName().equals(UNIT_GET_DEFENSIVE_STRENGTH_OPERATION)) {
             int defensiveStrength = unit.getDefensiveStrength();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(defensiveStrength));
-        } else if (requestObject.getOperationName().equals(GET_ATTACKING_STRENGTH_OPERATION)) {
+        } else if (requestObject.getOperationName().equals(UNIT_GET_ATTACKING_STRENGTH_OPERATION)) {
             int attackingStrength = unit.getAttackingStrength();
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     gson.toJson(attackingStrength));
