@@ -46,7 +46,7 @@ public class CityProxy implements City, ClientProxy {
     }
 
     @Override
-    public int getId() {
-        return 0;
+    public String getId() {
+        return null;
     }
 }

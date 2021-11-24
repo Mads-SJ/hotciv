@@ -74,5 +74,5 @@ public interface Unit {
      */
     int getAttackingStrength();
 
-    int getId();
+    String getId();
 }

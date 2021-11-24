@@ -24,7 +24,7 @@ public class TestGameProxy {
         GameObserver nullObserver = new NullObserver();
         gameServant.addObserver(nullObserver);
 
-        Invoker invoker = new GameInvoker(gameServant);
+        Invoker invoker = new GameInvoker(gameServant, new InMemoryNameService());
 
         ClientRequestHandler crh = new LocalMethodClientRequestHandler(invoker);
 
@@ -82,5 +82,11 @@ public class TestGameProxy {
     public void shouldHavePerformUnitActionAt() {
         game.performUnitActionAt(fakePosition);
         assertThat(gameServant.getLastVoidMethodCalled(), is("performUnitActionAt"));
+    }
+
+    @Test
+    public void shouldHaveTileAt() {
+        Tile tile = game.getTileAt(fakePosition);
+        assertThat(tile, is(notNullValue()));
     }
 }

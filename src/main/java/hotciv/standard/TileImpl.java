@@ -2,7 +2,6 @@ package hotciv.standard;
 
 import hotciv.common.strategy.TileStrategy;
 import hotciv.framework.Tile;
-import hotciv.variants.strategy.AlphaTileStrategy;
 
 import static hotciv.framework.GameConstants.PLAINS;
 
@@ -23,8 +22,8 @@ public class TileImpl implements Tile {
     }
 
     @Override
-    public int getId() {
-        return 0;
+    public String getId() {
+        return null;
     }
 
     public String getResourceType() {

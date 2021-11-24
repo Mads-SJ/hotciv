@@ -168,7 +168,7 @@ class StubUnit implements  Unit {
   public int getAttackingStrength() { return 0; }
 
   @Override
-  public int getId() {
-    return 0;
+  public String getId() {
+    return null;
   }
 }

@@ -54,8 +54,8 @@ public class CityImpl implements City {
     }
 
     @Override
-    public int getId() {
-        return 0;
+    public String getId() {
+        return null;
     }
 
     public void addTreasury(int amount) {

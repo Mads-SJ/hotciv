@@ -2,7 +2,6 @@ package hotciv.utility;
 
 import hotciv.framework.*;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,8 +61,8 @@ class StubTile implements Tile {
     public String getTypeString() { return type; }
 
     @Override
-    public int getId() {
-        return 0;
+    public String getId() {
+        return null;
     }
 }
 
@@ -79,8 +78,8 @@ class StubUnit implements Unit {
     public int getAttackingStrength() { return 0; }
 
     @Override
-    public int getId() {
-        return 0;
+    public String getId() {
+        return null;
     }
 }
 
@@ -129,7 +128,7 @@ class GameStubForBattleTesting implements Game {
                 public String getWorkforceFocus() {
                     return null;
                 }
-                public int getId(){return 0;}
+                public String getId(){return null;}
             };
         }
         return null;

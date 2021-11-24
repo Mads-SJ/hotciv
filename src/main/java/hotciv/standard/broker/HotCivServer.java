@@ -17,7 +17,7 @@ public class HotCivServer {
 
         // Define the server side delegates
         Game gameServant = new StubBrokerGame();
-        Invoker invoker = new GameInvoker(gameServant);
+        Invoker invoker = new GameInvoker(gameServant, new InMemoryNameService());
 
         // Configure a socket based server request handler
         SocketServerRequestHandler ssrh =

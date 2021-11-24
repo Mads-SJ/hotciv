@@ -30,7 +30,7 @@ public class StubBrokerUnit implements Unit {
     }
 
     @Override
-    public int getId() {
-        return 0;
+    public String getId() {
+        return null;
     }
 }

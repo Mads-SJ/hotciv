@@ -9,7 +9,9 @@ import frds.broker.RequestObject;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.framework.Tile;
 
+import javax.naming.Name;
 import javax.servlet.http.HttpServletResponse;
 
 import static hotciv.framework.OperationNames.*;
@@ -17,9 +19,11 @@ import static hotciv.framework.OperationNames.*;
 public class GameInvoker implements Invoker {
     private final Game servant;
     private final Gson gson;
+    private final NameService nameService;
 
-    public GameInvoker(Game servant) {
+    public GameInvoker(Game servant, NameService nameService) {
         this.servant = servant;
+        this.nameService = nameService;
         gson = new Gson();
     }
     @Override
@@ -77,6 +81,15 @@ public class GameInvoker implements Invoker {
             servant.performUnitActionAt(p);
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     null);
+        }
+        else if (requestObject.getOperationName().equals(GAME_GET_TILE_AT_OPERATION)) {
+            Position p = gson.fromJson(array.get(0), Position.class);
+            Tile tile = servant.getTileAt(p);
+            String id = tile.getId();
+            nameService.putTile(id, tile);
+
+            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                    id);
         }
         else {
             // Unknown operation

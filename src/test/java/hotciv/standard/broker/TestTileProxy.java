@@ -6,6 +6,7 @@ import frds.broker.Requestor;
 import frds.broker.marshall.json.StandardJSONRequestor;
 import hotciv.framework.*;
 import hotciv.stub.broker.LocalMethodClientRequestHandler;
+import hotciv.stub.broker.StubBrokerTile;
 import org.junit.jupiter.api.*;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -16,13 +17,16 @@ public class TestTileProxy {
 
     @BeforeEach
     public void setup() {
-        Invoker invoker = new TileInvoker();
+        NameService nameService = new InMemoryNameService();
+        Invoker invoker = new TileInvoker(nameService);
 
         ClientRequestHandler crh = new LocalMethodClientRequestHandler(invoker);
 
         Requestor requestor = new StandardJSONRequestor(crh);
 
-        tile = new TileProxy(requestor);
+        String objectId = "singleton";
+        tile = new TileProxy(requestor, objectId);
+        nameService.putTile(objectId, new StubBrokerTile());
     }
 
     @Test

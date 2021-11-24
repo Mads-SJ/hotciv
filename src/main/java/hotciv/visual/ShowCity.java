@@ -115,7 +115,7 @@ class CityStub implements City {
   }
 
   @Override
-  public int getId() {
-    return 0;
+  public String getId() {
+    return null;
   }
 }

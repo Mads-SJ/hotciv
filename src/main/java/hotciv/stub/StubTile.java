@@ -37,7 +37,7 @@ public class StubTile implements Tile {
   public String getTypeString() { return type; }
 
   @Override
-  public int getId() {
-    return 0;
+  public String getId() {
+    return null;
   }
 }
