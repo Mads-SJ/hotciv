@@ -40,6 +40,4 @@ public class LocalMethodClientRequestHandler implements ClientRequestHandler {
     public String getLastReply() {
         return lastReply;
     }
-
-    // TODO: mangler en metode i forhold til interface
 }

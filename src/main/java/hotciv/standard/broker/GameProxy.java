@@ -77,11 +77,11 @@ public class GameProxy implements Game, ClientProxy {
 
     @Override
     public void addObserver(GameObserver observer) {
-        // TODO: implement?
+        // Do nothing
     }
 
     @Override
     public void setTileFocus(Position position) {
-        // TODO: implement?
+        // Do nothing
     }
 }
