@@ -28,4 +28,9 @@ public class StubBrokerCity implements City, Servant {
     public String getWorkforceFocus() {
         return "gold";
     }
+
+    @Override
+    public int getId() {
+        return 0;
+    }
 }

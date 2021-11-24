@@ -28,4 +28,9 @@ public class StubBrokerUnit implements Unit {
     public int getAttackingStrength() {
         return 100;
     }
+
+    @Override
+    public int getId() {
+        return 0;
+    }
 }

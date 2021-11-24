@@ -44,4 +44,9 @@ public class CityProxy implements City, ClientProxy {
         String workforce = requestor.sendRequestAndAwaitReply(CITY_OBJECT_ID, CITY_GET_WORKFORCE_FOCUS_OPERATION, String.class);
         return workforce;
     }
+
+    @Override
+    public int getId() {
+        return 0;
+    }
 }

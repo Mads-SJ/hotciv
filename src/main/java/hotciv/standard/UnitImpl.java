@@ -57,6 +57,11 @@ public class UnitImpl implements Unit {
        return attackingStrength;
     }
 
+    @Override
+    public int getId() {
+        return 0;
+    }
+
     public void changeDefensiveStrength() {
         if (typeString.equals(ARCHER)) {
             if (defensiveStrength == 3) defensiveStrength *=2;

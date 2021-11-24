@@ -53,6 +53,11 @@ public class CityImpl implements City {
         return workforceFocus;
     }
 
+    @Override
+    public int getId() {
+        return 0;
+    }
+
     public void addTreasury(int amount) {
         treasury += amount;
     }

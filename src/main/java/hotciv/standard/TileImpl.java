@@ -22,6 +22,11 @@ public class TileImpl implements Tile {
         return typeString;
     }
 
+    @Override
+    public int getId() {
+        return 0;
+    }
+
     public String getResourceType() {
         // add to strategy with below
         // resource type according to table 36.1

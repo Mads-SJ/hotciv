@@ -7,4 +7,9 @@ public class StubBrokerTile implements Tile {
     public String getTypeString() {
         return "lava";
     }
+
+    @Override
+    public int getId() {
+        return 0;
+    }
 }

@@ -44,4 +44,9 @@ public class UnitProxy implements Unit, ClientProxy {
         int attackingStrength = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, UNIT_GET_ATTACKING_STRENGTH_OPERATION, int.class);
         return attackingStrength;
     }
+
+    @Override
+    public int getId() {
+        return 0;
+    }
 }
