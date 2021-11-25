@@ -28,7 +28,9 @@ public class GameProxy implements Game, ClientProxy {
 
     @Override
     public City getCityAt(Position p) {
-        return null;
+        String id = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_GET_CITY_AT_OPERATION, String.class, p);
+        CityProxy cityProxy = new CityProxy(requestor, id);
+        return cityProxy;
     }
 
     @Override

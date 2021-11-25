@@ -14,6 +14,7 @@ public class TileProxy implements Tile, ClientProxy {
         this.requestor = requestor;
         TILE_OBJECT_ID = id;
     }
+
     @Override
     public String getTypeString() {
         String typeString = requestor.sendRequestAndAwaitReply(getId(), TILE_GET_TYPE_STRING_OPERATION, String.class);

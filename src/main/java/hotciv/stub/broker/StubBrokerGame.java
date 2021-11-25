@@ -20,7 +20,7 @@ public class StubBrokerGame implements Game, Servant {
 
     @Override
     public City getCityAt(Position p) {
-        return null;
+        return new StubBrokerCity();
     }
 
     @Override

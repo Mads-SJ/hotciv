@@ -96,11 +96,11 @@ public class TestGameProxy {
         assertThat(unit, is(notNullValue()));
     }
 
-    /*
+    
     @Test
     public void shouldHaveCityAt() {
         City city = game.getCityAt(fakePosition);
         assertThat(city, is(notNullValue()));
     }
-    */
+
 }
