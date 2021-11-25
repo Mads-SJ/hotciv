@@ -6,6 +6,7 @@ import frds.broker.Requestor;
 import frds.broker.marshall.json.StandardJSONRequestor;
 import hotciv.framework.*;
 import hotciv.stub.broker.LocalMethodClientRequestHandler;
+import hotciv.stub.broker.StubBrokerUnit;
 import org.junit.jupiter.api.*;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -16,13 +17,16 @@ public class TestUnitProxy {
 
     @BeforeEach
     public void setup() {
-        Invoker invoker = new UnitInvoker();
+        NameService nameService = new InMemoryNameService();
+        Invoker invoker = new UnitInvoker(nameService);
 
         ClientRequestHandler crh = new LocalMethodClientRequestHandler(invoker);
 
         Requestor requestor = new StandardJSONRequestor(crh);
 
-        unit = new UnitProxy(requestor);
+        String objectId = "singleton";
+        unit = new UnitProxy(requestor, objectId);
+        nameService.putUnit(objectId, new StubBrokerUnit());
     }
 
     @Test

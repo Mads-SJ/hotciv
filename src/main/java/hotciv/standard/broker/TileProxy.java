@@ -16,12 +16,12 @@ public class TileProxy implements Tile, ClientProxy {
     }
     @Override
     public String getTypeString() {
-        String typeString = requestor.sendRequestAndAwaitReply(TILE_OBJECT_ID, TILE_GET_TYPE_STRING_OPERATION, String.class);
+        String typeString = requestor.sendRequestAndAwaitReply(getId(), TILE_GET_TYPE_STRING_OPERATION, String.class);
         return typeString;
     }
 
     @Override
     public String getId() {
-        return null;
+        return TILE_OBJECT_ID;
     }
 }

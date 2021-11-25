@@ -21,7 +21,9 @@ public class GameProxy implements Game, ClientProxy {
 
     @Override
     public Unit getUnitAt(Position p) {
-        return null;
+        String id = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_GET_UNIT_AT_OPERATION, String.class, p);
+        UnitProxy unitProxy = new UnitProxy(requestor, id);
+        return unitProxy;
     }
 
     @Override

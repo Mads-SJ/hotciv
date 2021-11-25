@@ -11,6 +11,7 @@ public class OperationNames {
     public static final String GAME_CHANGE_PRODUCTION_IN_CITY_AT_OPERATION = "game-change-production-in-city-at";
     public static final String GAME_PERFORM_UNIT_ACTION_AT_OPERATION = "game-perform-unit-action-at";
     public static final String GAME_GET_TILE_AT_OPERATION = "game-get-tile-at";
+    public static final String GAME_GET_UNIT_AT_OPERATION = "game-get-unit-at";
 
     // City operations
     public static final String CITY_GET_OWNER_OPERATION = "city-get-owner";

@@ -15,7 +15,7 @@ public class StubBrokerGame implements Game, Servant {
 
     @Override
     public Unit getUnitAt(Position p) {
-        return null;
+        return new StubBrokerUnit();
     }
 
     @Override

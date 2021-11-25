@@ -24,6 +24,7 @@ public class TileInvoker implements Invoker {
         gson = new Gson();
         this.nameService = nameService;
     }
+
     @Override
     public String handleRequest(String request) {
         // Do the demarshalling

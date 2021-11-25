@@ -3,7 +3,15 @@ package hotciv.stub.broker;
 import hotciv.framework.Player;
 import hotciv.framework.Unit;
 
+import java.util.UUID;
+
 public class StubBrokerUnit implements Unit {
+    final String id;
+
+    public StubBrokerUnit() {
+        id = UUID.randomUUID().toString();
+    }
+
     @Override
     public String getTypeString() {
         return "F16";
@@ -31,6 +39,6 @@ public class StubBrokerUnit implements Unit {
 
     @Override
     public String getId() {
-        return null;
+        return id;
     }
 }

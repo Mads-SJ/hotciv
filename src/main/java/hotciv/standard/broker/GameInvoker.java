@@ -6,10 +6,7 @@ import com.google.gson.JsonParser;
 import frds.broker.Invoker;
 import frds.broker.ReplyObject;
 import frds.broker.RequestObject;
-import hotciv.framework.Game;
-import hotciv.framework.Player;
-import hotciv.framework.Position;
-import hotciv.framework.Tile;
+import hotciv.framework.*;
 
 import javax.naming.Name;
 import javax.servlet.http.HttpServletResponse;
@@ -87,6 +84,14 @@ public class GameInvoker implements Invoker {
             Tile tile = servant.getTileAt(p);
             String id = tile.getId();
             nameService.putTile(id, tile);
+
+            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                    id);
+        } else if (requestObject.getOperationName().equals(GAME_GET_UNIT_AT_OPERATION)) {
+            Position p = gson.fromJson(array.get(0), Position.class);
+            Unit unit = servant.getUnitAt(p);
+            String id = unit.getId();
+            nameService.putUnit(id, unit);
 
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     id);

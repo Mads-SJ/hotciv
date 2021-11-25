@@ -89,4 +89,18 @@ public class TestGameProxy {
         Tile tile = game.getTileAt(fakePosition);
         assertThat(tile, is(notNullValue()));
     }
+
+    @Test
+    public void shouldHaveUnitAt() {
+        Unit unit = game.getUnitAt(fakePosition);
+        assertThat(unit, is(notNullValue()));
+    }
+
+    /*
+    @Test
+    public void shouldHaveCityAt() {
+        City city = game.getCityAt(fakePosition);
+        assertThat(city, is(notNullValue()));
+    }
+    */
 }

@@ -15,10 +15,13 @@ import static hotciv.framework.OperationNames.*;
 
 public class UnitInvoker implements Invoker {
     private final Gson gson;
+    private NameService nameService;
 
-    public UnitInvoker() {
+    public UnitInvoker(NameService nameService) {
         gson = new Gson();
+        this.nameService = nameService;
     }
+
     @Override
     public String handleRequest(String request) {
         // Do the demarshalling
@@ -73,7 +76,6 @@ public class UnitInvoker implements Invoker {
     }
 
     private Unit lookupUnit(String objectId) {
-        Unit unit = new StubBrokerUnit();
-        return unit;
+        return nameService.getUnit(objectId);
     }
 }
