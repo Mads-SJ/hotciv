@@ -185,3 +185,12 @@ task hotcivStoryTest(type: JavaExec) {
     main = 'hotciv.standard.broker.TestHotCivClient'
     args "localhost"
 }
+
+task semiCivDistributed(type: JavaExec) {
+    group 'SWEA Distribution'
+    description 'Run Semi Civ distributed (Socket)'
+
+    classpath sourceSets.test.runtimeClasspath
+    main = 'hotciv.standard.broker.SemiCivDistributed'
+    args "localhost"
+}
