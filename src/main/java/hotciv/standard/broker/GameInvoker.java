@@ -96,8 +96,17 @@ public class GameInvoker implements Invoker {
             reply = new ReplyObject(HttpServletResponse.SC_CREATED,
                     id);
         } else if (requestObject.getOperationName().equals(GAME_GET_CITY_AT_OPERATION)) {
+            System.out.println("er vi her?");
             Position p = gson.fromJson(array.get(0), Position.class);
             City city = servant.getCityAt(p);
+            // TODO: nedenstående virker ikke med gui
+            /*String id = city.getId();
+            nameService.putCity(id, city);
+
+            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                    id);*/
+
+            // TODO: er nedenstående nødvendigt? er det ikke til instansieringen.
             if (city != null) {
                 String id = city.getId();
                 nameService.putCity(id, city);
