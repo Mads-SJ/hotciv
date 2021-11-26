@@ -28,7 +28,7 @@ public class TestHotCivClient {
         System.out.println(" -> Game age    " + game.getAge());
         System.out.println(" -> Game winner " + game.getWinner());
         System.out.println(" -> Game PIT    " + game.getPlayerInTurn());
-        System.out.println(" -> Game move   " + game.moveUnit(new Position(0,0), new Position(1,0)));
+        // System.out.println(" -> Game move   " + game.moveUnit(new Position(0,0), new Position(1,0)));
 
         game.endOfTurn();
         System.out.println(" -> Now PIT after endOfTurn " + game.getPlayerInTurn());

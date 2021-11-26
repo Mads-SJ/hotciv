@@ -48,6 +48,6 @@ public class CityProxy implements City, ClientProxy {
 
     @Override
     public String getId() {
-        return null;
+        return CITY_OBJECT_ID;
     }
 }

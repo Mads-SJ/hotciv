@@ -92,10 +92,12 @@ public class CivDrawing implements Drawing, GameObserver {
 
     // ensure our drawing's figure collection of UnitFigures
     // reflects those present in the game
-    synchronizeUnitFigureCollectionWithGameUnits();
+    // TODO: husk at udkommenter (og fix) units
+    // synchronizeUnitFigureCollectionWithGameUnits();
     // and the set of 'icons' in status panel represents game state
     synchronizeIconsWithGameState();
     synchronizeCityFigureCollectionWithGameCities();
+    System.out.println("synchronization done");
   }
   
   /** The CivDrawing should not allow client side

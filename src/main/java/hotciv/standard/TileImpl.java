@@ -3,9 +3,12 @@ package hotciv.standard;
 import hotciv.common.strategy.TileStrategy;
 import hotciv.framework.Tile;
 
+import java.util.UUID;
+
 import static hotciv.framework.GameConstants.PLAINS;
 
 public class TileImpl implements Tile {
+    private final String id;
 
     private final String typeString;
     private TileStrategy tileStrategy;
@@ -14,6 +17,8 @@ public class TileImpl implements Tile {
         this.tileStrategy = tileStrategy;
         if (tileStrategy.isTileValid(typeString)) this.typeString = typeString;
         else this.typeString = PLAINS; // if tile is not valid the tile type is set to PLAINS
+
+        id = UUID.randomUUID().toString();
     }
 
     @Override
@@ -23,7 +28,7 @@ public class TileImpl implements Tile {
 
     @Override
     public String getId() {
-        return null;
+        return id;
     }
 
     public String getResourceType() {

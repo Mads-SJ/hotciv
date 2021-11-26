@@ -24,5 +24,5 @@ public class TileProxy implements Tile, ClientProxy {
     @Override
     public String getId() {
         return TILE_OBJECT_ID;
-    }
+    } // TODO hvornår bruger vi denne? (det gør vi ikke lige nu..)
 }

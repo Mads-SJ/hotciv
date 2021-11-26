@@ -98,11 +98,17 @@ public class GameInvoker implements Invoker {
         } else if (requestObject.getOperationName().equals(GAME_GET_CITY_AT_OPERATION)) {
             Position p = gson.fromJson(array.get(0), Position.class);
             City city = servant.getCityAt(p);
-            String id = city.getId();
-            nameService.putCity(id, city);
+            if (city != null) {
+                String id = city.getId();
+                nameService.putCity(id, city);
 
-            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
-                    id);
+                reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                        id);
+            }
+            else {
+                reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                        null); // TODO: vikrer dette?
+            }
         }
         else {
             // Unknown operation
