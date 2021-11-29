@@ -205,6 +205,7 @@ public class CivDrawing implements Drawing, GameObserver {
   protected ImageFigure cityShieldIcon;
   protected ImageFigure cityProductionIcon;
   protected ImageFigure cityWorkforceIcon;
+  protected ImageFigure refreshIcon;
   protected TextFigure moveCountIcon;
 
   protected void synchronizeIconsWithGameState() {
@@ -281,6 +282,16 @@ public class CivDrawing implements Drawing, GameObserver {
                       new Point(AGE_TEXT_X,
                               AGE_TEXT_Y));
       figureCollection.add(ageIcon);
+    }
+    updateAge(game.getAge());
+
+    if (refreshIcon == null) {
+      refreshIcon =
+              new HotCivFigure(REFRESH_BUTTON,
+                      new Point(REFRESH_BUTTON_X,
+                              REFRESH_BUTTON_Y),
+                      REFRESH_BUTTON);
+      figureCollection.add(refreshIcon);
     }
   }
  

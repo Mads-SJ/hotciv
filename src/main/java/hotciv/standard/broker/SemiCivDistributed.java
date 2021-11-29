@@ -1,6 +1,7 @@
 package hotciv.standard.broker;
 
 import frds.broker.ClientRequestHandler;
+import frds.broker.ipc.http.UriTunnelClientRequestHandler;
 import frds.broker.ipc.socket.SocketClientRequestHandler;
 import frds.broker.marshall.json.StandardJSONRequestor;
 import hotciv.framework.Game;
@@ -23,18 +24,16 @@ public class SemiCivDistributed {
     public SemiCivDistributed(String hostname) {
         System.out.println("=== SemiCiv MANUAL TEST Client (Socket) (host:" + hostname + ") ===");
 
-        ClientRequestHandler crh = new SocketClientRequestHandler();
+        ClientRequestHandler crh = new UriTunnelClientRequestHandler(); // TODO ændret fra socket
         crh.setServer(hostname, 37321);
 
         StandardJSONRequestor requestor = new StandardJSONRequestor(crh);
         Game gameProxy = new GameProxy(requestor);
-        Game game = new GameImpl(new SemiRealFactory());
 
         DrawingEditor editor =
                 new MiniDrawApplication( "Semi Civ",
-                        new HotCivFactory4(gameProxy) ); // TODO HotCivFactory4???
+                        new HotCivFactory4(gameProxy) );
         editor.open();
-        // editor.showStatus("Click and drag any item to see Game's proper response.");
 
         editor.setTool(new CompositionTool(editor, gameProxy));
     }

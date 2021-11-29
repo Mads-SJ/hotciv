@@ -32,12 +32,12 @@ public class SemiRealFactory implements GameFactory {
 
     @Override
     public PopulationStrategy createPopulationStrategy() {
-        return new AlphaPopulationStrategy(); // TODO Ændret til alpha fra eta
+        return new EtaPopulationStrategy();
     }
 
     @Override
     public ResourceGainStrategy createResourceGainStrategy() {
-        return new AlphaResourceGainStrategy(); // TODO Ændret til alpha fra eta
+        return new EtaResourceGainStrategy();
     }
 
     @Override

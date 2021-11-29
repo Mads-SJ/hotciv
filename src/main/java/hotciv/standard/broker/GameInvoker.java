@@ -106,7 +106,6 @@ public class GameInvoker implements Invoker {
             Position p = gson.fromJson(array.get(0), Position.class);
             City city = servant.getCityAt(p);
 
-            // TODO: er nedenstående nødvendigt? er det ikke til instansieringen.
             if (city != null) {
                 String id = city.getId();
                 nameService.putCity(id, city);

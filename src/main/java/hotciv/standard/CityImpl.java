@@ -60,7 +60,6 @@ public class CityImpl implements City {
 
     @Override
     public String getId() {
-        System.out.println("sendt id");
         return id;
     }
 

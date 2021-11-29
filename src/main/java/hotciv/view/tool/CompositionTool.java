@@ -35,6 +35,7 @@ public class CompositionTool extends NullTool {
   private EndOfTurnTool endOfTurnTool;
   private SetFocusTool setFocusTool;
   private UnitMoveTool unitMoveTool;
+  private RefreshTool refreshTool;
   private NullTool nullTool;
 
   public CompositionTool(DrawingEditor editor, Game game) {
@@ -45,6 +46,7 @@ public class CompositionTool extends NullTool {
     endOfTurnTool = new EndOfTurnTool(editor, game);
     setFocusTool = new SetFocusTool(editor, game);
     unitMoveTool = new UnitMoveTool(editor, game);
+    refreshTool = new RefreshTool(editor, game);
     nullTool = new NullTool();
 
     state = nullTool;
@@ -76,6 +78,9 @@ public class CompositionTool extends NullTool {
       }
       else if (figureTypeString.equals(CITY_TYPE_STRING)) {
         state = setFocusTool;
+      }
+      else if (figureTypeString.equals(REFRESH_BUTTON)) {
+        state = refreshTool;
       }
       else {
         state = nullTool;
