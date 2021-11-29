@@ -92,12 +92,10 @@ public class CivDrawing implements Drawing, GameObserver {
 
     // ensure our drawing's figure collection of UnitFigures
     // reflects those present in the game
-    // TODO: husk at udkommenter (og fix) units
-    // synchronizeUnitFigureCollectionWithGameUnits();
+    synchronizeUnitFigureCollectionWithGameUnits();
     // and the set of 'icons' in status panel represents game state
     synchronizeIconsWithGameState();
     synchronizeCityFigureCollectionWithGameCities();
-    System.out.println("synchronization done");
   }
   
   /** The CivDrawing should not allow client side
@@ -290,7 +288,6 @@ public class CivDrawing implements Drawing, GameObserver {
   public void worldChangedAt(Position pos) {
     updateCities(pos);
     updateUnits(pos);
-    requestUpdate();
   }
 
   public void updateUnits(Position pos) {
@@ -356,7 +353,7 @@ public class CivDrawing implements Drawing, GameObserver {
       updateCityWorkforce(c);
     }
 
-    requestUpdate();
+    synchronizeIconsWithGameState();
   }
 
   private void clearStatusBar() {

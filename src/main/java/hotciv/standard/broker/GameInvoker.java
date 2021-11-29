@@ -90,21 +90,21 @@ public class GameInvoker implements Invoker {
         } else if (requestObject.getOperationName().equals(GAME_GET_UNIT_AT_OPERATION)) {
             Position p = gson.fromJson(array.get(0), Position.class);
             Unit unit = servant.getUnitAt(p);
-            String id = unit.getId();
-            nameService.putUnit(id, unit);
 
-            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
-                    id);
+            if (unit != null) {
+                String id = unit.getId();
+                nameService.putUnit(id, unit);
+
+                reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                        id);
+            }
+            else {
+                reply = new ReplyObject(HttpServletResponse.SC_CREATED,
+                        null);
+            }
         } else if (requestObject.getOperationName().equals(GAME_GET_CITY_AT_OPERATION)) {
-            System.out.println("er vi her?");
             Position p = gson.fromJson(array.get(0), Position.class);
             City city = servant.getCityAt(p);
-            // TODO: nedenstående virker ikke med gui
-            /*String id = city.getId();
-            nameService.putCity(id, city);
-
-            reply = new ReplyObject(HttpServletResponse.SC_CREATED,
-                    id);*/
 
             // TODO: er nedenstående nødvendigt? er det ikke til instansieringen.
             if (city != null) {
@@ -116,7 +116,7 @@ public class GameInvoker implements Invoker {
             }
             else {
                 reply = new ReplyObject(HttpServletResponse.SC_CREATED,
-                        null); // TODO: vikrer dette?
+                        null);
             }
         }
         else {

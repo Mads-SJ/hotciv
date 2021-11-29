@@ -22,7 +22,6 @@ public class HotCivFactory4 implements Factory {
   }
 
   public Drawing createDrawing(DrawingEditor editor) {
-    System.out.println("hello?");
     return new CivDrawing(editor, game);
   }
 
