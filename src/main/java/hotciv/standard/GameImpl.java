@@ -171,7 +171,7 @@ public class GameImpl implements Game {
         boolean isAttackSuccessful = true;
         if (isEnemyUnitAt(to)) isAttackSuccessful = resolveAttack(from, to);
 
-        if (! isAttackSuccessful) return false;
+        if (! isAttackSuccessful) return true;
 
         makeActualMove(from, to);
 

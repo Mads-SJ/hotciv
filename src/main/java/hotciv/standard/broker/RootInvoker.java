@@ -52,7 +52,7 @@ public class RootInvoker implements Invoker {
         try {
             reply = subInvoker.handleRequest(request);
         }
-        catch (Exception e){ // TODO bruger bare exception e, skal vi have en UnknownServantException?
+        catch (Exception e){
             reply = gson.toJson(
                     new ReplyObject(
                             HttpServletResponse.SC_NOT_FOUND,

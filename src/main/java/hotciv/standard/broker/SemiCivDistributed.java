@@ -22,9 +22,9 @@ public class SemiCivDistributed {
     }
 
     public SemiCivDistributed(String hostname) {
-        System.out.println("=== SemiCiv MANUAL TEST Client (Socket) (host:" + hostname + ") ===");
+        System.out.println("=== SemiCiv Distributed Client (HTTP) (host:" + hostname + ") ===");
 
-        ClientRequestHandler crh = new UriTunnelClientRequestHandler(); // TODO ændret fra socket
+        ClientRequestHandler crh = new UriTunnelClientRequestHandler();
         crh.setServer(hostname, 37321);
 
         StandardJSONRequestor requestor = new StandardJSONRequestor(crh);

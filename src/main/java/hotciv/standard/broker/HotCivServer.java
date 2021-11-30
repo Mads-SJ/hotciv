@@ -25,11 +25,11 @@ public class HotCivServer {
 
         // Configure a socket based server request handler
         ServerRequestHandler srh =
-                new UriTunnelServerRequestHandler(); // TODO ændret fra socket
+                new UriTunnelServerRequestHandler();
         srh.setPortAndInvoker(port, invoker);
 
         // Welcome
-        System.out.println("=== HotCiv Socket based Server Request Handler (port:"
+        System.out.println("=== HotCiv HTTP based Server Request Handler (port:"
                 + port + ") ===");
         System.out.println(" Use ctrl-c to terminate!");
         srh.start();

@@ -64,8 +64,10 @@ public class GameProxy implements Game, ClientProxy {
     public boolean moveUnit(Position from, Position to) {
         boolean hasMoved = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_MOVE_UNIT_OPERATION,
                 boolean.class, from, to);
-        notifyWorldChangedAt(from);
-        notifyWorldChangedAt(to); // TODO condition?
+        if (hasMoved) {
+            notifyWorldChangedAt(from);
+            notifyWorldChangedAt(to);
+        }
         return hasMoved;
     }
 
@@ -112,7 +114,7 @@ public class GameProxy implements Game, ClientProxy {
 
     private void notifyTurnEnds() {
         for (GameObserver observer : observers) {
-            observer.turnEnds(getPlayerInTurn(), getAge()); // TODO evt brug feltvariabler
+            observer.turnEnds(getPlayerInTurn(), getAge());
         }
     }
 
