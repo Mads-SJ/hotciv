@@ -2,29 +2,44 @@ package hotciv.standard.broker;
 
 import hotciv.framework.*;
 import frds.broker.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static hotciv.framework.GameConstants.WORLDSIZE;
 import static hotciv.framework.OperationNames.*;
 
 public class GameProxy implements Game, ClientProxy {
     private static final String GAME_OBJECT_ID = "singleton";
     private final Requestor requestor;
+    private List<GameObserver> observers;
 
     public GameProxy(Requestor requestor) {
         this.requestor = requestor;
+        observers = new ArrayList<>();
     }
 
     @Override
     public Tile getTileAt(Position p) {
-        return null;
+        String id = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_GET_TILE_AT_OPERATION, String.class, p);
+        TileProxy tileProxy = new TileProxy(requestor, id);
+        return tileProxy;
     }
 
     @Override
     public Unit getUnitAt(Position p) {
-        return null;
+        String id = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_GET_UNIT_AT_OPERATION, String.class, p);
+        if (id == null) return null;
+        UnitProxy unitProxy = new UnitProxy(requestor, id);
+        return unitProxy;
     }
 
     @Override
     public City getCityAt(Position p) {
-        return null;
+        String id = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_GET_CITY_AT_OPERATION, String.class, p);
+        if (id == null) return null;
+        CityProxy cityProxy = new CityProxy(requestor, id);
+        return cityProxy;
     }
 
     @Override
@@ -49,12 +64,17 @@ public class GameProxy implements Game, ClientProxy {
     public boolean moveUnit(Position from, Position to) {
         boolean hasMoved = requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_MOVE_UNIT_OPERATION,
                 boolean.class, from, to);
+        if (hasMoved) {
+            notifyWorldChangedAt(from);
+            notifyWorldChangedAt(to);
+        }
         return hasMoved;
     }
 
     @Override
     public void endOfTurn() {
         requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_END_TURN_OPERATION, void.class);
+        notifyTurnEnds();
     }
 
     @Override
@@ -73,15 +93,40 @@ public class GameProxy implements Game, ClientProxy {
     public void performUnitActionAt(Position p) {
         requestor.sendRequestAndAwaitReply(GAME_OBJECT_ID, GAME_PERFORM_UNIT_ACTION_AT_OPERATION,
                 void.class, p);
+        notifyWorldChangedAt(p);
     }
 
     @Override
     public void addObserver(GameObserver observer) {
-        // Do nothing
+        observers.add(observer);
     }
 
-    @Override
-    public void setTileFocus(Position position) {
-        // Do nothing
+    public void setTileFocus(Position pos) {
+        if (! isWithinWorldGrid(pos)) return;
+        notifyTileFocusChangedAt(pos);
+    }
+
+    private void notifyWorldChangedAt(Position pos) {
+        for (GameObserver observer : observers) {
+            observer.worldChangedAt(pos);
+        }
+    }
+
+    private void notifyTurnEnds() {
+        for (GameObserver observer : observers) {
+            observer.turnEnds(getPlayerInTurn(), getAge());
+        }
+    }
+
+    private void notifyTileFocusChangedAt(Position pos) {
+        for (GameObserver observer : observers) {
+            observer.tileFocusChangedAt(pos);
+        }
+    }
+
+    public boolean isWithinWorldGrid(Position p) {
+        boolean isWithinWorldGrid = p.getRow() < WORLDSIZE && p.getColumn() < WORLDSIZE &&
+                p.getRow() >= 0 && p.getColumn() >= 0;
+        return isWithinWorldGrid;
     }
 }

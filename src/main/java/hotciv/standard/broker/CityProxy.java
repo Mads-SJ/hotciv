@@ -8,11 +8,12 @@ import hotciv.framework.Player;
 import static hotciv.framework.OperationNames.*;
 
 public class CityProxy implements City, ClientProxy {
-    private static final String CITY_OBJECT_ID = "singleton";
+    private final String CITY_OBJECT_ID;
     private final Requestor requestor;
 
-    public CityProxy(Requestor requestor) {
+    public CityProxy(Requestor requestor, String id) {
         this.requestor = requestor;
+        CITY_OBJECT_ID = id;
     }
 
     @Override
@@ -43,5 +44,10 @@ public class CityProxy implements City, ClientProxy {
     public String getWorkforceFocus() {
         String workforce = requestor.sendRequestAndAwaitReply(CITY_OBJECT_ID, CITY_GET_WORKFORCE_FOCUS_OPERATION, String.class);
         return workforce;
+    }
+
+    @Override
+    public String getId() {
+        return CITY_OBJECT_ID;
     }
 }

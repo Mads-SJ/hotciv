@@ -17,13 +17,16 @@ public class TestCityProxy {
 
     @BeforeEach
     public void setup() {
-        Invoker invoker = new CityInvoker();
+        NameService nameService = new InMemoryNameService();
+        Invoker invoker = new CityInvoker(nameService);
 
         ClientRequestHandler crh = new LocalMethodClientRequestHandler(invoker);
 
         Requestor requestor = new StandardJSONRequestor(crh);
 
-        city = new CityProxy(requestor);
+        String objectId = "singleton";
+        city = new CityProxy(requestor, objectId);
+        nameService.putCity(objectId, new StubBrokerCity());
     }
 
     @Test

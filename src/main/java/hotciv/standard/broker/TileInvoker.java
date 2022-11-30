@@ -11,14 +11,20 @@ import hotciv.stub.broker.StubBrokerTile;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static hotciv.framework.OperationNames.*;
 
 public class TileInvoker implements Invoker {
     private final Gson gson;
+    private NameService nameService;
 
-    public TileInvoker() {
+    public TileInvoker(NameService nameService) {
         gson = new Gson();
+        this.nameService = nameService;
     }
+
     @Override
     public String handleRequest(String request) {
         // Do the demarshalling
@@ -55,7 +61,6 @@ public class TileInvoker implements Invoker {
     }
 
     private Tile lookupTile(String objectId) {
-        Tile tile = new StubBrokerTile();
-        return tile;
+        return nameService.getTile(objectId);
     }
 }

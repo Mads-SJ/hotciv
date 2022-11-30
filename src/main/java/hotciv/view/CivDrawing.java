@@ -205,6 +205,7 @@ public class CivDrawing implements Drawing, GameObserver {
   protected ImageFigure cityShieldIcon;
   protected ImageFigure cityProductionIcon;
   protected ImageFigure cityWorkforceIcon;
+  protected ImageFigure refreshIcon;
   protected TextFigure moveCountIcon;
 
   protected void synchronizeIconsWithGameState() {
@@ -282,13 +283,22 @@ public class CivDrawing implements Drawing, GameObserver {
                               AGE_TEXT_Y));
       figureCollection.add(ageIcon);
     }
+    updateAge(game.getAge());
+
+    if (refreshIcon == null) {
+      refreshIcon =
+              new HotCivFigure(REFRESH_BUTTON,
+                      new Point(REFRESH_BUTTON_X,
+                              REFRESH_BUTTON_Y),
+                      REFRESH_BUTTON);
+      figureCollection.add(refreshIcon);
+    }
   }
  
   // === Observer Methods ===
   public void worldChangedAt(Position pos) {
     updateCities(pos);
     updateUnits(pos);
-    requestUpdate();
   }
 
   public void updateUnits(Position pos) {
@@ -354,7 +364,7 @@ public class CivDrawing implements Drawing, GameObserver {
       updateCityWorkforce(c);
     }
 
-    requestUpdate();
+    synchronizeIconsWithGameState();
   }
 
   private void clearStatusBar() {

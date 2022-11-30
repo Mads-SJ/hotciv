@@ -10,15 +10,18 @@ import hotciv.framework.City;
 import hotciv.framework.Player;
 import hotciv.stub.broker.StubBrokerCity;
 
+import javax.naming.Name;
 import javax.servlet.http.HttpServletResponse;
 
 import static hotciv.framework.OperationNames.*;
 
 public class CityInvoker implements Invoker {
     private final Gson gson;
+    private final NameService nameService;
 
-    public CityInvoker() {
+    public CityInvoker(NameService nameService) {
         gson = new Gson();
+        this.nameService = nameService;
     }
 
     @Override
@@ -75,7 +78,6 @@ public class CityInvoker implements Invoker {
     }
 
     private City lookupCity(String objectId) {
-        City city = new StubBrokerCity();
-        return city;
+        return nameService.getCity(objectId);
     }
 }

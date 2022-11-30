@@ -10,17 +10,17 @@ public class StubBrokerGame implements Game, Servant {
 
     @Override
     public Tile getTileAt(Position p) {
-        return null;
+        return new StubBrokerTile();
     }
 
     @Override
     public Unit getUnitAt(Position p) {
-        return null;
+        return new StubBrokerUnit();
     }
 
     @Override
     public City getCityAt(Position p) {
-        return null;
+        return new StubBrokerCity();
     }
 
     @Override

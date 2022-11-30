@@ -8,11 +8,12 @@ import hotciv.framework.Unit;
 import static hotciv.framework.OperationNames.*;
 
 public class UnitProxy implements Unit, ClientProxy {
-    private static final String UNIT_OBJECT_ID = "singleton";
+    private final String UNIT_OBJECT_ID;
     private final Requestor requestor;
 
-    public UnitProxy(Requestor requestor) {
+    public UnitProxy(Requestor requestor, String id) {
         this.requestor = requestor;
+        UNIT_OBJECT_ID = id;
     }
 
     @Override
@@ -43,5 +44,10 @@ public class UnitProxy implements Unit, ClientProxy {
     public int getAttackingStrength() {
         int attackingStrength = requestor.sendRequestAndAwaitReply(UNIT_OBJECT_ID, UNIT_GET_ATTACKING_STRENGTH_OPERATION, int.class);
         return attackingStrength;
+    }
+
+    @Override
+    public String getId() {
+        return null;
     }
 }

@@ -4,6 +4,8 @@ import hotciv.common.strategy.UnitStrategy;
 import hotciv.framework.City;
 import hotciv.framework.Player;
 
+import java.util.UUID;
+
 import static hotciv.framework.GameConstants.*;
 
 public class CityImpl implements City {
@@ -15,6 +17,7 @@ public class CityImpl implements City {
     private String workforceFocus;
     private int population;
     private UnitStrategy unitStrategy;
+    private final String id;
 
     public CityImpl(Player owner, UnitStrategy unitStrategy) {
         this.owner = owner;
@@ -25,6 +28,8 @@ public class CityImpl implements City {
         costOfNewUnit = ARCHER_COST;
         workforceFocus = foodFocus;
         population = 1;
+
+        id = UUID.randomUUID().toString();
     }
 
     @Override
@@ -51,6 +56,11 @@ public class CityImpl implements City {
     @Override
     public String getWorkforceFocus() {
         return workforceFocus;
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 
     public void addTreasury(int amount) {

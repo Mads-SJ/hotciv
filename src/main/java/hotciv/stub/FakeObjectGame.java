@@ -166,4 +166,9 @@ class StubUnit implements  Unit {
   public int getMoveCount() { return 1; }
   public int getDefensiveStrength() { return 0; }
   public int getAttackingStrength() { return 0; }
+
+  @Override
+  public String getId() {
+    return null;
+  }
 }
