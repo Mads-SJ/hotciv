@@ -43,7 +43,6 @@ public class SemiCivDistributed {
         System.out.println(" -> Game age    " + game.getAge());
         System.out.println(" -> Game winner " + game.getWinner());
         System.out.println(" -> Game PIT    " + game.getPlayerInTurn());
-        // System.out.println(" -> Game move   " + game.moveUnit(new Position(0,0), new Position(1,0)));
 
         System.out.println(" -> Red city owner: " + game.getCityAt(DELTA_RED_CITY_POS).getOwner());
         System.out.println(" -> Blue city owner: " + game.getCityAt(DELTA_BLUE_CITY_POS).getOwner());
